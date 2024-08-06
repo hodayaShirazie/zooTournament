@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="56481981-2bb0-4d26-b7c0-078262b0e755" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Zoo-competition.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Animals/AnimalThread.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Competitions/Referee.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Competitions/Scores.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Competitions/SleepTime.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Competitions/TournamentThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task_1_Java.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/AirAnimal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/Alligator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/Animal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/CanDive.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/CanWalk.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/Cat.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/Dog.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/Dolphin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/Eagle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/Gender.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/ICanDive.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/ICanWalk.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/IReptile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/Orientation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/Pigeon.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/Poisonous.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/Snake.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/TerrestrialAnimals.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/WaterAnimal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/WaterType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Animals/Whale.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Graphics/AddAnimalDialog.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Graphics/CompetitionFrame.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Graphics/CompetitionPanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Graphics/IAnimal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Graphics/IDrawable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Graphics/IMovable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Graphics/ZooPanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/alligator_left_down.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/alligator_right_down.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/cat1 - Copy - Copy (2).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/cat1 - Copy - Copy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/cat_left_down.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/cat_right_down.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/competitionBackground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/dog_down_right.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/dog_left_down.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/dog_right_down.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/dog_up_left.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/dolphin_left_down.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/dolphin_right_down.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/eagle2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/eagle3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/eagle_right_down.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/pigeon_right_down.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/snake1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/snake2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/snake_right_down.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/whale2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/whale_left_down.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Images/whale_right_down.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Mobility/ILocatable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Mobility/Mobile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Mobility/Point.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Olympics/Medal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Task_1_Java/Olympics/MedalType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/AirAnimal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/AirAnimal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Alligator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Alligator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Animal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/CanDive.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/CanWalk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/CanWalk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Cat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Cat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Dog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Dog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Dolphin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Dolphin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Eagle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Eagle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/ICanDive.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/ICanWalk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/ICanWalk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Orientation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Orientation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Pigeon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Pigeon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Poisonous.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Poisonous.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Snake.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Snake.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/TerrestrialAnimals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/TerrestrialAnimals.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/WaterAnimal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/WaterAnimal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Whale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Whale.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Graphics/AddAnimalDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphics/AddAnimalDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Graphics/CompetitionFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphics/CompetitionFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Graphics/CompetitionPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphics/CompetitionPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Graphics/IAnimal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphics/IAnimal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Graphics/IDrawable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphics/IDrawable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Graphics/IMovable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphics/IMovable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Graphics/ZooPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphics/ZooPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/cat1 - Copy - Copy (2).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/cat1 - Copy - Copy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/cat_left_down.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/dog_down_right.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/dog_left_down.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/dog_up_left.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/eagle2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/eagle3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/snake1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/snake2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/whale2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mobility/Mobile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mobility/Mobile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mobility/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mobility/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Olympics/Medal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Olympics/Medal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/System/Sys.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2kDmoYWEwmV0nnxsydGZ8De27dU" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.CompetitionFrame.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Student/IJ_Java/Zoo-competition"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="CompetitionFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Graphics.CompetitionFrame" />
+      <module name="Zoo-competition" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Graphics.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.CompetitionFrame" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="56481981-2bb0-4d26-b7c0-078262b0e755" name="Changes" comment="" />
+      <created>1722826697520</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1722826697520</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Graphics/AddAnimalDialog.java</url>
+          <line>399</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Graphics/AddAnimalDialog.java</url>
+          <line>395</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
