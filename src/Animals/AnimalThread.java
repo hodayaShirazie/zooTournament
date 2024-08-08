@@ -18,15 +18,19 @@ public class AnimalThread implements Runnable {
     }
 
     public void run(){
-        System.out.println("run");
+        System.out.println("Animal thread is run");
         synchronized (startFlag) {  //todo why syncronize?
-            System.out.println("syncro" + currentThread());
+            System.out.println("syncro " + currentThread().getName());
+            System.out.println(startFlag);
             while (!startFlag) {
+                System.out.println(startFlag);
                 try {
-                    startFlag.wait();
                     System.out.println("im waitingggg");
+                    startFlag.wait();
                 } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());                }
+                    System.out.println(e.getMessage());
+                    System.out.println("catch");
+                }
             }
             if (Thread.interrupted()) {
                 System.out.println("Thread is interrupted");
@@ -41,7 +45,7 @@ public class AnimalThread implements Runnable {
                 finishFlag = true;
                 notify();
                 try {
-                    sleep(10000);
+                    sleep(10000);  //Todo input fro user
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }

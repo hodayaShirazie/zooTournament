@@ -130,7 +130,37 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
     /**
      * Indicates whether the animal has been removed from the competition.
      */
-    private boolean isRemovedFromCompetition;
+    private boolean isAvailable;
+
+    public Animal(String name, int speed, int energyPerMeter, int maxEnergy) {
+        super();
+        this. name = name;
+        this.speed = speed;
+        this.maxEnergy = maxEnergy;
+        this.currentEnergy = 2000;//Todo make 0
+        this.energyPerMeter = energyPerMeter;
+        this.totalEnergyFromEating = 0;
+
+        this.gender = Gender.Hermaphrodite;
+        this.weight = 10;
+        this.medals = null;
+
+        this.size = 65;
+        this.id = 000000000;
+        this.orientation = Orientation.EAST;
+        this.panel = null;
+        this.img1 = null;
+
+        isAvailable = true;
+        done  = 0;
+
+        drawable = null;
+        locatable = null;
+        cloneable = null;
+
+
+    }
+
 
     /**
      * Constructs a new Animal with the specified attributes.
@@ -160,7 +190,7 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         this.panel = panel;
         this.img1 = null;
 
-        isRemovedFromCompetition = false;
+        isAvailable = true;
         done  = 0;
 
         drawable = null;
@@ -256,7 +286,7 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         this.panel = pan;
 
         this.img1 = null;
-        isRemovedFromCompetition = false;
+        isAvailable = true;
 
         drawable = null;
         locatable = null;
@@ -288,7 +318,7 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         this.panel = null;
 
         this.img1 = null;
-        isRemovedFromCompetition = false;
+        isAvailable = true;
 
         drawable = null;
         locatable = null;
@@ -682,15 +712,19 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
      *
      * @return {@code true} if removed, {@code false} otherwise.
      */
-    public boolean isRemovedFromCompetition() {
-        return isRemovedFromCompetition;
+    public boolean isAvailable() {
+        return isAvailable;
     }
 
     /**
      * Marks the animal as removed from the competition.
      */
-    public void setRemovedFromCompetition() {
-        isRemovedFromCompetition = true;
+    public void setIsAvailable() {
+        isAvailable = false;
+    }
+
+    public void setPanel(CompetitionPanel panel) {
+        this.panel = panel;
     }
 
 }

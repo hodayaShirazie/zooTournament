@@ -47,6 +47,15 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
     private BufferedImage img4;
 
 
+    public TerrestrialAnimals(String name, int speed, int energyPerMeter, int maxEnergy) {
+        super(name, speed, energyPerMeter, maxEnergy);
+        setLocation(new Point(0, 0));
+        canWalk = new CanWalk(4);
+
+        this.img2 = null;
+        this.img3 = null;
+        this.img4 = null;
+    }
 
     /**
      * Constructs a new TerrestrialAnimals with the specified attributes.

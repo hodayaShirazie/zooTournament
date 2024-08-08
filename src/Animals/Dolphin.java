@@ -15,6 +15,14 @@ public class Dolphin extends WaterAnimal{
     private  WaterType waterType;
 
 
+    public Dolphin(String name, int speed,int energyPerMeter, int maxEnergy,int competitionRoute) {
+        super(name, speed, energyPerMeter, maxEnergy,competitionRoute);
+        super.setLocation(new Point(80, (competitionRoute - 1)*53 + competitionRoute*60));
+        this.waterType = WaterType.Sea;
+
+        loadImages("dolphin");
+    }
+
     /**
      * Construct a new Dolphin object with specified values.
      *

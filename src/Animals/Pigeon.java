@@ -14,6 +14,13 @@ public class Pigeon extends AirAnimal {
      */
     private String family;
 
+    public Pigeon(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute) {
+        super(name, speed, energyPerMeter, maxEnergy, competitionRoute);
+        this.family = "Rock dove";
+        loadImages("pigeon");
+
+    }
+
 
     /**
      * Construct a new Pigeon object with specified values.

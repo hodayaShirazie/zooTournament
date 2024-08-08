@@ -1,10 +1,13 @@
 package Competitions;
 
+import static java.lang.Thread.currentThread;
+
 public class TournamentThread implements Runnable{
 
     private Scores scores;
     private Boolean startSignal;
     private int groups;
+
 
     public TournamentThread(Scores scores, Boolean startSignal, int groups) {
         this.scores = scores;
@@ -19,7 +22,12 @@ public class TournamentThread implements Runnable{
     }
 
     public void run() {
-        this.startSignal = true;
-        notifyAll();
+        System.out.println("Tournament thread started");
+        synchronized (this) {
+            System.out.println("tournament thread started " + currentThread().getName());
+            this.startSignal = true;
+            this.notifyAll();
+            System.out.println("notified");
+        }
     }
 }

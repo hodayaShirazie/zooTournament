@@ -65,9 +65,17 @@ public abstract class AirAnimal extends Animal {
      * @param competitionRoute the route for the competition
      * @param panel           the competition panel associated with the animal
      */
-
     public AirAnimal(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute, CompetitionPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy,panel);
+
+        setLocation(new Point(0,(competitionRoute-1)*115));
+        this.wingspan = 30;
+        this.competitionRoute = competitionRoute;
+
+    }
+
+    public AirAnimal(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute ) {
+        super(name, speed, energyPerMeter, maxEnergy);
 
         setLocation(new Point(0,(competitionRoute-1)*115));
         this.wingspan = 30;

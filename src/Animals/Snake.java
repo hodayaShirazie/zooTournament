@@ -21,6 +21,14 @@ public class Snake extends TerrestrialAnimals implements IReptile {
     private double length;
 
 
+    public Snake(String name, int speed,int energyPerMeter, int maxEnergy) {
+        super(name, speed, energyPerMeter, maxEnergy);
+        this.poisonous = Poisonous.Low;
+        this.length = 13;
+
+        loadImages("snake");
+    }
+
     /**
      * Construct a new Snake object with specified values.
      *

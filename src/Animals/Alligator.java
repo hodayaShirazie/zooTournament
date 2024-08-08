@@ -26,6 +26,16 @@ public class Alligator extends WaterAnimal implements IReptile, ICanWalk {
     private String areaOfLiving;
 
 
+    public Alligator(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute) {
+        super(name, speed, energyPerMeter, maxEnergy, competitionRoute);
+        canWalk = new CanWalk(6);
+        this.areaOfLiving = "desert";
+
+        super.setLocation(new Point(80, (competitionRoute - 1)*57 + competitionRoute*55));
+        loadImages("alligator");
+
+    }
+
 
     /**
      * Constructs a new Alligator object with specified values.

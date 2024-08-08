@@ -14,6 +14,14 @@ public class Cat  extends TerrestrialAnimals{
      */
     private boolean castrated;
 
+    public Cat(String name, int speed,int energyPerMeter, int maxEnergy) {
+        super(name, speed, energyPerMeter, maxEnergy);
+        this.castrated = false;
+
+        loadImages("cat");
+
+    }
+
 
     /**
      * Construct a new Cat object with specified values.

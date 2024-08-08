@@ -16,6 +16,13 @@ public class Whale extends WaterAnimal {
     private String foodType;
 
 
+    public Whale(String name, int speed, int energyPerMeter, int maxEnergy, int competitionRoute) {
+        super(name, speed, energyPerMeter, maxEnergy, competitionRoute);
+        super.setLocation(new Point(80, (competitionRoute - 1)*57 + competitionRoute*55));
+        this.foodType = "krill";
+        loadImages("whale");
+    }
+
     /**
      * Construct a new Whale object with specified values.
      *

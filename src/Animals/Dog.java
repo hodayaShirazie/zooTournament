@@ -19,6 +19,13 @@ public class Dog extends TerrestrialAnimals {
     private String breed;
 
 
+    public Dog(String name, int speed,int energyPerMeter, int maxEnergy) {
+        super(name, speed, energyPerMeter, maxEnergy);
+        this.breed = "German shepherd";
+
+        loadImages("dog");
+    }
+
     /**
      * Construct a new Dog object with specified values.
      *

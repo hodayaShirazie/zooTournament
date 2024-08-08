@@ -12,7 +12,7 @@ public interface IDrawable {
     /**
      * The path to the directory where images are stored.
      */
-    final static String PICTURE_PATH = "Zoo-competition1/src/Images/";
+    final static String PICTURE_PATH = "src/Images/";
 
     /**
      * Loads images for the drawable object.

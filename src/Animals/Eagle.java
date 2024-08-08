@@ -19,6 +19,13 @@ public class Eagle extends AirAnimal {
      */
     static final int MAX_ALTITUDE = 1000;
 
+    public Eagle(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute) {
+        super(name, speed, energyPerMeter, maxEnergy, competitionRoute);
+        this.altitudeOfFlight = 100;
+        loadImages("eagle");
+
+    }
+
 
     /**
      * Construct a new Eagle object with specified values.

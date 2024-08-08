@@ -25,6 +25,17 @@ public abstract class WaterAnimal extends Animal {
      */
     private int competitionRoute;
 
+    public WaterAnimal(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute ) {
+        super(name, speed, energyPerMeter, maxEnergy);
+        setLocation(new Point(80,(competitionRoute)*30 + 25));
+//        setLocation(new Point(80,(competitionRoute)*98));
+
+        setDiveDept(0);
+        setCompetitionRoute(competitionRoute);
+//        canDive = new CanDive(-200);
+//        this.canDive.setCompetitionRoute(competitionRoute);
+
+    }
 
     /**
      * Constructs a {@code WaterAnimal} with the specified parameters.
