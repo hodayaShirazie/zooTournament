@@ -590,6 +590,113 @@ public class AddAnimalDialog extends JDialog{
      * Creates the UI for selecting an animal.
      * @param panel The CompetitionPanel instance used to determine the competition type.
      */
+//    public void chooseAnimal(ZooPanel panel) {
+//        JFrame frame = new JFrame("Add Animal");
+//        frame.setSize(500, 400); // Adjust frame size for consistency
+//        frame.setLayout(new BorderLayout(10, 10)); // Padding around the edges
+//
+//        // Center the frame on the screen
+//        frame.setLocationRelativeTo(null);
+//
+//        // Title/Header
+//        JLabel titleLabel = new JLabel("Add Animal", SwingConstants.CENTER);
+//        titleLabel.setFont(new Font("Arial", Font.BOLD, 20)); // Enlarge title font
+//        frame.add(titleLabel, BorderLayout.NORTH);
+//
+//        // Main Content Panel
+//        JPanel mainPanel = new JPanel();
+//        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+//        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Add padding around the main panel
+//
+//        // Animal Selection Section
+//        JPanel animalPanel = new JPanel(new GridLayout(0, 1, 0, 2)); // Reduced vertical gap
+//        TitledBorder animalBorder = BorderFactory.createTitledBorder("Select an Animal");
+//        animalBorder.setTitleFont(new Font("Arial", Font.BOLD, 14)); // Set font size for the border title
+//        animalPanel.setBorder(animalBorder);
+//        animalPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+//
+//        // Radio buttons for animal selection
+//        JRadioButton alligatorButton = new JRadioButton("Alligator");
+//        JRadioButton dolphinButton = new JRadioButton("Dolphin");
+//        JRadioButton whaleButton = new JRadioButton("Whale");
+//        JRadioButton eagleButton = new JRadioButton("Eagle");
+//        JRadioButton pigeonButton = new JRadioButton("Pigeon");
+//        JRadioButton catButton = new JRadioButton("Cat");
+//        JRadioButton dogButton = new JRadioButton("Dog");
+//        JRadioButton snakeButton = new JRadioButton("Snake");
+//
+//        ButtonGroup animalGroup = new ButtonGroup();
+//        animalGroup.add(alligatorButton);
+//        animalGroup.add(dolphinButton);
+//        animalGroup.add(whaleButton);
+//        animalGroup.add(eagleButton);
+//        animalGroup.add(pigeonButton);
+//        animalGroup.add(catButton);
+//        animalGroup.add(dogButton);
+//        animalGroup.add(snakeButton);
+//
+//        animalPanel.add(alligatorButton);
+//        animalPanel.add(dolphinButton);
+//        animalPanel.add(whaleButton);
+//        animalPanel.add(eagleButton);
+//        animalPanel.add(pigeonButton);
+//        animalPanel.add(catButton);
+//        animalPanel.add(dogButton);
+//        animalPanel.add(snakeButton);
+//
+//        mainPanel.add(animalPanel);
+//
+//        frame.add(mainPanel, BorderLayout.CENTER);
+//
+//        // Bottom Section: Action Buttons
+//        JPanel buttonPanel = new JPanel();
+//
+//        JButton confirmButton = new JButton("Confirm");
+//        JButton cancelButton = new JButton("Cancel");
+//
+//        confirmButton.addActionListener(e -> {
+//            String selectedAnimal = null;
+//            if (alligatorButton.isSelected()) selectedAnimal = "Alligator";
+//            else if (dolphinButton.isSelected()) selectedAnimal = "Dolphin";
+//            else if (whaleButton.isSelected()) selectedAnimal = "Whale";
+//            else if (eagleButton.isSelected()) selectedAnimal = "Eagle";
+//            else if (pigeonButton.isSelected()) selectedAnimal = "Pigeon";
+//            else if (catButton.isSelected()) selectedAnimal = "Cat";
+//            else if (dogButton.isSelected()) selectedAnimal = "Dog";
+//            else if (snakeButton.isSelected()) selectedAnimal = "Snake";
+//
+//            if (selectedAnimal != null) {
+//                int animalCode = switch (selectedAnimal) {
+//                    case "Alligator" -> 1;
+//                    case "Dolphin" -> 4;
+//                    case "Whale" -> 8;
+//                    case "Eagle" -> 5;
+//                    case "Pigeon" -> 6;
+//                    case "Cat" -> 2;
+//                    case "Dog" -> 3;
+//                    case "Snake" -> 7;
+//                    default -> 0;
+//                };
+//                startBuildAnimal(animalCode, frame, panel);
+//                frame.dispose(); // Close the frame after confirmation
+//            } else {
+//                JOptionPane.showMessageDialog(frame, "Please select an animal.", "Error", JOptionPane.ERROR_MESSAGE);
+//            }
+//        });
+//
+//        cancelButton.addActionListener(e -> frame.dispose());
+//
+//        buttonPanel.add(confirmButton);
+//        buttonPanel.add(cancelButton);
+//        frame.add(buttonPanel, BorderLayout.SOUTH);
+//        frame.getRootPane().setDefaultButton(confirmButton);
+//
+//
+//        frame.dispose();
+//        frame.setVisible(true);
+//    }
+
+
     public void chooseAnimal(ZooPanel panel) {
         JFrame frame = new JFrame("Add Animal");
         frame.setSize(500, 400); // Adjust frame size for consistency
@@ -645,7 +752,6 @@ public class AddAnimalDialog extends JDialog{
         animalPanel.add(snakeButton);
 
         mainPanel.add(animalPanel);
-
         frame.add(mainPanel, BorderLayout.CENTER);
 
         // Bottom Section: Action Buttons
@@ -653,6 +759,9 @@ public class AddAnimalDialog extends JDialog{
 
         JButton confirmButton = new JButton("Confirm");
         JButton cancelButton = new JButton("Cancel");
+
+        // Set Confirm button as the default button
+        frame.getRootPane().setDefaultButton(confirmButton);
 
         confirmButton.addActionListener(e -> {
             String selectedAnimal = null;
@@ -690,7 +799,6 @@ public class AddAnimalDialog extends JDialog{
         buttonPanel.add(cancelButton);
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
-        frame.dispose();
         frame.setVisible(true);
     }
 
@@ -874,6 +982,8 @@ public class AddAnimalDialog extends JDialog{
         gbc.gridy = 6;
         gbc.gridwidth = 1;
         fieldsPanel.add(submitButton, gbc);
+        frame.getRootPane().setDefaultButton(submitButton);
+
     }
 
     /**

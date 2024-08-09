@@ -8,9 +8,9 @@ import Competitions.RegularTournament;
 import Competitions.Tournament;
 
 import javax.swing.*;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import java.awt.*;
+import java.util.Enumeration;
 
 
 /**
@@ -27,6 +27,10 @@ public class CompetitionPanel extends JPanel {
      */
     private int competitionType;
 
+    /**
+     * Type options.
+     * 1 - regular, 2 - courier.
+     */
     private int regularCourierTournament;
 
     /**
@@ -136,52 +140,98 @@ public class CompetitionPanel extends JPanel {
     }
 
     // Helper method to get selected radio button text
-    public void updateCompetitionType(ButtonGroup buttonGroup) {
-        for (java.util.Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
-            AbstractButton button = buttons.nextElement();
-            if (button.isSelected()) {
-                switch (button.getText()) {
-                    case "Air":
-                        this.competitionType = 1;
-                        break;
-                    case "Water":
-                        this.competitionType = 2;
-                        break;
-                    case "Terrestrial":
-                        this.competitionType = 3;
-                        break;
+//    public void updateCompetitionType(ButtonGroup buttonGroup) {
+//        for (java.util.Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
+//            AbstractButton button = buttons.nextElement();
+//            if (button.isSelected()) {
+//                switch (button.getText()) {
+//                    case "Water":
+//                        this.competitionType = 1;
+//                        break;
+//                    case "Air":
+//                        this.competitionType = 2;
+//                        break;
+//                    case "Terrestrial":
+//                        this.competitionType = 3;
+//                        break;
+//                }
+//                System.out.println("selected: " + button.getText());
+////                return button.getText();
+//            }
+//        }
+////        return null; // No button selected
+//    }
 
-                }
-                System.out.println("selected: " + button.getText());
-//                return button.getText();
-            }
-        }
-//        return null; // No button selected
-    }
+    public void updateCourierTournament(ButtonGroup competitionGroup) {
+        // Get the selected competition type
+        Enumeration<AbstractButton> competitionButtons = competitionGroup.getElements();
+        int selectedCompetitionType = -1; // Default to an invalid type
 
-    public void updateCourierTournament(ButtonGroup buttonGroup) {
-        for (java.util.Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
-            AbstractButton button = buttons.nextElement();
+        while (competitionButtons.hasMoreElements()) {
+            AbstractButton button = competitionButtons.nextElement();
             if (button.isSelected()) {
                 switch (button.getText()) {
                     case "Courier":
-                        this.competitionType = 1;
+                        selectedCompetitionType = 2; // Courier competition
                         break;
                     case "Regular":
-                        this.competitionType = 2;
+                        selectedCompetitionType = 1; // Regular competition
                         break;
-
                 }
-                System.out.println("selected--------------------------: " + button.getText());
-//                return button.getText();
+                break;
             }
         }
-//        return null; // No button selected
+
+        if (selectedCompetitionType == -1) {
+            // Handle the case where no competition type is selected
+            JOptionPane.showMessageDialog(null, "Please select a competition type.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Update the competition panel with the selected competition type
+            this.regularCourierTournament = selectedCompetitionType; // Assuming `regularCourierTournament` is a field in `CompetitionPanel`
+        }
+    }
+
+    public void updateCompetitionType(ButtonGroup animalGroup) {
+        // Get the selected animal type
+        Enumeration<AbstractButton> animalButtons = animalGroup.getElements();
+        int selectedAnimalType = -1; // Default to an invalid type
+
+        while (animalButtons.hasMoreElements()) {
+            AbstractButton button = animalButtons.nextElement();
+            if (button.isSelected()) {
+                switch (button.getText()) {
+                    case "Air":
+                        selectedAnimalType = 2; // Air
+                        break;
+                    case "Water":
+                        selectedAnimalType = 1; // Water
+                        break;
+                    case "Terrestrial":
+                        selectedAnimalType = 3; // Terrestrial
+                        break;
+                }
+                break;
+            }
+        }
+
+        if (selectedAnimalType == -1) {
+            // Handle the case where no animal type is selected
+            JOptionPane.showMessageDialog(null, "Please select an animal type.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Update the competition panel with the selected animal type
+            this.competitionType = selectedAnimalType; // Assuming `animalType` is a field in `CompetitionPanel`
+        }
     }
 
 
+
+
+
+
+
+
     public void addAnimalToGroup(Animal animal, int groupNumber){
-        animal.setIsAvailable();
+        animal.setNotAvailable();
 
         if(participates[groupNumber-1] == null) {
             participates[groupNumber - 1] = new Animal[1];
@@ -208,6 +258,14 @@ public class CompetitionPanel extends JPanel {
             tournament = new RegularTournament(participates);
 
     }
+
+    public int getRegularCourierTournament() {
+        return regularCourierTournament;
+    }
+
+//    public int getRegularCourierTournament() {
+//        return regularCourierTournament;
+//    }
 
 //
 //    /**

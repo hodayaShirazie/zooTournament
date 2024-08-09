@@ -3,10 +3,13 @@ package Graphics;
 import Animals.Animal;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.text.NumberFormat;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * The ZooPanel class represents a custom JPanel used for displaying and managing the zoo's graphical interface.
@@ -190,68 +193,68 @@ public class ZooPanel extends JPanel{
      * The energy value entered by the user is validated and then used to increase the animal's energy.
      * </p>
      */
-    public void eatAnimal() {//Todo new function............
-
-        JFrame frame = new JFrame("Feed Animal");
-        frame.setSize(500, 200);
-        frame.setLayout(new BorderLayout());
-
-
-        if (players == null) {
-            JOptionPane.showMessageDialog(frame, "No participate yet", "Invalid operation", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        else {
-
-            JLabel foodEnergyLabel = new JLabel("Enter an integer to increase the animal's energy level\n");
-            foodEnergyLabel.setFont(new Font("Arial", Font.PLAIN, 15));
-
-            JFormattedTextField foodEnergyField = new JFormattedTextField(createNumberFormatter());
-            foodEnergyField.setColumns(20);
-            JButton updateEnergy = new JButton("Update energy");
-            updateEnergy.setFont(new Font("Arial", Font.BOLD, 14));
-            updateEnergy.addActionListener(e ->
-            {
-                try {
-                    increaseEnergy(frame, foodEnergyField.getText());
-                } catch (IllegalStateException exception) {
-                    JOptionPane.showMessageDialog(frame, "An unexpected error occurred: " + exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
-
-            });
-
-            // Create and configure panel for layout
-            JPanel fieldsPanel = new JPanel();
-            fieldsPanel.setLayout(new GridBagLayout());
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.insets = new Insets(10, 10, 10, 10); // Add padding around components
-
-            // Add label
-            gbc.gridx = 0;
-            gbc.gridy = 0;
-            gbc.anchor = GridBagConstraints.WEST;
-            gbc.gridwidth = GridBagConstraints.REMAINDER; // Span across all columns
-            fieldsPanel.add(foodEnergyLabel, gbc);
-
-            // Add text field
-            gbc.gridy = 1;
-            gbc.anchor = GridBagConstraints.CENTER;
-            gbc.gridwidth = GridBagConstraints.REMAINDER; // Span across all columns
-            fieldsPanel.add(foodEnergyField, gbc);
-
-            // Add button
-            gbc.gridy = 2;
-            gbc.anchor = GridBagConstraints.CENTER;
-            gbc.gridwidth = GridBagConstraints.REMAINDER; // Span across all columns
-            fieldsPanel.add(updateEnergy, gbc);
-
-
-            // Add panel to frame
-            frame.add(fieldsPanel, BorderLayout.CENTER);
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        }
-    }
+//    public void eatAnimal() {//Todo new function............
+//
+//        JFrame frame = new JFrame("Feed Animal");
+//        frame.setSize(500, 200);
+//        frame.setLayout(new BorderLayout());
+//
+//
+//        if (players == null) {
+//            JOptionPane.showMessageDialog(frame, "No participate yet", "Invalid operation", JOptionPane.WARNING_MESSAGE);
+//            return;
+//        }
+//        else {
+//
+//            JLabel foodEnergyLabel = new JLabel("Enter an integer to increase the animal's energy level\n");
+//            foodEnergyLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+//
+//            JFormattedTextField foodEnergyField = new JFormattedTextField(createNumberFormatter());
+//            foodEnergyField.setColumns(20);
+//            JButton updateEnergy = new JButton("Update energy");
+//            updateEnergy.setFont(new Font("Arial", Font.BOLD, 14));
+//            updateEnergy.addActionListener(e ->
+//            {
+//                try {
+//                    increaseEnergy(frame, foodEnergyField.getText());
+//                } catch (IllegalStateException exception) {
+//                    JOptionPane.showMessageDialog(frame, "An unexpected error occurred: " + exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//                }
+//
+//            });
+//
+//            // Create and configure panel for layout
+//            JPanel fieldsPanel = new JPanel();
+//            fieldsPanel.setLayout(new GridBagLayout());
+//            GridBagConstraints gbc = new GridBagConstraints();
+//            gbc.insets = new Insets(10, 10, 10, 10); // Add padding around components
+//
+//            // Add label
+//            gbc.gridx = 0;
+//            gbc.gridy = 0;
+//            gbc.anchor = GridBagConstraints.WEST;
+//            gbc.gridwidth = GridBagConstraints.REMAINDER; // Span across all columns
+//            fieldsPanel.add(foodEnergyLabel, gbc);
+//
+//            // Add text field
+//            gbc.gridy = 1;
+//            gbc.anchor = GridBagConstraints.CENTER;
+//            gbc.gridwidth = GridBagConstraints.REMAINDER; // Span across all columns
+//            fieldsPanel.add(foodEnergyField, gbc);
+//
+//            // Add button
+//            gbc.gridy = 2;
+//            gbc.anchor = GridBagConstraints.CENTER;
+//            gbc.gridwidth = GridBagConstraints.REMAINDER; // Span across all columns
+//            fieldsPanel.add(updateEnergy, gbc);
+//
+//
+//            // Add panel to frame
+//            frame.add(fieldsPanel, BorderLayout.CENTER);
+//            frame.setLocationRelativeTo(null);
+//            frame.setVisible(true);
+//        }
+//    }
 
     /**
      * Creates a NumberFormatter for integer input, allowing only valid integers and disallowing invalid input.
@@ -281,47 +284,36 @@ public class ZooPanel extends JPanel{
      * @param energy The amount of energy to increase, as a string.
      * @throws IllegalStateException If the participants array is null or empty.
      */
-    private void increaseEnergy(JFrame frame, String energy) throws IllegalStateException {
+    private void increaseEnergy(JFrame frame, String energy, String animalName) throws IllegalStateException {
 
         try {
             if (players == null) {
                 throw new IllegalStateException("Participants array is null.");
             }
-            int participatesLen = players.length;
-            if (participatesLen == 0) {
-                throw new IllegalStateException("Participants array is empty.");
-            } else {
+            Animal animalToFeed = findAnimal(animalName);
 
-                try {
+            try {
 
-                    int energyValue = Integer.parseInt(energy);
+                int energyValue = Integer.parseInt(energy);
 
-                    int index = participatesLen - 1;
-                    while (players[index].isAvailable() && index > 0)
-                        --index;
-                    if (players[0].isAvailable() && index == 0)
-                        throw new IllegalStateException("Participants array is empty.");
-
-
-                    if (players[index].eat(energyValue)) {
-                        JOptionPane.showMessageDialog(frame, "Animal was fed successfully.\ncurrent " +
-                                        players[index].getType() + " energy: " + players[index].getCurrentEnergy(),
-                                players[index].getType() + " Feeding", JOptionPane.INFORMATION_MESSAGE);
+                if (animalToFeed.eat(energyValue)) {
+                    JOptionPane.showMessageDialog(frame, "Animal was fed successfully.\ncurrent " +
+                                    animalToFeed.getAnimalName() + " energy: " + animalToFeed.getCurrentEnergy(),
+                            animalToFeed.getType() + " Feeding", JOptionPane.INFORMATION_MESSAGE);
 
 
 //                        startMove();  //make the animal start moving on screen
 
 
-                    } else {
-                        JOptionPane.showMessageDialog(frame, "Animal eating failed.\n can not feed animal above its maximum energy", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                    frame.dispose();
-
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(frame, "Invalid energy value entered.", "Error", JOptionPane.ERROR_MESSAGE);
-                } catch (IllegalStateException e) {
-                    JOptionPane.showMessageDialog(frame, "An unexpected error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Animal eating failed.\n can not feed animal above its maximum energy", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+                frame.dispose();
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(frame, "Invalid energy value entered.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (IllegalStateException e) {
+                JOptionPane.showMessageDialog(frame, "An unexpected error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (IllegalStateException e) {
             JOptionPane.showMessageDialog(frame, "An unexpected error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -401,4 +393,232 @@ public class ZooPanel extends JPanel{
             }
         }
     }
+
+    public JComboBox<String> selectAnimalToAdd() {
+        if (players == null)
+            return new JComboBox<>(new String[]{"No Animals Available"});
+
+        String[] animalsNames = new String[players.length + 1];
+        animalsNames[0] = "Select Animal";
+
+        int i = 1;
+        for (Animal animal : players) {
+            if (animal != null) {
+                animalsNames[i] = animal.getAnimalName();
+                ++i;
+            }
+        }
+        JComboBox<String> animalsNamesComboBox = new JComboBox<>(animalsNames);
+        animalsNamesComboBox.setPreferredSize(new Dimension(150, 25));
+
+        return animalsNamesComboBox;
+    }
+
+    public JComboBox<String> selectAnimalToAddIfAvailable(int competitionType) {
+        /**
+         * Type of competition.
+         * 1 - water, 2 - air, 3 - terrestrial.
+         */
+
+
+        if (players == null)
+            return new JComboBox<>(new String[]{"No Animals Available"});
+
+        String[] animalsNames = null;
+        int len = 1; //1 for "Select Animal" text
+
+        switch (competitionType){
+            case 1: //selects from Water animals
+            {
+                for (Animal animal : players) {
+                    if (animal != null) {
+                        if (animal.isAvailable())
+                            if(animal.getCategory().equals("Water") || animal.getCategory().equals("Terrestrial+Water"))
+                                ++len;
+                    }
+                }
+
+                animalsNames = new String[len];
+                animalsNames[0] = "Select Animal";
+
+                int i = 1;
+                for (Animal animal : players) {
+                    if (animal != null)
+                        if (animal.isAvailable())
+                            if(animal.getCategory().equals("Water") || animal.getCategory().equals("Terrestrial+Water")){
+                                animalsNames[i] = animal.getAnimalName();
+                                ++i;
+                            }
+                }
+
+                break;
+            }
+            case 2: //selects from Water animals
+            {
+                for (Animal animal : players) {
+                    if (animal != null)
+                        if (animal.isAvailable())
+                            if (animal.getCategory().equals("Air")) {
+                                ++len;
+                            }
+                }
+
+                animalsNames = new String[len];
+                animalsNames[0] = "Select Animal";
+
+                int i = 1;
+                for (Animal animal : players) {
+                    if (animal != null)
+                        if (animal.isAvailable())
+                            if (animal.getCategory().equals("Air")) {
+                                animalsNames[i] = animal.getAnimalName();
+                                ++i;
+                            }
+                }
+                break;
+            }
+            case 3: //selects from Water animals
+            {
+                for (Animal animal : players) {
+                    if (animal != null) {
+                        if (animal.isAvailable())
+                            if(animal.getCategory().equals("Terrestrial") || animal.getCategory().equals("Terrestrial+Water")) {
+                                ++len;
+                            }
+                    }
+                }
+
+                animalsNames = new String[len];
+                animalsNames[0] = "Select Animal";
+
+                int i = 1;
+                for (Animal animal : players) {
+                    if (animal != null)
+                        if (animal.isAvailable())
+                            if(animal.getCategory().equals("Terrestrial") || animal.getCategory().equals("Terrestrial+Water")) {
+                            animalsNames[i] = animal.getAnimalName();
+                            ++i;
+                        }
+
+                }
+
+                break;
+            }
+            default:
+                System.out.println("Error accoured");
+                break;
+        }
+
+
+
+        JComboBox<String> animalsNamesComboBox = new JComboBox<>(animalsNames);
+        animalsNamesComboBox.setPreferredSize(new Dimension(150, 25));
+
+        return animalsNamesComboBox;
+    }
+
+    public int availableAnimals() {
+        if (players == null)
+            return 0;
+
+        int availableCount = 0;
+
+        for (Animal animal : players) {
+            if (animal != null) {
+                if (animal.isAvailable())
+                    ++availableCount;
+            }
+        }
+        return availableCount;
+    }
+
+
+    public void addFeedAnimalFrame() {
+
+        if (players == null) {
+            JOptionPane.showMessageDialog(this, "No animals available to feed", "Invalid operation", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        JFrame frame = new JFrame("Feed Animal");
+        frame.setSize(400, 300);
+        frame.setLayout(new BorderLayout(10, 10));
+        frame.setLocationRelativeTo(null);
+
+        JLabel titleLabel = new JLabel("Feed Animal", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        frame.add(titleLabel, BorderLayout.NORTH);
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        JPanel selectAnimalPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        TitledBorder selectAnimalBorder = BorderFactory.createTitledBorder("Select Animal");
+        selectAnimalBorder.setTitleFont(new Font("Arial", Font.BOLD, 14));
+        selectAnimalPanel.setBorder(selectAnimalBorder);
+
+        JComboBox<String> animalComboBox = selectAnimalToAdd();
+        selectAnimalPanel.add(animalComboBox);
+
+        mainPanel.add(selectAnimalPanel);
+
+        mainPanel.add(Box.createVerticalStrut(20));
+
+        JPanel energyPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        TitledBorder energyBorder = BorderFactory.createTitledBorder("Enter Energy Amount");
+        energyBorder.setTitleFont(new Font("Arial", Font.BOLD, 14));
+        energyPanel.setBorder(energyBorder);
+
+        JFormattedTextField foodEnergyField = new JFormattedTextField(createNumberFormatter());
+        foodEnergyField.setPreferredSize(new Dimension(150, 25));
+        energyPanel.add(foodEnergyField);
+
+        mainPanel.add(energyPanel);
+
+        frame.add(mainPanel, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel();
+
+        JButton feedButton = new JButton("Feed");
+        JButton cancelButton = new JButton("Cancel");
+        frame.getRootPane().setDefaultButton(feedButton);
+
+        feedButton.addActionListener(e -> {
+            String selectedAnimal = (String) animalComboBox.getSelectedItem();
+            String energyInput = foodEnergyField.getText();
+
+            if (selectedAnimal == null || selectedAnimal.equals("Select Animal") || energyInput.isEmpty()) {
+                JOptionPane.showMessageDialog(frame, "Please select an animal and enter a valid energy amount", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            try {
+                int energyAmount = Integer.parseInt(energyInput);
+
+                try {
+                    increaseEnergy(frame, energyInput,selectedAnimal);
+                } catch (IllegalStateException exception) {
+                    JOptionPane.showMessageDialog(frame, "An unexpected error occurred: " + exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+                frame.dispose();
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Please enter a valid number for the energy amount.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        cancelButton.addActionListener(e -> frame.dispose());
+
+        buttonPanel.add(feedButton);
+        buttonPanel.add(cancelButton);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
+
+        frame.setVisible(true);
+    }
+
+
+
 }
+
+

@@ -132,12 +132,14 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
      */
     private boolean isAvailable;
 
+
+
     public Animal(String name, int speed, int energyPerMeter, int maxEnergy) {
         super();
         this. name = name;
         this.speed = speed;
         this.maxEnergy = maxEnergy;
-        this.currentEnergy = 2000;//Todo make 0
+        this.currentEnergy = 0;
         this.energyPerMeter = energyPerMeter;
         this.totalEnergyFromEating = 0;
 
@@ -160,7 +162,6 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
 
 
     }
-
 
     /**
      * Constructs a new Animal with the specified attributes.
@@ -719,7 +720,7 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
     /**
      * Marks the animal as removed from the competition.
      */
-    public void setIsAvailable() {
+    public void setNotAvailable() {
         isAvailable = false;
     }
 

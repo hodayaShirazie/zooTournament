@@ -52,6 +52,7 @@ public class CompetitionFrame extends JFrame {
 //
 //    }
 
+
     /**
      * Constructs the CompetitionFrame, setting up the GUI components.
      *
@@ -115,7 +116,7 @@ public class CompetitionFrame extends JFrame {
 
         // Eat Button
         JButton eatButton = new JButton("Eat");
-        eatButton.addActionListener(e -> zooPanel.eatAnimal());
+        eatButton.addActionListener(e -> zooPanel.addFeedAnimalFrame());
         buttonsPanel.add(eatButton);
 
         // Info Button
@@ -209,6 +210,7 @@ public class CompetitionFrame extends JFrame {
 
         JButton confirmButton = new JButton("Confirm");
         JButton cancelButton = new JButton("Cancel");
+        frame.getRootPane().setDefaultButton(confirmButton);
 
         confirmButton.addActionListener(e -> {
             if (animalGroup.getSelection() == null || competitionGroup.getSelection() == null) {
@@ -219,6 +221,11 @@ public class CompetitionFrame extends JFrame {
             frame.dispose();
             tournament.updateCompetitionType(animalGroup);
             tournament.updateCourierTournament(competitionGroup);
+            if(!isCompetitionValid(tournament)){
+                JOptionPane.showMessageDialog(frame, "There are not enough animals to start a new competition.\n please add animals and try again ", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
 
             createAndShowGUI(tournament);
         });
@@ -229,6 +236,22 @@ public class CompetitionFrame extends JFrame {
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
         frame.setVisible(true);
+    }
+
+    private boolean isCompetitionValid(CompetitionPanel tournament) {
+        int availableAnimals = zooPanel.availableAnimals();
+        int regularCourierTournament = tournament.getRegularCourierTournament();
+        switch (regularCourierTournament){
+            case 1:
+                if(availableAnimals < 1)
+                    return false;
+                break;
+            case 2:
+                if(availableAnimals < 2)
+                    return false;
+                break;
+        }
+        return true;
     }
 
     private Point calculateSize(int competitionType){
@@ -270,8 +293,9 @@ public class CompetitionFrame extends JFrame {
         JPanel topLeftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         topLeftPanel.add(startCompetitionButton);
         topPanel.add(topLeftPanel, BorderLayout.WEST);
-
         frame.add(topPanel, BorderLayout.NORTH);
+        frame.getRootPane().setDefaultButton(startCompetitionButton);
+
 
         // Center: Panel for groups and animals
         JPanel groupPanel = new JPanel();
@@ -310,7 +334,9 @@ public class CompetitionFrame extends JFrame {
         // Set a fixed width and allow height to grow as animals are added
         columnPanel.setMaximumSize(new Dimension(150, Integer.MAX_VALUE));
 
-        JComboBox<String> addAnimalComboBox = selectAnimalToAdd();
+
+        JComboBox<String> addAnimalComboBox = zooPanel.selectAnimalToAddIfAvailable(tournament.getCompetitionType()); //selecting animal only from animals that do not participate in another competition
+
         addAnimalComboBox.setMaximumSize(new Dimension(150, 25)); // Fix the size of the combo box
 
         columnPanel.add(addAnimalComboBox);
@@ -318,9 +344,13 @@ public class CompetitionFrame extends JFrame {
         addAnimalComboBox.addActionListener(e -> {
             String selectedAnimal = (String) addAnimalComboBox.getSelectedItem();
             if (selectedAnimal != null && !selectedAnimal.equals("Select Animal")) {
+                setAnimalNotAvailable(selectedAnimal);
                 JLabel animalLabel = new JLabel(selectedAnimal);
                 columnPanel.add(animalLabel);
                 updateAnimalInCompetition(selectedAnimal,groupNumber, tournament);
+
+                // Remove the selected animal from the combo box
+                ((DefaultComboBoxModel<String>) addAnimalComboBox.getModel()).removeElement(selectedAnimal);
 
                 // Adjust the height of the column panel to match the content
                 columnPanel.revalidate();
@@ -333,35 +363,21 @@ public class CompetitionFrame extends JFrame {
         groupPanel.repaint();
     }
 
+    private void setAnimalNotAvailable(String selectedAnimal) {
+        Animal animal = zooPanel.findAnimal(selectedAnimal);
+        animal.setNotAvailable();
+    }
+
     private void updateAnimalInCompetition(String selectedAnimal,int groupNumber,CompetitionPanel tournament){
         Animal animal = zooPanel.findAnimal(selectedAnimal);
         tournament.addAnimalToGroup(animal, groupNumber);
-    }
-
-    private JComboBox<String> selectAnimalToAdd() {
-        if (zooPanel.getPlayers() == null)
-            return new JComboBox<>(new String[]{"No Animals Available"});
-
-        String[] animalsNames = new String[zooPanel.getPlayers().length + 1];
-        animalsNames[0] = "Select Animal";
-
-        int i = 1;
-        for (Animal animal : zooPanel.getPlayers()) {
-            if (animal != null) {
-                animalsNames[i] = animal.getAnimalName();
-                ++i;
-            }
-        }
-        JComboBox<String> animalsNamesComboBox = new JComboBox<>(animalsNames);
-        animalsNamesComboBox.setPreferredSize(new Dimension(150, 25));
-
-        return animalsNamesComboBox;
     }
 
     private void clearAnimals(){
         zooPanel = new ZooPanel();
     }
 
+    //TODO whats that????????????????
     public void run() {
         setVisible(true);
     }
