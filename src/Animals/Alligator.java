@@ -7,6 +7,7 @@ import Graphics.CompetitionPanel;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import Graphics.ZooPanel;
 
 
 /**
@@ -56,7 +57,7 @@ public class Alligator extends WaterAnimal implements IReptile, ICanWalk {
      * @param pan the competition panel.
      * @param competitionRoute the competition route.
      */
-    public Alligator(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, CompetitionPanel pan, double diveDept, String areaOfLiving, int competitionRoute) {
+    public Alligator(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, ZooPanel pan, double diveDept, String areaOfLiving, int competitionRoute) {
 
         super(name, gender, weight, speed, medals, loc,size, id, orientation, maxEnergy, energyPerMeter, pan, diveDept, competitionRoute);
         canWalk = new CanWalk(6);
@@ -75,15 +76,14 @@ public class Alligator extends WaterAnimal implements IReptile, ICanWalk {
      * @param competitionRoute the competition route.
      * @param panel the competition panel.
      */
-    public Alligator(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute, CompetitionPanel panel) {
+    public Alligator(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy, competitionRoute, panel);
         canWalk = new CanWalk(6);
         this.areaOfLiving = "desert";
-
-        super.setLocation(new Point(80, (competitionRoute - 1)*57 + competitionRoute*55));
         loadImages("alligator");
 
     }
+
 
     /**
      * Construct a new Alligator with default values.
@@ -196,4 +196,5 @@ public class Alligator extends WaterAnimal implements IReptile, ICanWalk {
         super.setCompetitionRoute(competitionRoute);
 
     }
+
 }

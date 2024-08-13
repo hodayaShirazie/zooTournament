@@ -3,6 +3,8 @@ package Animals;
 import Graphics.CompetitionPanel;
 import Mobility.Point;
 import Olympics.Medal;
+import Graphics.ZooPanel;
+
 
 /**
  * Represents a Pigeon animal.
@@ -33,7 +35,7 @@ public class Pigeon extends AirAnimal {
      * @param wingspan length of the wingspan of Pigeon. if the wingspan is less than or equal to 0, a default value of 30 is used.
      * @param family Pigeon family.
      */
-    public Pigeon(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, CompetitionPanel pan, double wingspan, String family, int competitionRoute) {
+    public Pigeon(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, ZooPanel pan, double wingspan, String family, int competitionRoute) {
         super(name, gender, weight, speed, medals, loc,size, id, orientation, maxEnergy, energyPerMeter, pan,wingspan, competitionRoute);
         this.family = family;
         loadImages("pigeon");
@@ -49,7 +51,7 @@ public class Pigeon extends AirAnimal {
      * @param competitionRoute The competition route the pigeon will follow.
      * @param panel            The competition panel where the pigeon is displayed.
      */
-    public Pigeon(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute, CompetitionPanel panel) {
+    public Pigeon(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy, competitionRoute,panel);
         this.family = "Rock dove";
         loadImages("pigeon");

@@ -59,7 +59,7 @@ public abstract class Mobile implements ILocatable {
      *
      * distance will be non-negative.
      */
-    private double calcDistancePoint(Point point) {
+    public double calcDistancePoint(Point point) {
         return (Math.sqrt(Math.pow(location.getX()-point.getX(),2) + Math.pow(location.getY()-point.getY(),2)));
     }
 

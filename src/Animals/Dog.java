@@ -1,6 +1,7 @@
 package Animals;
 
 import Graphics.CompetitionPanel;
+import Graphics.ZooPanel;
 import Mobility.Point;
 import Olympics.Medal;
 
@@ -37,7 +38,7 @@ public class Dog extends TerrestrialAnimals {
      * @param noLegs number of legs of Dog. if the number of legs  is less than or equal to 0, a default value of 4 is used.
      * @param breed breed of Dog
      */
-    public Dog(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, CompetitionPanel pan, double noLegs, String breed) {
+    public Dog(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, ZooPanel pan, double noLegs, String breed) {
         super(name, gender, weight, speed, medals, loc,size, id, orientation, maxEnergy, energyPerMeter, pan, noLegs);
         this.breed = breed;
 
@@ -53,7 +54,7 @@ public class Dog extends TerrestrialAnimals {
      * @param maxEnergy     The maximum energy the dog can have.
      * @param panel         The competition panel where the dog participates.
      */
-    public Dog(String name, int speed,int energyPerMeter, int maxEnergy, CompetitionPanel panel) {
+    public Dog(String name, int speed,int energyPerMeter, int maxEnergy, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy,panel);
         this.breed = "German shepherd";
 

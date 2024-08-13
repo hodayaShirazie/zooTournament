@@ -15,6 +15,7 @@ import Graphics.CompetitionPanel;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import Graphics.ZooPanel;
 
 
 
@@ -80,7 +81,7 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
     /**
      * Represents the competition panel associated with the animal.
      */
-    private CompetitionPanel panel;
+    private ZooPanel panel;
 
     /**
      * Represents the first buffered image associated with the animal.
@@ -133,7 +134,6 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
     private boolean isAvailable;
 
 
-
     public Animal(String name, int speed, int energyPerMeter, int maxEnergy) {
         super();
         this. name = name;
@@ -172,7 +172,7 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
      * @param maxEnergy       the maximum energy the animal can have
      * @param panel           the competition panel associated with the animal
      */
-    public Animal(String name, int speed, int energyPerMeter, int maxEnergy, CompetitionPanel panel) {
+    public Animal(String name, int speed, int energyPerMeter, int maxEnergy, ZooPanel panel) {
         super();
         this. name = name;
         this.speed = speed;
@@ -217,7 +217,7 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
      * @param energyPerMeter  the energy consumed by the animal per meter of movement
      * @param pan             the competition panel associated with the animal
      */
-    public Animal(String name, Gender gender, double weight, double speed, Medal[] medals   ,Point loc ,int size, int id, Orientation orientation,int maxEnergy, int energyPerMeter, CompetitionPanel pan) {
+    public Animal(String name, Gender gender, double weight, double speed, Medal[] medals   ,Point loc ,int size, int id, Orientation orientation,int maxEnergy, int energyPerMeter, ZooPanel pan) {
         super(loc,0);
         this.name = name;
         this.gender = gender;
@@ -243,10 +243,10 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
             {
                 isExists = false;
                 for (int j = i+1; j < medals.length && !isExists; j++) {
-                        if (medals[i].equals(medals[j])) {
-                            --medalSize;
-                            isExists = true;
-                        }
+                    if (medals[i].equals(medals[j])) {
+                        --medalSize;
+                        isExists = true;
+                    }
                 }
             }
 
@@ -568,7 +568,7 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
      *
      * @return the competition panel
      */
-    public CompetitionPanel getPanel() {
+    public ZooPanel getPanel() {
         return panel;
     }
 
@@ -717,15 +717,22 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         return isAvailable;
     }
 
-    /**
-     * Marks the animal as removed from the competition.
-     */
-    public void setNotAvailable() {
-        isAvailable = false;
+    public void setIsAvailable(boolean available) {
+        isAvailable = available;
     }
 
-    public void setPanel(CompetitionPanel panel) {
+    public void setPanel(ZooPanel panel) {
         this.panel = panel;
     }
+
+    public void setLocation(int width, int height) {
+
+    }
+
+    public double getDistance(){
+        return 0;
+    }
+
+
 
 }

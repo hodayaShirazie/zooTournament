@@ -3,6 +3,8 @@ package Animals;
 import Graphics.CompetitionPanel;
 import Mobility.Point;
 import Olympics.Medal;
+import Graphics.ZooPanel;
+
 
 /**
  * Represents an Eagle animal.
@@ -38,14 +40,14 @@ public class Eagle extends AirAnimal {
      * @param wingspan length of the wingspan of Eagle. if the wingspan is less than or equal to 0, a default value of 30 is used.
      * @param altitudeOfFlight Eagle altitude of flight. if the altitude of flight is less than or equal to 0, a default value of 100 is used.
      */
-    public Eagle(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, CompetitionPanel pan, double wingspan, double altitudeOfFlight, int competitionRoute) {
+    public Eagle(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, ZooPanel pan, double wingspan, double altitudeOfFlight, int competitionRoute) {
         super(name, gender, weight, speed, medals, loc,size, id, orientation, maxEnergy, energyPerMeter, pan,wingspan, competitionRoute);
 
         if(altitudeOfFlight > MAX_ALTITUDE)
             altitudeOfFlight = MAX_ALTITUDE;
 
         else if(altitudeOfFlight <= 0)
-        altitudeOfFlight = 100;
+            altitudeOfFlight = 100;
 
         this.altitudeOfFlight = altitudeOfFlight;
         loadImages("eagle");
@@ -61,7 +63,7 @@ public class Eagle extends AirAnimal {
      * @param competitionRoute The competition route the eagle participates in.
      * @param panel            The panel on which the eagle will be displayed.
      */
-    public Eagle(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute, CompetitionPanel panel) {
+    public Eagle(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy, competitionRoute,panel);
         this.altitudeOfFlight = 100;
         loadImages("eagle");

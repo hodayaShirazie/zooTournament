@@ -4,6 +4,8 @@ import Graphics.CompetitionPanel;
 import Mobility.ILocatable;
 import Mobility.Point;
 import Olympics.Medal;
+import Graphics.ZooPanel;
+
 
 /**
  * Represents a Snake animal.
@@ -42,7 +44,7 @@ public class Snake extends TerrestrialAnimals implements IReptile {
      *
      * number of legs is set to 0.
      */
-    public Snake(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, CompetitionPanel pan, Poisonous poisonous, double length) {
+    public Snake(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, ZooPanel pan, Poisonous poisonous, double length) {
         super(name, gender, weight, speed, medals, loc,size, id, orientation, maxEnergy, energyPerMeter, pan, 0);
         super.setNoLegsToDefault();
 
@@ -62,7 +64,7 @@ public class Snake extends TerrestrialAnimals implements IReptile {
      * @param maxEnergy     The maximum energy of the snake.
      * @param panel         The competition panel on which the snake is displayed.
      */
-    public Snake(String name, int speed,int energyPerMeter, int maxEnergy, CompetitionPanel panel) {
+    public Snake(String name, int speed,int energyPerMeter, int maxEnergy, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy,panel);
         this.poisonous = Poisonous.Low;
         this.length = 13;

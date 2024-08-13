@@ -11,6 +11,12 @@ import java.text.NumberFormat;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Competitions.Scores;
+import Competitions.SleepTime;
+
+//Todo free memory
+
+
 /**
  * The ZooPanel class represents a custom JPanel used for displaying and managing the zoo's graphical interface.
  * This panel is responsible for managing and rendering various competitions and activities within the zoo.
@@ -20,7 +26,6 @@ public class ZooPanel extends JPanel{
 
     private CompetitionPanel [] panels;
     private Image backgroundImage;
-
     private Animal[] players;
     /**
      * Number of columns in the competition table.
@@ -28,16 +33,36 @@ public class ZooPanel extends JPanel{
     private static final int columns = 8;
 
     public ZooPanel(){
-        loadImage("src/Images/competitionBackground.png");
-
+        Timer timer = new Timer(1000 / 60, e -> repaint());
+        timer.start();
         panels = null;
         players = null;
-
+        loadImage("src/Images/competitionBackground.png");
     }
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+
+        if (players != null) {
+            for (Animal animal : players) {
+                if (animal != null)
+                    if (!(animal.isAvailable())) {
+                        animal.drawObject(g);
+                    }
+            }
+        }
+    }
+
     /**
-     * //     * Opens a dialog to add a new animal to the competition.
+     *      * Opens a dialog to add a new animal to the competition.
      */
     public void addAnimal() {
+
         AddAnimalDialog animalDialog = new AddAnimalDialog(this);
     }
 
@@ -368,31 +393,6 @@ public class ZooPanel extends JPanel{
         repaint();
     }
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        if (backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-        }
-
-        System.out.println("im in zoooooooooo");
-
-        if (players != null) {
-            for (Animal animal : players) {
-                if (animal != null) {
-                    if (!(animal.isAvailable()))
-                        animal.drawObject(g);
-                }
-            }
-        }
-        if (panels != null) {
-            for (CompetitionPanel panel : panels) {
-                if (panel != null) {
-                    panel.repaint();
-                    System.out.println("im in zoooooooooo bifnocooooooooo");
-                }
-            }
-        }
-    }
 
     public JComboBox<String> selectAnimalToAdd() {
         if (players == null)
@@ -415,37 +415,21 @@ public class ZooPanel extends JPanel{
     }
 
     public JComboBox<String> selectAnimalToAddIfAvailable(int competitionType) {
-        /**
-         * Type of competition.
-         * 1 - water, 2 - air, 3 - terrestrial.
-         */
-
 
         if (players == null)
             return new JComboBox<>(new String[]{"No Animals Available"});
 
-        String[] animalsNames = null;
-        int len = 1; //1 for "Select Animal" text
+        String[] animalsNames = new String[countAvailableAnimalsFromType(competitionType) + 1];
+        animalsNames[0] = "Select Animal";
 
-        switch (competitionType){
+        switch (competitionType) {
             case 1: //selects from Water animals
             {
-                for (Animal animal : players) {
-                    if (animal != null) {
-                        if (animal.isAvailable())
-                            if(animal.getCategory().equals("Water") || animal.getCategory().equals("Terrestrial+Water"))
-                                ++len;
-                    }
-                }
-
-                animalsNames = new String[len];
-                animalsNames[0] = "Select Animal";
-
                 int i = 1;
                 for (Animal animal : players) {
                     if (animal != null)
                         if (animal.isAvailable())
-                            if(animal.getCategory().equals("Water") || animal.getCategory().equals("Terrestrial+Water")){
+                            if (animal.getCategory().equals("Water") || animal.getCategory().equals("Terrestrial+Water")) {
                                 animalsNames[i] = animal.getAnimalName();
                                 ++i;
                             }
@@ -455,17 +439,6 @@ public class ZooPanel extends JPanel{
             }
             case 2: //selects from Water animals
             {
-                for (Animal animal : players) {
-                    if (animal != null)
-                        if (animal.isAvailable())
-                            if (animal.getCategory().equals("Air")) {
-                                ++len;
-                            }
-                }
-
-                animalsNames = new String[len];
-                animalsNames[0] = "Select Animal";
-
                 int i = 1;
                 for (Animal animal : players) {
                     if (animal != null)
@@ -479,42 +452,74 @@ public class ZooPanel extends JPanel{
             }
             case 3: //selects from Water animals
             {
-                for (Animal animal : players) {
-                    if (animal != null) {
-                        if (animal.isAvailable())
-                            if(animal.getCategory().equals("Terrestrial") || animal.getCategory().equals("Terrestrial+Water")) {
-                                ++len;
-                            }
-                    }
-                }
-
-                animalsNames = new String[len];
-                animalsNames[0] = "Select Animal";
-
                 int i = 1;
                 for (Animal animal : players) {
                     if (animal != null)
                         if (animal.isAvailable())
-                            if(animal.getCategory().equals("Terrestrial") || animal.getCategory().equals("Terrestrial+Water")) {
-                            animalsNames[i] = animal.getAnimalName();
-                            ++i;
-                        }
+                            if (animal.getCategory().equals("Terrestrial") || animal.getCategory().equals("Terrestrial+Water")) {
+                                animalsNames[i] = animal.getAnimalName();
+                                ++i;
+                            }
 
                 }
 
                 break;
             }
             default:
-                System.out.println("Error accoured");
+                System.out.println("Error accorded");
                 break;
         }
-
-
 
         JComboBox<String> animalsNamesComboBox = new JComboBox<>(animalsNames);
         animalsNamesComboBox.setPreferredSize(new Dimension(150, 25));
 
         return animalsNamesComboBox;
+    }
+
+    public int countAvailableAnimalsFromType(int competitionType) {
+
+        int count = 0;
+        switch (competitionType) {
+            case 1: //selects from Water animals
+            {
+                for (Animal animal : players) {
+                    if (animal != null) {
+                        if (animal.isAvailable())
+                            if (animal.getCategory().equals("Water") || animal.getCategory().equals("Terrestrial+Water"))
+                                ++count;
+                    }
+                }
+
+                break;
+            }
+            case 2: //selects from Water animals
+            {
+                for (Animal animal : players) {
+                    if (animal != null)
+                        if (animal.isAvailable())
+                            if (animal.getCategory().equals("Air")) {
+                                ++count;
+                            }
+                }
+                break;
+            }
+            case 3: //selects from Water animals
+            {
+                for (Animal animal : players) {
+                    if (animal != null) {
+                        if (animal.isAvailable())
+                            if (animal.getCategory().equals("Terrestrial") || animal.getCategory().equals("Terrestrial+Water"))
+                                ++count;
+
+                    }
+                }
+                break;
+            }
+            default:
+                System.out.println("Error accorded");
+                break;
+        }
+        return count;
     }
 
     public int availableAnimals() {
@@ -532,8 +537,7 @@ public class ZooPanel extends JPanel{
         return availableCount;
     }
 
-
-    public void addFeedAnimalFrame() {
+    public void eatAnimal() {
 
         if (players == null) {
             JOptionPane.showMessageDialog(this, "No animals available to feed", "Invalid operation", JOptionPane.WARNING_MESSAGE);
@@ -617,6 +621,123 @@ public class ZooPanel extends JPanel{
         frame.setVisible(true);
     }
 
+    public void clearAnimals(){//Todo everyathing
+
+        if (players != null) {
+            for (Animal animal : players) {
+                animal.setIsAvailable(true);
+            }
+        }
+        repaint();
+    }
+
+    public void setSleep() {
+        JFrame frame = new JFrame("Sleep time Animal");
+        frame.setSize(500, 200);
+        frame.setLayout(new BorderLayout());
+
+        JLabel foodEnergyLabel = new JLabel("Enter the time that the animal will sleep after a competition\n");
+        foodEnergyLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+
+        JFormattedTextField sleepTimeField = new JFormattedTextField(createNumberFormatter1());
+        sleepTimeField.setColumns(20);
+
+        JButton updateSleeptime = new JButton("Update sleep time");
+        updateSleeptime.setFont(new Font("Arial", Font.BOLD, 14));
+
+        JPanel fieldsPanel = new JPanel();
+        fieldsPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+
+        // Add label
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        fieldsPanel.add(foodEnergyLabel, gbc);
+
+        // Add text field
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        fieldsPanel.add(sleepTimeField, gbc);
+
+        // Add button
+        gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        fieldsPanel.add(updateSleeptime, gbc);
+
+        // Add panel to frame
+        frame.add(fieldsPanel, BorderLayout.CENTER);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
+        // Define the action to be performed
+        ActionListener updateAction = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    int time = Integer.parseInt(sleepTimeField.getText());
+                    if (time > 0) {
+                        SleepTime sleepTime = SleepTime.getInstance();
+                        sleepTime.setTime(time);
+                        System.out.println(time);
+                        System.out.println(SleepTime.getInstance().getTime());
+                        JOptionPane.showMessageDialog(frame, "Time updated successfully!");
+                        frame.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Please enter a positive integer greater than 0.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid integer.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        };
+
+        // Attach the action to both the button and the text field
+        updateSleeptime.addActionListener(updateAction);
+        sleepTimeField.addActionListener(updateAction);
+
+        // Ensuring Enter key triggers the update action
+        sleepTimeField.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "updateAction");
+        sleepTimeField.getActionMap().put("updateAction", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateAction.actionPerformed(e);
+            }
+        });
+
+        System.out.println(SleepTime.getInstance().getTime());
+    }
+
+    private NumberFormatter createNumberFormatter1() {
+        NumberFormat format = NumberFormat.getIntegerInstance();
+        format.setGroupingUsed(false);
+        NumberFormatter formatter = new NumberFormatter(format);
+        formatter.setValueClass(Integer.class);
+        formatter.setMinimum(1); // Ensure only positive integers greater than 0
+        formatter.setAllowsInvalid(false); // Disallow invalid characters
+        formatter.setCommitsOnValidEdit(true);
+        return formatter;
+    }
+
+    public void showScores(){
+
+
+
+
+//        Scores scores = panels[0].getTournament().getTournamentThread().getScores();
+    }
+
+    public void updateLocation(int width, int height){
+        if (players != null) {
+            for (Animal animal : players) {
+                animal.setLocation(width, height);
+            }
+        }
+    }
 
 
 }

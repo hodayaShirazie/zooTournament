@@ -3,6 +3,8 @@ package Animals;
 import Graphics.CompetitionPanel;
 import Mobility.Point;
 import Olympics.Medal;
+import Graphics.ZooPanel;
+
 
 /**
  * Represents a water animal.
@@ -55,7 +57,7 @@ public abstract class WaterAnimal extends Animal {
      * @param diveDept the dive depth of the water animal
      * @param competitionRoute the route used in the competition
      */
-    public WaterAnimal(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, CompetitionPanel pan, double diveDept,int competitionRoute ) {
+    public WaterAnimal(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, ZooPanel pan, double diveDept,int competitionRoute ) {
         super(name, gender, weight, speed, medals, loc,size, id, orientation, maxEnergy, energyPerMeter, pan);
 
         setLocation(new Point(0,50));
@@ -83,13 +85,13 @@ public abstract class WaterAnimal extends Animal {
      * @param competitionRoute the route used in the competition
      * @param panel the competition panel where the water animal participates
      */
-    public WaterAnimal(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute, CompetitionPanel panel) {
+    public WaterAnimal(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy,panel);
-        setLocation(new Point(80,(competitionRoute)*30 + 25));
-//        setLocation(new Point(80,(competitionRoute)*98));
+        setCompetitionRoute(competitionRoute);
+
+        super.setLocation(new Point((int)(getPanel().getWidth()*0.085), (getPanel().getHeight()/9)* (2*getCompetitionRoute() - 1)));
 
         setDiveDept(0);
-        setCompetitionRoute(competitionRoute);
 //        canDive = new CanDive(-200);
 //        this.canDive.setCompetitionRoute(competitionRoute);
 
@@ -124,13 +126,13 @@ public abstract class WaterAnimal extends Animal {
      * @return true if waterAnimal is equal to origin and false otherwise.
      */
     public boolean equals(Object obj) {
-            if(obj instanceof WaterAnimal) {
-                return (super.equals(obj) && diveDept ==(((WaterAnimal) obj).diveDept) && competitionRoute == ((WaterAnimal) obj).competitionRoute);
+        if(obj instanceof WaterAnimal) {
+            return (super.equals(obj) && diveDept ==(((WaterAnimal) obj).diveDept) && competitionRoute == ((WaterAnimal) obj).competitionRoute);
 
 //               return (super.equals(obj) && canDive.equals(((WaterAnimal) obj).canDive));
-            }
-            return false;
         }
+        return false;
+    }
 
     /**
      * Starts moving the water animal towards the specified destination point.
@@ -138,7 +140,8 @@ public abstract class WaterAnimal extends Animal {
      */
     @Override
     public void startMoving() {
-        super.startMoving(new Point(840,getLocationY()));
+
+        startMoving(new Point((getPanel().getWidth() - 65 - (int)(getPanel().getWidth()*0.085)), getLocationY()));
 
     }
 
@@ -212,5 +215,19 @@ public abstract class WaterAnimal extends Animal {
     public String getCategory()
     {
         return "Water";
+    }
+
+    public void setLocation(int width, int height){
+
+        double x = (double) getLocationX()/width;
+        int newX = (int) (x * getPanel().getWidth());
+
+        super.setLocation(new Point(newX, (getPanel().getHeight()/9)* (2*getCompetitionRoute() - 1)));
+
+    }
+
+    @Override
+    public double getDistance() {
+        return super.calcDistancePoint(new Point((getPanel().getWidth() - 65 - (int)(getPanel().getWidth()*0.085)), getLocationY()));
     }
 }

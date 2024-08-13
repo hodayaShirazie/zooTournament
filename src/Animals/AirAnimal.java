@@ -3,6 +3,9 @@ package Animals;
 import Graphics.CompetitionPanel;
 import Mobility.Point;
 import Olympics.Medal;
+import Graphics.ZooPanel;
+
+import java.awt.*;
 
 /**
  * Represents an air animal.
@@ -24,7 +27,6 @@ public abstract class AirAnimal extends Animal {
     private int competitionRoute;
 
 
-
     /**
      * Constructs a new AirAnimal with the specified attributes.
      *
@@ -43,9 +45,9 @@ public abstract class AirAnimal extends Animal {
      * @param wingspan        the wingspan of the animal; if non-positive, defaults to 30
      * @param competitionRoute the route for the competition
      */
-    public AirAnimal(String name, Gender gender, double weight, double speed, Medal[] medals  , Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, CompetitionPanel pan, double wingspan, int competitionRoute) {
+    public AirAnimal(String name, Gender gender, double weight, double speed, Medal[] medals  , Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, ZooPanel pan, double wingspan, int competitionRoute) {
         super(name, gender, weight, speed, medals, loc,size, id, orientation, maxEnergy, energyPerMeter, pan);
-        setLocation(new Point(0,100));
+        setLocation(0,0);
         if(wingspan <= 0)
         {
             this.wingspan = 30;
@@ -65,19 +67,19 @@ public abstract class AirAnimal extends Animal {
      * @param competitionRoute the route for the competition
      * @param panel           the competition panel associated with the animal
      */
-    public AirAnimal(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute, CompetitionPanel panel) {
+    public AirAnimal(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy,panel);
 
-        setLocation(new Point(0,(competitionRoute-1)*115));
-        this.wingspan = 30;
         this.competitionRoute = competitionRoute;
+        super.setLocation(new Point(0, 2*(getPanel().getHeight()/9) * (competitionRoute - 1)));
+        this.wingspan = 30;
 
     }
 
     public AirAnimal(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute ) {
         super(name, speed, energyPerMeter, maxEnergy);
 
-        setLocation(new Point(0,(competitionRoute-1)*115));
+        setLocation(0,0);
         this.wingspan = 30;
         this.competitionRoute = competitionRoute;
 
@@ -88,7 +90,7 @@ public abstract class AirAnimal extends Animal {
      */
     public AirAnimal() {
         super();
-        setLocation(new Point(0,100));
+        setLocation(0, 0);
         this.wingspan = 30;
         this.competitionRoute = 1;
 
@@ -130,9 +132,29 @@ public abstract class AirAnimal extends Animal {
      * The animal moves towards a point at x-coordinate 900 and its current y-coordinate.
      */
     public void startMoving() {
-        startMoving(new Point(900, getLocationY()));
+
+        startMoving(new Point(getPanel().getWidth() - 65, getLocationY()));
+
     }
 
+    public void setLocation(int width, int height){
+
+        System.out.println("old width: " + width);
+        System.out.println("New width: " + getPanel().getWidth());
+
+        System.out.println("current x" + getLocationX());
+
+        double x = (double) getLocationX()/width;
+
+        System.out.println("x/width:  " + x);
+
+        int newX = (int) (x * getPanel().getWidth());
+
+        System.out.println("new x" + newX);
+
+        super.setLocation(new Point(newX, 2*(getPanel().getHeight()/9) * (competitionRoute - 1)));
+
+    }
 
 }
 

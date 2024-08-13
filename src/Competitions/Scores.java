@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Scores {
-    private Map<String,Date>scores;
 
+    private Map<String,Date>scores;
 
     public Scores() {
         this.scores = Collections.synchronizedMap(new HashMap<>());
@@ -30,7 +30,7 @@ public class Scores {
 
     @Override
     public String toString() {
-        System.out.println("Scores to stringg");
+        System.out.println("Scores to string");
         String str = "";
         for(Map.Entry<String,Date> entry : scores.entrySet())
         {

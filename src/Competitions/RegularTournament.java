@@ -3,6 +3,9 @@ package Competitions;
 import Animals.Animal;
 import Animals.AnimalThread;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
+
 public class RegularTournament extends Tournament {
 
     public RegularTournament(Animal[][] animals){
@@ -11,23 +14,29 @@ public class RegularTournament extends Tournament {
 
     //public AnimalThread(Animal participant, double neededDistance, Boolean startFlag, Boolean finishFlag) {
     public void setUp(Animal[][] animals){
-        Boolean startFlag = false; //startFlag of all groups in RegularTournament
-        Scores scores = new Scores(); //empty scores for all groups
+        AtomicBoolean startFlag = new AtomicBoolean(false); //startFlag of all groups in RegularTournament
+        Scores scores = new Scores(); //empty scores for all groups - every tournament has 1 scores
+
+        int type = getAnimalAsNumber(animals[0][0].getCategory());
 
 
         for(Animal[] animal:animals) {
-            Boolean finishFlag = false; //finishFlag for each animal
-            //Todo where animalThread is saved? //start animalThread?
-            AnimalThread animalThread = new AnimalThread(animal[0], 500, startFlag, finishFlag); //Todo add a function here or in animal thread that calc the distance per animal type
-            Referee referee = new Referee(animal[0].getAnimalName(), finishFlag, scores);
+            AtomicBoolean finishFlag = new AtomicBoolean(false); //finishFlag for each animal
+            AnimalThread animalThread = new AnimalThread(animal[0], animal[0].getDistance(), startFlag, finishFlag); //Todo add a function here or in animal thread that calc the distance per animal type
 
             Thread animalTournamentThread = new Thread(animalThread);
             animalTournamentThread.start();
 
-        }
-        tournamentThread = new TournamentThread(scores,startFlag,animals.length); //creating tournamentThread
+            Referee referee = new Referee(animal[0].getAnimalName(), finishFlag, scores);
 
-        Thread regularTournamentThread = new Thread(tournamentThread);
+            Thread refereeTournamentThread = new Thread(referee);
+            refereeTournamentThread.start();
+
+
+        }
+        super.setTournamentThread(new TournamentThread(scores,startFlag,animals.length, type)); //creating tournamentThread
+
+        Thread regularTournamentThread = new Thread(getTournamentThread());
         regularTournamentThread.start();
 
     }

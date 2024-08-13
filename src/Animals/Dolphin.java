@@ -1,6 +1,7 @@
 package Animals;
 
 import Graphics.CompetitionPanel;
+import Graphics.ZooPanel;
 import Mobility.Point;
 import Olympics.Medal;
 
@@ -34,7 +35,7 @@ public class Dolphin extends WaterAnimal{
      * @param diveDept the dept of Whale diving. if the dept of diving is above or equal to 0, a default value of -200 is used.
      * @param waterType Dolphin gender: Sea or Sweet.
      */
-    public Dolphin(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, CompetitionPanel pan, double diveDept, WaterType waterType, int competitionRoute) {
+    public Dolphin(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, ZooPanel pan, double diveDept, WaterType waterType, int competitionRoute) {
         super(name, gender, weight, speed, medals, loc,size, id, orientation, maxEnergy, energyPerMeter, pan, diveDept,competitionRoute);
         this.waterType = waterType;
         loadImages("dolphin");
@@ -50,9 +51,8 @@ public class Dolphin extends WaterAnimal{
      * @param competitionRoute The competition route the dolphin participates in.
      * @param panel           The panel on which the dolphin will be displayed.
      */
-    public Dolphin(String name, int speed,int energyPerMeter, int maxEnergy,int competitionRoute, CompetitionPanel panel) {
+    public Dolphin(String name, int speed,int energyPerMeter, int maxEnergy,int competitionRoute, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy,competitionRoute,panel);
-        super.setLocation(new Point(80, (competitionRoute - 1)*53 + competitionRoute*60));
         this.waterType = WaterType.Sea;
 
         loadImages("dolphin");

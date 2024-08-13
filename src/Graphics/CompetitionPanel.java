@@ -5,6 +5,7 @@ package Graphics;
 import Animals.*;
 import Competitions.CourierTournament;
 import Competitions.RegularTournament;
+import Competitions.Scores;
 import Competitions.Tournament;
 
 import javax.swing.*;
@@ -223,20 +224,12 @@ public class CompetitionPanel extends JPanel {
         }
     }
 
-
-
-
-
-
-
-
     public void addAnimalToGroup(Animal animal, int groupNumber){
-        animal.setNotAvailable();
+        animal.setIsAvailable(false);
 
         if(participates[groupNumber-1] == null) {
             participates[groupNumber - 1] = new Animal[1];
             participates[groupNumber - 1][0] = animal;
-            animal.setPanel(this);
         }
         else {
             int len = participates[groupNumber - 1].length;
@@ -245,15 +238,14 @@ public class CompetitionPanel extends JPanel {
                 tmpParticipate[i] = participates[groupNumber - 1][i];
             tmpParticipate[len] = animal;
             participates[groupNumber - 1] = tmpParticipate;
-            animal.setPanel(this);
 
         }
         repaint();
     }
 
     public void createTournament(){
-        if (regularCourierTournament == 1)
-            tournament = new CourierTournament(participates) ;
+        if (regularCourierTournament == 2)
+            tournament = new CourierTournament(participates);
         else
             tournament = new RegularTournament(participates);
 
@@ -261,6 +253,10 @@ public class CompetitionPanel extends JPanel {
 
     public int getRegularCourierTournament() {
         return regularCourierTournament;
+    }
+
+    public Tournament getTournament() {
+        return tournament;
     }
 
 //    public int getRegularCourierTournament() {

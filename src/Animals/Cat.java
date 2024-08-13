@@ -3,6 +3,8 @@ package Animals;
 import Graphics.CompetitionPanel;
 import Mobility.Point;
 import Olympics.Medal;
+import Graphics.ZooPanel;
+
 
 /**
  * Represents a Cat animal.
@@ -34,7 +36,7 @@ public class Cat  extends TerrestrialAnimals{
      * @param noLegs- number of legs of Cat. if the number of legs  is less than or equal to 0, a default value of 4 is used.
      * @param castrated- true/false if cat is castrated.
      */
-    public Cat(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, CompetitionPanel pan, double noLegs, boolean castrated) {
+    public Cat(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, ZooPanel pan, double noLegs, boolean castrated) {
         super(name, gender, weight, speed, medals, loc,size, id, orientation, maxEnergy, energyPerMeter, pan, noLegs);
         this.castrated = castrated;
         loadImages("cat");
@@ -49,7 +51,7 @@ public class Cat  extends TerrestrialAnimals{
      * @param maxEnergy      The maximum energy the cat can have.
      * @param panel          The competition panel where the cat participates.
      */
-    public Cat(String name, int speed,int energyPerMeter, int maxEnergy, CompetitionPanel panel) {
+    public Cat(String name, int speed,int energyPerMeter, int maxEnergy, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy,panel);
         this.castrated = false;
 

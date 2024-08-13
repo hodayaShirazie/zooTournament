@@ -10,6 +10,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import Graphics.ZooPanel;
+
 
 /*
 img 1 =  right down
@@ -74,7 +76,7 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
      * @param pan             the competition panel associated with the animal
      * @param noLegs          the number of legs the animal has; if non-positive, defaults to 4
      */
-    public TerrestrialAnimals(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc, int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, CompetitionPanel pan, double noLegs) {
+    public TerrestrialAnimals(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc, int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, ZooPanel pan, double noLegs) {
         super(name, gender, weight, speed, medals, loc, size, id, orientation, maxEnergy, energyPerMeter, pan);
 
         setLocation(new Point(0, 0));
@@ -96,7 +98,7 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
      * @param maxEnergy       the maximum energy the animal can have
      * @param panel           the competition panel associated with the animal
      */
-    public TerrestrialAnimals(String name, int speed, int energyPerMeter, int maxEnergy, CompetitionPanel panel) {
+    public TerrestrialAnimals(String name, int speed, int energyPerMeter, int maxEnergy, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy, panel);
         setLocation(new Point(0, 0));
         canWalk = new CanWalk(4);
@@ -201,14 +203,18 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
      * </ul>
      */
     public void startMoving(){
-        if (getOrientation() == Orientation.EAST)
-            startMoving(new Point(900,0));
-        else if (getOrientation() == Orientation.SOUTH)
-            startMoving(new Point(900,450));
-        else if (getOrientation() == Orientation.WEST)
-            startMoving(new Point(0,450));
-        else if (getOrientation() == Orientation.NORTH)
-            startMoving(new Point(0,0));
+
+
+        startMoving(new Point(getPanel().getWidth() - 65, getLocationY()));
+
+//        if (getOrientation() == Orientation.EAST)
+//            startMoving(new Point(900,0));
+//        else if (getOrientation() == Orientation.SOUTH)
+//            startMoving(new Point(900,450));
+//        else if (getOrientation() == Orientation.WEST)
+//            startMoving(new Point(0,450));
+//        else if (getOrientation() == Orientation.NORTH)
+//            startMoving(new Point(0,0));
 //            setDone(4);
     }
 
@@ -228,5 +234,29 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
      */
     public String getCategory() {
         return "Terrestrial";
+    }
+
+    public void setLocation(int width, int height){
+
+        System.out.println("old width: " + width);
+        System.out.println("New width: " + getPanel().getWidth());
+
+        System.out.println("current x" + getLocationX());
+
+        double x = (double) getLocationX()/width;
+
+        System.out.println("x/width:  " + x);
+
+        int newX = (int) (x * getPanel().getWidth());
+
+        System.out.println("new x" + newX);
+
+        super.setLocation(new Point(newX, 0));
+
+    }
+
+    public double getDistance() {
+
+        return super.calcDistancePoint((new Point(getPanel().getWidth() - 65, getLocationY())));
     }
 }

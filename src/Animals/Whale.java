@@ -3,6 +3,8 @@ package Animals;
 import Graphics.CompetitionPanel;
 import Mobility.Point;
 import Olympics.Medal;
+import Graphics.ZooPanel;
+
 
 
 /**
@@ -34,7 +36,7 @@ public class Whale extends WaterAnimal {
      * @param diveDept the dept of Whale diving. if the dept of diving is above or equal to 0, a default value of -200 is used.
      * @param foodType Whale food type.
      */
-    public Whale(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc, int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, CompetitionPanel pan, double diveDept, String foodType, int competitionRoute) {
+    public Whale(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc, int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, ZooPanel pan, double diveDept, String foodType, int competitionRoute) {
         super(name, gender, weight, speed, medals, loc, size, id, orientation, maxEnergy, energyPerMeter, pan, diveDept, competitionRoute);
         this.foodType = foodType;
         loadImages("whale");
@@ -50,9 +52,8 @@ public class Whale extends WaterAnimal {
      * @param competitionRoute The competition route where the whale is located.
      * @param panel          The competition panel on which the whale is displayed.
      */
-    public Whale(String name, int speed, int energyPerMeter, int maxEnergy, int competitionRoute, CompetitionPanel panel) {
+    public Whale(String name, int speed, int energyPerMeter, int maxEnergy, int competitionRoute, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy, competitionRoute,panel);
-        super.setLocation(new Point(80, (competitionRoute - 1)*57 + competitionRoute*55));
         this.foodType = "krill";
         loadImages("whale");
     }
