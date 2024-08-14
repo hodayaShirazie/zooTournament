@@ -1,11 +1,9 @@
 package Animals;
 
-import Graphics.CompetitionPanel;
 import Mobility.Point;
 import Olympics.Medal;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -51,7 +49,7 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
 
     public TerrestrialAnimals(String name, int speed, int energyPerMeter, int maxEnergy) {
         super(name, speed, energyPerMeter, maxEnergy);
-        setLocation(new Point(0, 0));
+        setInitialLocation();
         canWalk = new CanWalk(4);
 
         this.img2 = null;
@@ -79,7 +77,7 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
     public TerrestrialAnimals(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc, int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, ZooPanel pan, double noLegs) {
         super(name, gender, weight, speed, medals, loc, size, id, orientation, maxEnergy, energyPerMeter, pan);
 
-        setLocation(new Point(0, 0));
+        setInitialLocation();
         if (noLegs <= 0)
             noLegs = 4;
         canWalk = new CanWalk(noLegs);
@@ -100,7 +98,8 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
      */
     public TerrestrialAnimals(String name, int speed, int energyPerMeter, int maxEnergy, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy, panel);
-        setLocation(new Point(0, 0));
+        setInitialLocation();
+
         canWalk = new CanWalk(4);
 
         this.img2 = null;
@@ -113,7 +112,7 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
      */
     public TerrestrialAnimals() {
         super();
-        setLocation(new Point(0, 20));
+        setInitialLocation();
         canWalk = new CanWalk(4);
 
         this.img2 = null;
@@ -178,15 +177,15 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
             super.drawObject(g);
 
         else if (getOrientation() == Orientation.SOUTH) {// animal move to the east side
-            g.drawImage(img2, super.getLocationX(), super.getLocationY(), getSize(), getSize(), getPanel());
+            g.drawImage(img2, super.getLocationX(), super.getLocationY(), getSize(), getSize(), getZooPanel());
         }
 
         else if (getOrientation() == Orientation.WEST) {// animal move to the east side
-            g.drawImage(img3, super.getLocationX(), super.getLocationY(), getSize(), getSize(), getPanel());
+            g.drawImage(img3, super.getLocationX(), super.getLocationY(), getSize(), getSize(), getZooPanel());
         }
 
         else if (getOrientation() == Orientation.NORTH) {// animal move to the east side
-            g.drawImage(img4, super.getLocationX(), super.getLocationY(), getSize(), getSize(), getPanel());
+            g.drawImage(img4, super.getLocationX(), super.getLocationY(), getSize(), getSize(), getZooPanel());
         }
 
 
@@ -202,10 +201,10 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
      *   <li>North - Moves towards (0, 0)</li>
      * </ul>
      */
-    public void startMoving(){
+//    public void startMoving(){
 
-
-        startMoving(new Point(getPanel().getWidth() - 65, getLocationY()));
+//        startMoving(new Point(getZooPanel().getWidth() - 65, getLocationY()));
+//        System.out.println("go to " + new Point(getPanel().getWidth() - 65, getLocationY()).toString() + " and the distance will be " + calcDistancePoint(new Point(getPanel().getWidth() - 65, getLocationY())));
 
 //        if (getOrientation() == Orientation.EAST)
 //            startMoving(new Point(900,0));
@@ -216,7 +215,8 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
 //        else if (getOrientation() == Orientation.NORTH)
 //            startMoving(new Point(0,0));
 //            setDone(4);
-    }
+//    }
+
 
     /**
      * Sets the number of legs of the animal to the default value using the {@link ICanWalk#setNoLegsToDefault()} method.
@@ -238,18 +238,18 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
 
     public void setLocation(int width, int height){
 
-        System.out.println("old width: " + width);
-        System.out.println("New width: " + getPanel().getWidth());
-
-        System.out.println("current x" + getLocationX());
+//        System.out.println("old width: " + width);
+//        System.out.println("New width: " + getPanel().getWidth());
+//
+//        System.out.println("current x" + getLocationX());
 
         double x = (double) getLocationX()/width;
 
-        System.out.println("x/width:  " + x);
+//        System.out.println("x/width:  " + x);
 
-        int newX = (int) (x * getPanel().getWidth());
+        int newX = (int) (x * getZooPanel().getWidth());
 
-        System.out.println("new x" + newX);
+//        System.out.println("new x" + newX);
 
         super.setLocation(new Point(newX, 0));
 
@@ -257,6 +257,22 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
 
     public double getDistance() {
 
-        return super.calcDistancePoint((new Point(getPanel().getWidth() - 65, getLocationY())));
+        System.out.println("distance of animal is  " + super.calcDistancePoint((new Point(getZooPanel().getWidth() - 65, getLocationY()))));
+        return super.calcDistancePoint((new Point(getZooPanel().getWidth() - 65, getLocationY())));
     }
+
+    public void setInitialLocation(){
+        setLocation(new Point(0, 0));
+
+    }
+
+    public void setDestination() {
+        System.out.println("setDestination in teress is called --------------- " + new Point(getZooPanel().getWidth() - 65, getLocationY()));
+        super.setDestination(new Point(getZooPanel().getWidth() - 65, getLocationY()));
+    }
+
+    public int getLenOfRoute(){//Todo match to every size os screen and take all route
+        return 921;
+    }
+
 }

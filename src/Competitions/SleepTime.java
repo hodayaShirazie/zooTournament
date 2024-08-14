@@ -14,6 +14,7 @@ public class SleepTime {
         if (instance == null) {
             instance = new SleepTime();
         }
+        instance.setTime(2000);
         return instance;
     }
 

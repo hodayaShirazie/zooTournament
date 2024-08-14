@@ -39,7 +39,6 @@ public class CompetitionFrame extends JFrame {
 
     private static int frameWidth, frameHeight;
 
-
     /**
      * Constructs the CompetitionFrame, setting up the GUI components.
      *
@@ -80,7 +79,6 @@ public class CompetitionFrame extends JFrame {
             public void componentResized(ComponentEvent e) {
                 // התבצע שינוי בגודל המסך
                 Dimension newSize = getSize();
-                System.out.println("New size: " + newSize.width + "x" + newSize.height);
                 zooPanel.updateLocation(frameWidth, frameHeight);
 
                 frameWidth = newSize.width;
@@ -132,7 +130,7 @@ public class CompetitionFrame extends JFrame {
 
         // Clear Button
         JButton clearButton = new JButton("Clear");
-        clearButton.addActionListener(e -> zooPanel.clearAnimals());
+        clearButton.addActionListener(e -> clear());
         buttonsPanel.add(clearButton);
 
         // Eat Button
@@ -349,6 +347,11 @@ public class CompetitionFrame extends JFrame {
 
         startCompetitionButton.addActionListener(e -> {
 
+//            if(isCompetitionEmpty()){
+//                JOptionPane.showMessageDialog(frame, "competition is empty\nplease add groups to competition before starting", "Error", JOptionPane.ERROR_MESSAGE);
+//                return;
+//            }
+
             if(!validateAnimalCount(tournament.getGroupNumber() + 1,tournament)) {
                 JOptionPane.showMessageDialog(frame, "Invalid operation. current groups are Invalid", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -388,6 +391,14 @@ public class CompetitionFrame extends JFrame {
         }
         return true;
 
+    }
+
+    private boolean  isCompetitionEmpty(){
+        if (currentAnimalsInGroups == null)
+            return false;
+        if (currentAnimalsInGroups.length == 0)
+            return false;
+        return true;
     }
 
     public boolean addGroupColumn(JFrame frame,JPanel groupPanel, int groupNumber, CompetitionPanel tournament) {
@@ -448,6 +459,29 @@ public class CompetitionFrame extends JFrame {
     private void updateAnimalInCompetition(String selectedAnimal,int groupNumber,CompetitionPanel tournament){
         Animal animal = zooPanel.findAnimal(selectedAnimal);
         tournament.addAnimalToGroup(animal, groupNumber);
+    }
+
+    public void clear(){
+
+        currentAnimalsInGroups = new int[5];
+        for (int i=0; i<5; ++i)
+            currentAnimalsInGroups[i] = 0;
+
+        if (zooPanel.getPlayers() != null) {
+            for (Animal animal : zooPanel.getPlayers()) {
+                animal = null;
+            }
+            zooPanel.setPlayers(null);
+        }
+
+        if (zooPanel.getPanels() != null){
+            for (CompetitionPanel panel : zooPanel.getPanels()) {
+                panel = null;
+            }
+            zooPanel.setPanels(null);
+        }
+
+//        zooPanel.setBackgroundImage(null);
     }
 
     /**

@@ -2,6 +2,8 @@ package Competitions;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static java.lang.Thread.currentThread;
+
 public class Referee implements Runnable {
 
     private String name;
@@ -21,18 +23,23 @@ public class Referee implements Runnable {
 
     @Override
     public void run() {
-        synchronized (scores) {
+        synchronized (finishFlag) {
             while (!finishFlag.get()) {
                 try {
-                    scores.wait();
+                    System.out.println("wait that finishFlag will be true " + currentThread().getName());
+//                    System.out.println("wait to scores");
+                    finishFlag.wait();
                 }
                 catch (InterruptedException e) {
                     System.out.println(e.getMessage());
 
                 }
             }
+            System.out.println("added name to scores " + currentThread().getName());
             scores.add(name);
-            scores.notifyAll();
+            synchronized (scores) {
+                scores.notifyAll(); //added
+            }
         }
     }
 

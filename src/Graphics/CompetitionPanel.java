@@ -225,7 +225,7 @@ public class CompetitionPanel extends JPanel {
     }
 
     public void addAnimalToGroup(Animal animal, int groupNumber){
-        animal.setIsAvailable(false);
+//        animal.setIsAvailable(false);
 
         if(participates[groupNumber-1] == null) {
             participates[groupNumber - 1] = new Animal[1];
@@ -240,6 +240,7 @@ public class CompetitionPanel extends JPanel {
             participates[groupNumber - 1] = tmpParticipate;
 
         }
+        animal.setCompetitionPanel(this);
         repaint();
     }
 
@@ -248,6 +249,8 @@ public class CompetitionPanel extends JPanel {
             tournament = new CourierTournament(participates);
         else
             tournament = new RegularTournament(participates);
+
+
 
     }
 

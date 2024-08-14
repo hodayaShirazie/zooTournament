@@ -412,7 +412,7 @@ public class AddAnimalDialog extends JDialog{
             if (validateFields(fieldsPanel)) {
                 JOptionPane.showMessageDialog(frame, "Animal was added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(frame, "Value must be at least 60.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "All fields must be filled", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 

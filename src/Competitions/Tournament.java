@@ -14,12 +14,14 @@ public abstract class Tournament {
 
     protected int getAnimalAsNumber(String animalName) {
         switch (animalName) {
-            case "Air":
-                return 1;
             case "Water":
+                return 1;
+            case "Air":
                 return 2;
             case "Terrestrial":
                 return 3;
+            case "Terrestrial+Water":
+                return 1;
         }
         return 0;
     }

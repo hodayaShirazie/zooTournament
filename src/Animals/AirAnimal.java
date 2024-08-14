@@ -1,11 +1,8 @@
 package Animals;
 
-import Graphics.CompetitionPanel;
 import Mobility.Point;
 import Olympics.Medal;
 import Graphics.ZooPanel;
-
-import java.awt.*;
 
 /**
  * Represents an air animal.
@@ -47,7 +44,9 @@ public abstract class AirAnimal extends Animal {
      */
     public AirAnimal(String name, Gender gender, double weight, double speed, Medal[] medals  , Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, ZooPanel pan, double wingspan, int competitionRoute) {
         super(name, gender, weight, speed, medals, loc,size, id, orientation, maxEnergy, energyPerMeter, pan);
-        setLocation(0,0);
+//        setLocation(0,0);
+        setInitialLocation();
+
         if(wingspan <= 0)
         {
             this.wingspan = 30;
@@ -71,7 +70,8 @@ public abstract class AirAnimal extends Animal {
         super(name, speed, energyPerMeter, maxEnergy,panel);
 
         this.competitionRoute = competitionRoute;
-        super.setLocation(new Point(0, 2*(getPanel().getHeight()/9) * (competitionRoute - 1)));
+        setInitialLocation();
+//        super.setLocation(new Point(0, 2*(getPanel().getHeight()/9) * (competitionRoute - 1)));
         this.wingspan = 30;
 
     }
@@ -79,7 +79,9 @@ public abstract class AirAnimal extends Animal {
     public AirAnimal(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute ) {
         super(name, speed, energyPerMeter, maxEnergy);
 
-        setLocation(0,0);
+        setInitialLocation();
+
+//        setLocation(0,0);
         this.wingspan = 30;
         this.competitionRoute = competitionRoute;
 
@@ -90,7 +92,9 @@ public abstract class AirAnimal extends Animal {
      */
     public AirAnimal() {
         super();
-        setLocation(0, 0);
+//        setLocation(0, 0);
+        setInitialLocation();
+
         this.wingspan = 30;
         this.competitionRoute = 1;
 
@@ -131,16 +135,16 @@ public abstract class AirAnimal extends Animal {
      * Starts moving the air animal towards the right edge of the screen.
      * The animal moves towards a point at x-coordinate 900 and its current y-coordinate.
      */
-    public void startMoving() {
-
-        startMoving(new Point(getPanel().getWidth() - 65, getLocationY()));
-
-    }
+//    public void startMoving() {
+//
+//        startMoving(new Point(getZooPanel().getWidth() - 65, getLocationY()));
+//
+//    }
 
     public void setLocation(int width, int height){
 
         System.out.println("old width: " + width);
-        System.out.println("New width: " + getPanel().getWidth());
+        System.out.println("New width: " + getZooPanel().getWidth());
 
         System.out.println("current x" + getLocationX());
 
@@ -148,12 +152,39 @@ public abstract class AirAnimal extends Animal {
 
         System.out.println("x/width:  " + x);
 
-        int newX = (int) (x * getPanel().getWidth());
+        int newX = (int) (x * getZooPanel().getWidth());
 
         System.out.println("new x" + newX);
 
-        super.setLocation(new Point(newX, 2*(getPanel().getHeight()/9) * (competitionRoute - 1)));
+        super.setLocation(new Point(newX, 2*(getZooPanel().getHeight()/9) * (competitionRoute - 1)));
 
+    }
+
+    public void setInitialLocation(){
+        super.setLocation(new Point(0, 2*(getZooPanel().getHeight()/9) * (competitionRoute - 1)));
+
+    }
+
+    public void setDestination(){
+
+        super.setDestination(new Point(getZooPanel().getWidth() - 65, getLocationY()));
+
+    }
+
+
+    @Override
+    public int getCompetitionRoute() {
+        return competitionRoute;
+    }
+
+    public double getDistance() {
+
+        System.out.println("distance of animal is  " + super.calcDistancePoint((new Point(getZooPanel().getWidth() - 65, getLocationY()))));
+        return super.calcDistancePoint((new Point(getZooPanel().getWidth() - 65, getLocationY())));
+    }
+
+    public int getLenOfRoute(){//Todo match to every size os screen
+        return 921;
     }
 
 }

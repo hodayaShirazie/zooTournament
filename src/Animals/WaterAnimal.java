@@ -1,6 +1,5 @@
 package Animals;
 
-import Graphics.CompetitionPanel;
 import Mobility.Point;
 import Olympics.Medal;
 import Graphics.ZooPanel;
@@ -29,7 +28,7 @@ public abstract class WaterAnimal extends Animal {
 
     public WaterAnimal(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute ) {
         super(name, speed, energyPerMeter, maxEnergy);
-        setLocation(new Point(80,(competitionRoute)*30 + 25));
+        setInitialLocation();
 //        setLocation(new Point(80,(competitionRoute)*98));
 
         setDiveDept(0);
@@ -60,7 +59,7 @@ public abstract class WaterAnimal extends Animal {
     public WaterAnimal(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, ZooPanel pan, double diveDept,int competitionRoute ) {
         super(name, gender, weight, speed, medals, loc,size, id, orientation, maxEnergy, energyPerMeter, pan);
 
-        setLocation(new Point(0,50));
+        setInitialLocation();
 
         setDiveDept(diveDept);
         setCompetitionRoute(competitionRoute);
@@ -89,7 +88,7 @@ public abstract class WaterAnimal extends Animal {
         super(name, speed, energyPerMeter, maxEnergy,panel);
         setCompetitionRoute(competitionRoute);
 
-        super.setLocation(new Point((int)(getPanel().getWidth()*0.085), (getPanel().getHeight()/9)* (2*getCompetitionRoute() - 1)));
+        setInitialLocation();
 
         setDiveDept(0);
 //        canDive = new CanDive(-200);
@@ -102,7 +101,7 @@ public abstract class WaterAnimal extends Animal {
      */
     public WaterAnimal() {
         super();
-        setLocation(new Point(0,50));
+        setInitialLocation();
         setDiveDept(0);
         setCompetitionRoute(1);
 //        canDive = new CanDive(-200);
@@ -138,12 +137,12 @@ public abstract class WaterAnimal extends Animal {
      * Starts moving the water animal towards the specified destination point.
      * This implementation sets the destination based on the current Y-coordinate.
      */
-    @Override
-    public void startMoving() {
-
-        startMoving(new Point((getPanel().getWidth() - 65 - (int)(getPanel().getWidth()*0.085)), getLocationY()));
-
-    }
+//    @Override
+//    public void startMoving() {
+//
+//        startMoving(new Point((getZooPanel().getWidth() - 65 - (int)(getZooPanel().getWidth()*0.085)), getLocationY()));
+//
+//    }
 
     /**
      * Returns the current competition route for the water animal.
@@ -153,6 +152,7 @@ public abstract class WaterAnimal extends Animal {
     public int getCompetitionRoute() {
         return competitionRoute;
     }
+
 
     /**
      * Sets the competition route for the water animal.
@@ -220,14 +220,35 @@ public abstract class WaterAnimal extends Animal {
     public void setLocation(int width, int height){
 
         double x = (double) getLocationX()/width;
-        int newX = (int) (x * getPanel().getWidth());
+        int newX = (int) (x * getZooPanel().getWidth());
 
-        super.setLocation(new Point(newX, (getPanel().getHeight()/9)* (2*getCompetitionRoute() - 1)));
+        super.setLocation(new Point(newX, (getZooPanel().getHeight()/9)* (2*getCompetitionRoute() - 1)));
 
     }
 
     @Override
     public double getDistance() {
-        return super.calcDistancePoint(new Point((getPanel().getWidth() - 65 - (int)(getPanel().getWidth()*0.085)), getLocationY()));
+        return super.calcDistancePoint(new Point((getZooPanel().getWidth() - 65 - (int)(getZooPanel().getWidth()*0.085)), getLocationY()));
     }
+
+    public void setInitialLocation(){
+        super.setLocation(new Point((int)(getZooPanel().getWidth()*0.085), (getZooPanel().getHeight()/9)* (2*getCompetitionRoute() - 1)));
+
+    }
+
+    public void setDestination(){
+
+        super.setDestination(new Point((getZooPanel().getWidth() - 65 - (int)(getZooPanel().getWidth()*0.085)), getLocationY()));
+
+    }
+
+    public int getLenOfRoute(){//Todo match to every size os screen
+        return 755;
+    }
+
+    public int getXinit(){
+        return (int)(getZooPanel().getWidth()*0.085);
+    }
+
+
 }

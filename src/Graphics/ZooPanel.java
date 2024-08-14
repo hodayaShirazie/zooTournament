@@ -621,14 +621,16 @@ public class ZooPanel extends JPanel{
         frame.setVisible(true);
     }
 
-    public void clearAnimals(){//Todo everyathing
+    public void setPanels(CompetitionPanel[] panels) {
+        this.panels = panels;
+    }
 
-        if (players != null) {
-            for (Animal animal : players) {
-                animal.setIsAvailable(true);
-            }
-        }
-        repaint();
+    public void setBackgroundImage(Image backgroundImage) {
+        this.backgroundImage = backgroundImage;
+    }
+
+    public void setPlayers(Animal[] players) {
+        this.players = players;
     }
 
     public void setSleep() {

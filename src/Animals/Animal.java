@@ -10,8 +10,8 @@ import Olympics.Medal;
 import Graphics.IDrawable;
 import Graphics.IMovable;
 import Graphics.IAnimal;
-import java.awt.image.BufferedImage;
 import Graphics.CompetitionPanel;
+import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
@@ -81,7 +81,9 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
     /**
      * Represents the competition panel associated with the animal.
      */
-    private ZooPanel panel;
+    private ZooPanel zooPanel;
+
+    private CompetitionPanel panel;
 
     /**
      * Represents the first buffered image associated with the animal.
@@ -133,6 +135,8 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
      */
     private boolean isAvailable;
 
+    private Point destination;
+
 
     public Animal(String name, int speed, int energyPerMeter, int maxEnergy) {
         super();
@@ -150,7 +154,7 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         this.size = 65;
         this.id = 000000000;
         this.orientation = Orientation.EAST;
-        this.panel = null;
+        this.zooPanel = null;
         this.img1 = null;
 
         isAvailable = true;
@@ -170,9 +174,9 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
      * @param speed           the speed of the animal
      * @param energyPerMeter  the energy consumed by the animal per meter of movement
      * @param maxEnergy       the maximum energy the animal can have
-     * @param panel           the competition panel associated with the animal
+     * @param zooPanel           the competition panel associated with the animal
      */
-    public Animal(String name, int speed, int energyPerMeter, int maxEnergy, ZooPanel panel) {
+    public Animal(String name, int speed, int energyPerMeter, int maxEnergy, ZooPanel zooPanel) {
         super();
         this. name = name;
         this.speed = speed;
@@ -188,10 +192,12 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         this.size = 65;
         this.id = 000000000;
         this.orientation = Orientation.EAST;
-        this.panel = panel;
+        this.zooPanel = zooPanel;
+        this.panel = null;
         this.img1 = null;
+        this.destination = null;
 
-        isAvailable = true;
+        this.isAvailable = true;
         done  = 0;
 
         drawable = null;
@@ -284,7 +290,7 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         this.energyPerMeter = energyPerMeter;
         this.totalEnergyFromEating = 0;
 
-        this.panel = pan;
+        this.zooPanel = pan;
 
         this.img1 = null;
         isAvailable = true;
@@ -316,7 +322,7 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         this.currentEnergy = 0;
         this.energyPerMeter = 30;
         this.totalEnergyFromEating = 0;
-        this.panel = null;
+        this.zooPanel = null;
 
         this.img1 = null;
         isAvailable = true;
@@ -444,7 +450,7 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
      */
     public void drawObject (Graphics g) {
         if(img1 != null)
-            g.drawImage(img1, super.getLocationX(), super.getLocationY(), size, size, panel);
+            g.drawImage(img1, super.getLocationX(), super.getLocationY(), size, size, zooPanel);
     }
 
     /**
@@ -486,16 +492,15 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
      * Abstract method to start moving the animal.
      * This method must be implemented by subclasses to define how the animal starts moving.
      */
-    public abstract void startMoving();
+//    public abstract void startMoving();
 
     /**
      * Starts moving the animal toward a specified destination.
      * A timer is used to periodically move the animal toward the destination.
      *
-     * @param destination the target point to move towards
      */
-    protected void startMoving(Point destination) {
-        timer = new Timer(100 / 60, e -> moveToward(destination));
+    protected void startMoving() {
+        timer = new Timer(100 / 60, e -> moveToward());
         timer.start();
     }
 
@@ -506,9 +511,8 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
      * the destination or runs out of energy. If the animal's energy drops below zero, it stops moving and energy is set to zero.
      * </p>
      *
-     * @param destination The target point to move towards.
      */
-    protected void moveToward(Point destination) {
+    protected void moveToward() {
         double frameSpeed = speed / 60;
         if (frameSpeed < 1)
             frameSpeed = 1;
@@ -522,7 +526,7 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         }
         if (orientation == Orientation.EAST || orientation == Orientation.WEST) {
             if (Math.abs(getLocationX() - destination.getX()) <= frameSpeed) {
-                setLocation(destination);
+                move(destination);
                 timer.stop();
 
             } else {
@@ -536,7 +540,7 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         else if (orientation == Orientation.SOUTH || orientation == Orientation.NORTH) {
 
             if (Math.abs(getLocationY() - destination.getY()) <= frameSpeed) {
-                setLocation(destination);
+                move(destination);
                 timer.stop();
 
             } else {
@@ -549,6 +553,7 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         }
 
         currentEnergy -= frameSpeed*energyPerMeter;
+
     }
 
     /**
@@ -568,8 +573,8 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
      *
      * @return the competition panel
      */
-    public ZooPanel getPanel() {
-        return panel;
+    public ZooPanel getZooPanel() {
+        return zooPanel;
     }
 
     /**
@@ -721,18 +726,44 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         isAvailable = available;
     }
 
-    public void setPanel(ZooPanel panel) {
-        this.panel = panel;
+    public void setZooPanel(ZooPanel zooPanel) {
+        this.zooPanel = zooPanel;
     }
 
-    public void setLocation(int width, int height) {
-
-    }
+    public abstract void setLocation(int width, int height);
 
     public double getDistance(){
         return 0;
     }
 
+    public abstract void setInitialLocation();
 
+    public CompetitionPanel getCompetitionPanel() {
+        return panel;
+    }
+
+    public void setCompetitionPanel(CompetitionPanel panel){
+        this.panel = panel;
+    }
+
+    public Point getDestination() {
+        return destination;
+    }
+
+    public abstract void setDestination();
+
+    public void setDestination(Point destination) {
+        this.destination = destination;
+    }
+
+    public int getCompetitionRoute(){
+        return 0;
+    }
+
+    public abstract int getLenOfRoute();
+
+    public int getXinit(){
+        return 0;
+    }
 
 }
