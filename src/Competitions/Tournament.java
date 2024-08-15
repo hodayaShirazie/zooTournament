@@ -30,8 +30,8 @@ public abstract class Tournament {
         this.tournamentThread = tournamentThread;
     }
 
-    protected TournamentThread getTournamentThread() {
+    public TournamentThread getTournamentThread() {
         return tournamentThread;
-    }
+    } //Todo changes from protected to publick. checkk
 
 }

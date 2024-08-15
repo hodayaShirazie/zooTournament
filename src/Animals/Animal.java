@@ -137,6 +137,8 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
 
     private Point destination;
 
+    private boolean needToMove;
+
 
     public Animal(String name, int speed, int energyPerMeter, int maxEnergy) {
         super();
@@ -203,6 +205,8 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         drawable = null;
         locatable = null;
         cloneable = null;
+
+        this.needToMove = false;
 
 
     }
@@ -499,7 +503,7 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
      * A timer is used to periodically move the animal toward the destination.
      *
      */
-    protected void startMoving() {
+    public void startMoving() {
         timer = new Timer(100 / 60, e -> moveToward());
         timer.start();
     }
@@ -766,4 +770,25 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         return 0;
     }
 
+    public int getAnimalAsNumber(String animalName) {
+        switch (animalName) {
+            case "Water":
+                return 1;
+            case "Air":
+                return 2;
+            case "Terrestrial":
+                return 3;
+            case "Terrestrial+Water":
+                return 1;
+        }
+        return 0;
+    }
+
+    public boolean isNeedToMove() {
+        return needToMove;
+    }
+
+    public void setNeedToMove(boolean needToMove) {
+        this.needToMove = needToMove;
+    }
 }

@@ -201,21 +201,40 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
      *   <li>North - Moves towards (0, 0)</li>
      * </ul>
      */
-//    public void startMoving(){
+    public void startMoving() {
 
 //        startMoving(new Point(getZooPanel().getWidth() - 65, getLocationY()));
 //        System.out.println("go to " + new Point(getPanel().getWidth() - 65, getLocationY()).toString() + " and the distance will be " + calcDistancePoint(new Point(getPanel().getWidth() - 65, getLocationY())));
 
-//        if (getOrientation() == Orientation.EAST)
-//            startMoving(new Point(900,0));
-//        else if (getOrientation() == Orientation.SOUTH)
-//            startMoving(new Point(900,450));
-//        else if (getOrientation() == Orientation.WEST)
-//            startMoving(new Point(0,450));
-//        else if (getOrientation() == Orientation.NORTH)
-//            startMoving(new Point(0,0));
-//            setDone(4);
-//    }
+        if (getOrientation() == Orientation.EAST){
+            System.out.println("set destianation in East---------");
+            setDestination(new Point(getZooPanel().getWidth() - 65, getLocationY()));
+            System.out.println("get destianation : " + getDestination());
+            super.startMoving();
+        }
+        else if (getOrientation() == Orientation.SOUTH){
+            System.out.println("set destianation in South---------");
+            setDestination(new Point(getLocationX(), getZooPanel().getHeight() - 65));
+            System.out.println("get destianation : " + getDestination());
+            super.startMoving();
+        }
+        else if (getOrientation() == Orientation.WEST){
+            System.out.println("set destianation in west---------");
+            setDestination(new Point(0, getLocationY()));
+            System.out.println("get destianation : " + getDestination());
+
+            super.startMoving();
+        }
+        else if (getOrientation() == Orientation.NORTH){
+            System.out.println("set destianation in north---------");
+
+            setDestination(new Point(getLocationX(), 0));
+            System.out.println("get destianation : " + getDestination());
+            super.startMoving();
+            setDone(4);
+
+        }
+    }
 
 
     /**
@@ -257,8 +276,9 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
 
     public double getDistance() {
 
-        System.out.println("distance of animal is  " + super.calcDistancePoint((new Point(getZooPanel().getWidth() - 65, getLocationY()))));
-        return super.calcDistancePoint((new Point(getZooPanel().getWidth() - 65, getLocationY())));
+        return (921*2 + 445*2);
+//        System.out.println("distance of animal is  " + super.calcDistancePoint((new Point(getZooPanel().getWidth() - 65, getLocationY()))));
+//        return super.calcDistancePoint((new Point(getZooPanel().getWidth() - 65, getLocationY())));
     }
 
     public void setInitialLocation(){
@@ -272,7 +292,7 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
     }
 
     public int getLenOfRoute(){//Todo match to every size os screen and take all route
-        return 921;
+        return (921*2 + 445*2);
     }
 
 }

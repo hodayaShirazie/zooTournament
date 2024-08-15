@@ -104,6 +104,7 @@ public class TournamentThread implements Runnable {
             }
             //TODO never comes to here
             System.out.println("num of scores after loop = " + scores.getAll().size() + " " + currentThread().getName());
+            System.out.println("printing scores after loop-- " + scores.getAll());
         }
     }
 
@@ -130,7 +131,6 @@ public class TournamentThread implements Runnable {
         synchronized (terrestrialSignal) {
             terrestrialSignal.notifyAll();
         }
-        System.out.println("terrestrial signal is true " + currentThread().getName());
 
     }
 

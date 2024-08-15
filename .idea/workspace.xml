@@ -6,21 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="56481981-2bb0-4d26-b7c0-078262b0e755" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Animals/Animal.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Animals/Animal.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Animals/AnimalThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Animals/AnimalThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Animals/TerrestrialAnimals.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Animals/TerrestrialAnimals.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Competitions/Referee.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Competitions/Referee.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Competitions/RegularTournament.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Competitions/RegularTournament.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Competitions/TournamentThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Competitions/TournamentThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Animals/AirAnimal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/AirAnimal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/AddAnimalDialog$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/AddAnimalDialog$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/AddAnimalDialog$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/AddAnimalDialog$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/AddAnimalDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/AddAnimalDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/CompetitionFrame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/CompetitionFrame$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/CompetitionFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/CompetitionFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/ZooPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/ZooPanel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/ZooPanel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/ZooPanel$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/ZooPanel$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/ZooPanel$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/ZooPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/ZooPanel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Animals/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Animal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Animals/AnimalThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/AnimalThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Animals/TerrestrialAnimals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/TerrestrialAnimals.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Animals/WaterAnimal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/WaterAnimal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Competitions/CourierTournament.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Competitions/CourierTournament.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Competitions/Referee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Competitions/Referee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Competitions/RegularTournament.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Competitions/RegularTournament.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Competitions/SleepTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Competitions/SleepTime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Competitions/Scores.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Competitions/Scores.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Competitions/Tournament.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Competitions/Tournament.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Competitions/TournamentThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Competitions/TournamentThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Graphics/AddAnimalDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphics/AddAnimalDialog.java" afterDir="false" />
@@ -43,18 +41,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "hodayaShirazie"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;hodayaShirazie&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/hodayaShirazie/zooTournament.git",
-    "accountId": "65bb4546-a4f7-47cb-810d-ad0109166c2e"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/hodayaShirazie/zooTournament.git&quot;,
+    &quot;accountId&quot;: &quot;65bb4546-a4f7-47cb-810d-ad0109166c2e&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 2
@@ -69,7 +67,7 @@
     "Application.CompetitionFrame.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Student/IJ_Java/Zoo-competition"
+    "last_opened_file_path": "C:/Users/Student/IJ_Java/Zoo-competition H.W3/Zoo-competition"
   }
 }]]></component>
   <component name="RunManager">
@@ -113,35 +111,105 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Graphics/ZooPanel.java</url>
-          <line>117</line>
+          <line>120</line>
           <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Competitions/CourierTournament.java</url>
-          <line>17</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Competitions/Referee.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="41" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Animals/AnimalThread.java</url>
-          <line>56</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Graphics/CompetitionPanel.java</url>
-          <line>247</line>
-          <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Competitions/Scores.java</url>
           <line>16</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Competitions/TournamentThread.java</url>
+          <line>106</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Graphics/ZooPanel.java</url>
+          <line>811</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Competitions/CourierTournament.java</url>
+          <line>71</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Competitions/CourierTournament.java</url>
+          <line>82</line>
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Graphics/ZooPanel.java</url>
+          <line>826</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Graphics/ZooPanel.java</url>
+          <line>864</line>
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Graphics/ZooPanel.java</url>
+          <line>880</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Graphics/ZooPanel.java</url>
+          <line>909</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Graphics/ZooPanel.java</url>
+          <line>959</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Graphics/CompetitionFrame.java</url>
+          <line>401</line>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Graphics/CompetitionFrame.java</url>
+          <line>445</line>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Graphics/CompetitionFrame.java</url>
+          <line>429</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Graphics/CompetitionFrame.java</url>
+          <line>354</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Graphics/CompetitionFrame.java</url>
+          <line>414</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Graphics/CompetitionFrame.java</url>
+          <line>408</line>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Graphics/CompetitionFrame.java</url>
+          <line>437</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Graphics/CompetitionFrame.java</url>
+          <line>425</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="tournament.tournament" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

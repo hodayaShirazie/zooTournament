@@ -315,6 +315,8 @@ public class AddAnimalDialog extends JDialog{
         addArrowKeyNavigation(nameField, speedField);
         addArrowKeyNavigation(speedField, energyPerMeterField);
         addArrowKeyNavigation(energyPerMeterField, maxEnergyField);
+        addArrowKeyNavigation(maxEnergyField, energyPerMeterField);
+
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -409,9 +411,15 @@ public class AddAnimalDialog extends JDialog{
         JButton submitButton = new JButton("Create");
         submitButton.addActionListener(e -> {
 
+            String animalName = getAnimalNameInput(fieldsPanel);
+            if (isAnimalNameExists(panel,animalName)){
+                JOptionPane.showMessageDialog(frame, "animal with the same name already exists", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
             if (validateFields(fieldsPanel)) {
                 JOptionPane.showMessageDialog(frame, "Animal was added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            } else {
+            } else  {
                 JOptionPane.showMessageDialog(frame, "All fields must be filled", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -440,7 +448,6 @@ public class AddAnimalDialog extends JDialog{
      * @return true if all fields are filled; false otherwise.
      */
     private boolean validateFields(JPanel fieldsPanel) {
-
         for (Component component : fieldsPanel.getComponents()) {
             if (component instanceof JTextField) {
                 JTextField textField = (JTextField) component;
@@ -456,6 +463,13 @@ public class AddAnimalDialog extends JDialog{
             }
         }
         return true;
+    }
+
+    private String getAnimalNameInput(JPanel fieldsPanel){
+        JTextField nameField = (JTextField) fieldsPanel.getComponent(1);
+        String name = nameField.getText();
+        System.out.println("animal name in getAnimalNameInput "+name );
+        return name;
     }
 
     /**
@@ -503,8 +517,6 @@ public class AddAnimalDialog extends JDialog{
         }
 
 
-
-
         // Convert competition route input if applicable
         if(animalType == 1 || animalType == 4 || animalType == 8|| animalType == 5|| animalType == 6) {
             try {
@@ -516,6 +528,16 @@ public class AddAnimalDialog extends JDialog{
         }
         // Create and return the Animal object
         return createAnimal(animalType,name, speedInt, energyPerMeterInt, maxEnergyInt, selectedCompetitionRouteInt, panel);
+    }
+
+    private boolean isAnimalNameExists(ZooPanel panel, String animalName){
+        if (panel.getPlayers() == null)
+            return false;
+        int playersLen = panel.getPlayers().length;
+        for (int i=0; i<playersLen; ++i)
+            if (panel.getPlayers()[i].getAnimalName().equals(animalName))
+                return true;
+        return false;
     }
 
     /**

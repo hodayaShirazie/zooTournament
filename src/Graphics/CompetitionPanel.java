@@ -37,7 +37,7 @@ public class CompetitionPanel extends JPanel {
     /**
      * Array of animals participating in the competition.
      */
-    public Animal[][]participates;
+    private Animal[][]participates;
 
     /**
      * Background image for the competition panel.
@@ -260,6 +260,10 @@ public class CompetitionPanel extends JPanel {
 
     public Tournament getTournament() {
         return tournament;
+    }
+
+    public Animal[][] getParticipates() {
+        return participates;
     }
 
 //    public int getRegularCourierTournament() {

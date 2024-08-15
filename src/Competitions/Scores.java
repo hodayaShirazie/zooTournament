@@ -25,7 +25,8 @@ public class Scores {
 
     public Map<String,Date> getAll()
     {
-        return Collections.unmodifiableMap(scores);
+        return scores;
+//        return Collections.unmodifiableMap(scores);
     }
 
     @Override

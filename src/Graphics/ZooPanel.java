@@ -10,6 +10,8 @@ import java.awt.*;
 import java.text.NumberFormat;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
+import java.util.Map;
 
 import Competitions.Scores;
 import Competitions.SleepTime;
@@ -30,7 +32,9 @@ public class ZooPanel extends JPanel{
     /**
      * Number of columns in the competition table.
      */
-    private static final int columns = 8;
+    private static final int animalsTableColumns = 8;
+    private static final int tournamentTableColumns = 3;
+
 
     public ZooPanel(){
         Timer timer = new Timer(1000 / 60, e -> repaint());
@@ -62,7 +66,6 @@ public class ZooPanel extends JPanel{
      *      * Opens a dialog to add a new animal to the competition.
      */
     public void addAnimal() {
-
         AddAnimalDialog animalDialog = new AddAnimalDialog(this);
     }
 
@@ -129,7 +132,7 @@ public class ZooPanel extends JPanel{
      * The table includes columns for the animal's name, category, type, speed, energy, amount, distance, and energy consumption.
      * </p>
      */
-    public void showInfo() {
+    public void showAnimalsInfo() {
 
         JFrame frame = new JFrame("Participate Animals Information");
         frame.setSize(900, 200);
@@ -145,7 +148,7 @@ public class ZooPanel extends JPanel{
         String[] columnNames = {"Animal", "Category", "Type", "Speed", "Energy", "Amount", "Distance", "Energy Consuming"};
 
 
-        Object[][] competitionTable = createTable();
+        Object[][] competitionTable = createAnimalsTable();
 
         DefaultTableModel tableModel = new DefaultTableModel(competitionTable, columnNames) {
             @Override
@@ -188,13 +191,13 @@ public class ZooPanel extends JPanel{
      *
      * @return A 2D object array containing animal details, or null if the participants array is null.
      */
-    public Object[][] createTable() {
+    public Object[][] createAnimalsTable() {
         if (players == null)
             return null;
 
         int playersLen = players.length;
 
-        Object[][] table = new Object[playersLen][columns];
+        Object[][] table = new Object[playersLen][animalsTableColumns];
 
         for (int i = 0; i < playersLen; ++i) {
             table[i][0] = players[i].getAnimalName();
@@ -327,7 +330,8 @@ public class ZooPanel extends JPanel{
                             animalToFeed.getType() + " Feeding", JOptionPane.INFORMATION_MESSAGE);
 
 
-//                        startMove();  //make the animal start moving on screen
+                    if(animalToFeed.isNeedToMove())
+                        animalToFeed.startMoving();
 
 
                 } else {
@@ -362,19 +366,19 @@ public class ZooPanel extends JPanel{
         for (int i=0; i<len; ++i)
         {
             System.out.println("tournament number: " + (i+1));
-            groupLen = panels[i].participates.length;
+            groupLen = panels[i].getParticipates().length;
             System.out.println(groupLen);
 
             for(int k=0; k<groupLen; ++k)
             {
                 System.out.println("group number: " + (k+1));
-                animalLen = panels[i].participates[k].length;
+                animalLen = panels[i].getParticipates()[k].length;
                 System.out.println(animalLen);
 
                 for (int j = 0; j< animalLen; ++j)
 //                for (Animal animal : tournaments[i].participates[k])
                 {
-                    System.out.println(panels[i].participates[k][j].toString());
+                    System.out.println(panels[i].getParticipates()[k][j].toString());
                 }
             }
         }
@@ -414,6 +418,72 @@ public class ZooPanel extends JPanel{
         return animalsNamesComboBox;
     }
 
+    public JComboBox<String> selectAnimalToAddIfAvailable(int competitionType, int competitionRout) {
+
+        if (players == null)
+            return new JComboBox<>(new String[]{"No Animals Available"});
+
+        String[] animalsNames = new String[countAvailableAnimalsFromType(competitionType) + 1];
+        animalsNames[0] = "Select Animal";
+
+        switch (competitionType) {
+            case 1: //selects from Water animals
+            {
+                int i = 1;
+                for (Animal animal : players) {
+                    if (animal != null)
+                        if (animal.isAvailable())
+                            if (animal.getCategory().equals("Water") || animal.getCategory().equals("Terrestrial+Water")) {
+                                if (animal.getCompetitionRoute() == competitionRout) {
+                                    animalsNames[i] = animal.getAnimalName();
+                                    ++i;
+                                }
+                            }
+                }
+
+                break;
+            }
+            case 2: //selects from Air animals
+            {
+                int i = 1;
+                for (Animal animal : players) {
+                    if (animal != null)
+                        if (animal.isAvailable())
+                            if (animal.getCategory().equals("Air")) {
+                                if (animal.getCompetitionRoute() == competitionRout) {
+                                    animalsNames[i] = animal.getAnimalName();
+                                    ++i;
+                                }
+                            }
+                }
+                break;
+            }
+            case 3: //selects from Terrestrial animals
+            {
+                int i = 1;
+                for (Animal animal : players) {
+                    if (animal != null)
+                        if (animal.isAvailable())
+                            if (animal.getCategory().equals("Terrestrial") || animal.getCategory().equals("Terrestrial+Water")) {
+                                animalsNames[i] = animal.getAnimalName();
+                                ++i;
+                            }
+
+                }
+
+                break;
+            }
+            default:
+                System.out.println("Error accorded");
+                break;
+        }
+
+        JComboBox<String> animalsNamesComboBox = new JComboBox<>(animalsNames);
+        animalsNamesComboBox.setPreferredSize(new Dimension(150, 25));
+
+        return animalsNamesComboBox;
+    }
+
     public JComboBox<String> selectAnimalToAddIfAvailable(int competitionType) {
 
         if (players == null)
@@ -437,7 +507,7 @@ public class ZooPanel extends JPanel{
 
                 break;
             }
-            case 2: //selects from Water animals
+            case 2: //selects from Air animals
             {
                 int i = 1;
                 for (Animal animal : players) {
@@ -450,7 +520,7 @@ public class ZooPanel extends JPanel{
                 }
                 break;
             }
-            case 3: //selects from Water animals
+            case 3: //selects from Terrestrial animals
             {
                 int i = 1;
                 for (Animal animal : players) {
@@ -725,14 +795,6 @@ public class ZooPanel extends JPanel{
         return formatter;
     }
 
-    public void showScores(){
-
-
-
-
-//        Scores scores = panels[0].getTournament().getTournamentThread().getScores();
-    }
-
     public void updateLocation(int width, int height){
         if (players != null) {
             for (Animal animal : players) {
@@ -740,6 +802,253 @@ public class ZooPanel extends JPanel{
             }
         }
     }
+
+    public void printZooPanels(){
+        System.out.println("--------------------printing panels and scores---------------");
+        for (int i=0; i<panels.length; ++i)
+        {
+            System.out.println("********************score number " + (i+1) + "********************");
+//            int len = panels[i].getTournament().getTournamentThread().getScores().getAll().size();
+            System.out.println(panels[i].getTournament().getTournamentThread().getScores().getAll().toString());
+            System.out.println("*******************************************************************");
+
+
+        }
+    }
+
+
+
+    public void showScoresInfo(){
+        if (panels == null) {
+            JOptionPane.showMessageDialog(this, "No Groups available", "Invalid operation", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        JFrame frame = new JFrame("Animals scores");
+        frame.setSize(400, 200);
+        frame.setLayout(new BorderLayout(10, 10));
+        frame.setLocationRelativeTo(null);
+
+        JLabel titleLabel = new JLabel("Animals scores", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        frame.add(titleLabel, BorderLayout.NORTH);
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        JPanel selectGroupPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        TitledBorder selectGroupBorder = BorderFactory.createTitledBorder("Select group");
+        selectGroupBorder.setTitleFont(new Font("Arial", Font.BOLD, 14));
+        selectGroupPanel.setBorder(selectGroupBorder);
+
+
+        JComboBox<String> tournamentComboBox = selectTournamentToAdd();
+
+        selectGroupPanel.add(tournamentComboBox);
+
+        mainPanel.add(selectGroupPanel);
+
+        mainPanel.add(Box.createVerticalStrut(20));
+
+
+        frame.add(mainPanel, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel();
+
+        JButton ShowScoresButton = new JButton("Show Scores");
+        JButton cancelButton = new JButton("Cancel");
+        frame.getRootPane().setDefaultButton(ShowScoresButton);
+
+        ShowScoresButton.addActionListener(e -> {
+
+            String tournamentNumString = (String)tournamentComboBox.getSelectedItem();
+            int groupNumInt = 0;
+
+            if (tournamentNumString != null){
+                groupNumInt = ((String) tournamentComboBox.getSelectedItem()).charAt(11) - '0';
+            }
+
+
+            System.out.println("selected group==== " + groupNumInt);
+
+            scoresInfo(groupNumInt);
+
+        });
+
+        cancelButton.addActionListener(e -> frame.dispose());
+
+        buttonPanel.add(ShowScoresButton);
+        buttonPanel.add(cancelButton);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
+
+        frame.setVisible(true);
+    }
+
+    private JComboBox<String> selectTournamentToAdd(){
+        if (panels == null)
+            return new JComboBox<>(new String[]{"No Tournament Are Available"});
+
+        String[] TournamentNames = new String[panels.length + 1];
+        TournamentNames[0] = "Select Tournament";
+
+        int i = 1;
+        for (CompetitionPanel panel : panels) {
+            if (panel != null) {
+                TournamentNames[i] = "Tournament " + (i);
+                ++i;
+            }
+        }
+        JComboBox<String> tournamentNamesComboBox = new JComboBox<>(TournamentNames);
+        tournamentNamesComboBox.setPreferredSize(new Dimension(150, 25));
+
+        return tournamentNamesComboBox;
+    }
+
+    public void scoresInfo(int tournamentNumber) {
+
+        JFrame frame = new JFrame("tournamentNumber " + tournamentNumber + " Scores");
+        frame.setSize(300, 200);
+
+        // Show a warning if no participants are available
+        if (panels == null) {
+            JOptionPane.showMessageDialog(frame, "No tournament yet", "Invalid operation", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+
+        // Define the column names for the table
+        String[] columnNames = {"Animal Name", "Date" , "Group"};
+
+
+        Object[][] competitionTable = createTournamentTable(tournamentNumber);
+
+        DefaultTableModel tableModel = new DefaultTableModel(competitionTable, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // All cells are not editable
+            }
+        };
+
+
+        JTable table = new JTable(tableModel);
+
+        // Disable column reordering
+        table.getTableHeader().setReorderingAllowed(false);
+
+
+        // Customize the table
+        table.setRowHeight(30);
+        table.setFont(new Font("Arial", Font.PLAIN, 12));
+
+
+        // Add the table to a scroll pane
+        JScrollPane scrollPane = new JScrollPane(table);
+        frame.add(scrollPane, BorderLayout.CENTER);
+
+
+        // Set the frame visible
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
+    }
+
+    public Object[][] createTournamentTable(int tournamentNumber) {
+        if (panels == null)
+            return null;
+
+        CompetitionPanel selectedPanel = panels[tournamentNumber - 1];
+
+        // Get the scores for the selected group
+        Scores scores = selectedPanel.getTournament().getTournamentThread().getScores();
+        Map<String, Date> scoresMap = scores.getAll();
+        int numOfScores = scoresMap.size();
+
+        // Create a 2D array with the correct size
+        Object[][] table = new Object[numOfScores][tournamentTableColumns];
+
+        int groupsNumber = selectedPanel.getParticipates().length;
+
+        System.out.println("num groups  = " + groupsNumber);
+        System.out.println("num scores = " + scoresMap.size());
+
+        int rowIndex = 0;
+
+        for (int i=0; i<groupsNumber; ++i){
+            System.out.println("Group " + (i+1));
+            for (Map.Entry<String, Date> entry : scoresMap.entrySet()) {
+
+                table[rowIndex][0] = entry.getKey(); // Animal Name
+                table[rowIndex][1] = entry.getValue(); // Date
+                table[rowIndex][2] = "Group " + (i+1); // Group number
+
+                rowIndex++;
+            }
+        }
+
+        return table;
+    }
+
+
+    public int countAvailableAnimalsFromTypeAndRout(int competitionType, int competitionRout) {
+
+        int count = 0;
+
+        switch (competitionType) {
+            case 1: //selects from Water animals
+            {
+                for (Animal animal : players) {
+                    if (animal != null) {
+                        if (animal.isAvailable())
+                            if (animal.getCategory().equals("Water") || animal.getCategory().equals("Terrestrial+Water"))
+                                if (animal.getCompetitionRoute() == competitionRout)
+                                    ++count;
+                    }
+                }
+
+                break;
+            }
+            case 2: //selects from Air animals
+            {
+                for (Animal animal : players) {
+                    if (animal != null)
+                        if (animal.isAvailable())
+                            if (animal.getCategory().equals("Air")) {
+                                if (animal.getCompetitionRoute() == competitionRout)
+                                    ++count;
+                            }
+                }
+                break;
+            }
+            case 3: //selects from Terrestrial animals
+            {
+                for (Animal animal : players) {
+                    if (animal != null) {
+                        if (animal.isAvailable())
+                            if (animal.getCategory().equals("Terrestrial") || animal.getCategory().equals("Terrestrial+Water"))
+                                ++count;
+
+                    }
+                }
+                break;
+            }
+            default:
+                System.out.println("Error accorded");
+                break;
+        }
+        return count;
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
