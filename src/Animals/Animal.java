@@ -200,11 +200,11 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         this.destination = null;
 
         this.isAvailable = true;
-        done  = 0;
+        this.done  = 0;
 
-        drawable = null;
-        locatable = null;
-        cloneable = null;
+        this.drawable = null;
+        this.locatable = null;
+        this.cloneable = null;
 
         this.needToMove = false;
 
@@ -526,6 +526,7 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
             if(moveTimer != null)
                 moveTimer.stop();
             currentEnergy = 0;
+            setNeedToMove(true);
             return;
         }
         if (orientation == Orientation.EAST || orientation == Orientation.WEST) {
@@ -557,6 +558,8 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         }
 
         currentEnergy -= frameSpeed*energyPerMeter;
+
+        System.out.println("my location " + getLocation() + " my distance is " + getTotalDistance());
 
     }
 
@@ -770,8 +773,8 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         return 0;
     }
 
-    public int getAnimalAsNumber(String animalName) {
-        switch (animalName) {
+    public int getAnimalAsNumber(String animalCategory) {
+        switch (animalCategory) {
             case "Water":
                 return 1;
             case "Air":
@@ -790,5 +793,77 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
 
     public void setNeedToMove(boolean needToMove) {
         this.needToMove = needToMove;
+    }
+
+    /**
+     * Starts the movement of the last participant in the competition.
+     * If the type of competition is not terrestrial, the participant starts moving directly.
+     * If the type of competition is terrestrial, a timer is set to update the movement of the participant
+     * Along a rectangular path.
+     */
+    public void startMoveTerrestrial() {
+
+        System.out.println("startMoveTerrestrial");
+        this.setMoveTimer(new Timer(1000 / 60, e -> updateSide()));
+        this.getMoveTimer().start();
+
+        if (this.isDone() < 4)
+            if (this.getMoveTimer() != null)
+                this.startMoving();
+
+    }
+
+    /**
+     * Updates the orientation and position of the latest participant based on their current location.
+     * The participant moves along a rectangular path and updates its orientation at each corner.
+     * Stops the movement when the participant returns to the starting point.
+     */
+    private void updateSide() {
+
+        System.out.println("MyLocation: " + this.getLocation());
+        System.out.println("done is: " + this.isDone());
+        System.out.println("width - 65:  " + (this.getZooPanel().getWidth() - 65) );
+        System.out.println("height - 65:  " + (this.getZooPanel().getHeight() - 65) );
+
+
+        if (this.getLocation().equals(new Point(this.getZooPanel().getWidth() - 65,0))) {
+            this.setOrientation(Orientation.SOUTH);
+//            setNeededDistance(neededDistance+participant.calcDistancePoint(new Point(participant.getLocation().getX(), participant.getZooPanel().getHeight() - 65)));
+            System.out.println("Change Or to " + this.getOrientation());
+            this.startMoving();
+            this.setDone(1);
+
+
+        } else if (this.getLocation().equals(new Point(this.getZooPanel().getWidth() - 65, this.getZooPanel().getHeight() - 65))) {
+            this.setOrientation(Orientation.WEST);
+//            setNeededDistance(neededDistance+participant.calcDistancePoint(new Point(0, participant.getLocation().getY())));
+            System.out.println("Change Or to " + this.getOrientation());
+            this.startMoving();
+            this.setDone(2);
+
+        } else if (this.getLocation().equals(new Point(0, this.getZooPanel().getHeight() - 65))) {
+            this.setOrientation(Orientation.NORTH);
+//            setNeededDistance(neededDistance+participant.calcDistancePoint(new Point(0, 0)));
+            System.out.println("Change Or to " + this.getOrientation());
+
+            this.startMoving();
+            this.setDone(3);
+
+        } else if (this.getLocation().equals(new Point(0, 0))) {
+            this.setOrientation(Orientation.EAST);
+            System.out.println("Change Or to " + this.getOrientation());
+
+
+            if (this.isDone() > 0) {
+                if (this.getMoveTimer() != null) {
+                    this.getMoveTimer().stop();
+                    this.setMoveTimer(null);
+                    this.setDone(4);
+                }
+
+            }
+
+        }
+
     }
 }

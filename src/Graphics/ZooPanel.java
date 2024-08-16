@@ -33,7 +33,7 @@ public class ZooPanel extends JPanel{
      * Number of columns in the competition table.
      */
     private static final int animalsTableColumns = 8;
-    private static final int tournamentTableColumns = 3;
+    private static final int tournamentTableColumns = 2;
 
 
     public ZooPanel(){
@@ -221,68 +221,6 @@ public class ZooPanel extends JPanel{
      * The energy value entered by the user is validated and then used to increase the animal's energy.
      * </p>
      */
-//    public void eatAnimal() {//Todo new function............
-//
-//        JFrame frame = new JFrame("Feed Animal");
-//        frame.setSize(500, 200);
-//        frame.setLayout(new BorderLayout());
-//
-//
-//        if (players == null) {
-//            JOptionPane.showMessageDialog(frame, "No participate yet", "Invalid operation", JOptionPane.WARNING_MESSAGE);
-//            return;
-//        }
-//        else {
-//
-//            JLabel foodEnergyLabel = new JLabel("Enter an integer to increase the animal's energy level\n");
-//            foodEnergyLabel.setFont(new Font("Arial", Font.PLAIN, 15));
-//
-//            JFormattedTextField foodEnergyField = new JFormattedTextField(createNumberFormatter());
-//            foodEnergyField.setColumns(20);
-//            JButton updateEnergy = new JButton("Update energy");
-//            updateEnergy.setFont(new Font("Arial", Font.BOLD, 14));
-//            updateEnergy.addActionListener(e ->
-//            {
-//                try {
-//                    increaseEnergy(frame, foodEnergyField.getText());
-//                } catch (IllegalStateException exception) {
-//                    JOptionPane.showMessageDialog(frame, "An unexpected error occurred: " + exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-//                }
-//
-//            });
-//
-//            // Create and configure panel for layout
-//            JPanel fieldsPanel = new JPanel();
-//            fieldsPanel.setLayout(new GridBagLayout());
-//            GridBagConstraints gbc = new GridBagConstraints();
-//            gbc.insets = new Insets(10, 10, 10, 10); // Add padding around components
-//
-//            // Add label
-//            gbc.gridx = 0;
-//            gbc.gridy = 0;
-//            gbc.anchor = GridBagConstraints.WEST;
-//            gbc.gridwidth = GridBagConstraints.REMAINDER; // Span across all columns
-//            fieldsPanel.add(foodEnergyLabel, gbc);
-//
-//            // Add text field
-//            gbc.gridy = 1;
-//            gbc.anchor = GridBagConstraints.CENTER;
-//            gbc.gridwidth = GridBagConstraints.REMAINDER; // Span across all columns
-//            fieldsPanel.add(foodEnergyField, gbc);
-//
-//            // Add button
-//            gbc.gridy = 2;
-//            gbc.anchor = GridBagConstraints.CENTER;
-//            gbc.gridwidth = GridBagConstraints.REMAINDER; // Span across all columns
-//            fieldsPanel.add(updateEnergy, gbc);
-//
-//
-//            // Add panel to frame
-//            frame.add(fieldsPanel, BorderLayout.CENTER);
-//            frame.setLocationRelativeTo(null);
-//            frame.setVisible(true);
-//        }
-//    }
 
     /**
      * Creates a NumberFormatter for integer input, allowing only valid integers and disallowing invalid input.
@@ -330,8 +268,13 @@ public class ZooPanel extends JPanel{
                             animalToFeed.getType() + " Feeding", JOptionPane.INFORMATION_MESSAGE);
 
 
-                    if(animalToFeed.isNeedToMove())
-                        animalToFeed.startMoving();
+                    if(animalToFeed.isNeedToMove()) {
+                        if(animalToFeed.getAnimalAsNumber(animalToFeed.getCategory()) != 3)
+                            animalToFeed.startMoving();
+                        else
+                            animalToFeed.startMoveTerrestrial();
+
+                    }
 
 
                 } else {
@@ -355,33 +298,6 @@ public class ZooPanel extends JPanel{
             if(players[i].getAnimalName().equals(animalName))
                 return players[i];
         return null;
-    }
-
-    public void deleteMe(){
-//        if (tournaments )
-        int len = panels.length;
-        int animalLen;
-        int groupLen;
-        System.out.println(len);
-        for (int i=0; i<len; ++i)
-        {
-            System.out.println("tournament number: " + (i+1));
-            groupLen = panels[i].getParticipates().length;
-            System.out.println(groupLen);
-
-            for(int k=0; k<groupLen; ++k)
-            {
-                System.out.println("group number: " + (k+1));
-                animalLen = panels[i].getParticipates()[k].length;
-                System.out.println(animalLen);
-
-                for (int j = 0; j< animalLen; ++j)
-//                for (Animal animal : tournaments[i].participates[k])
-                {
-                    System.out.println(panels[i].getParticipates()[k][j].toString());
-                }
-            }
-        }
     }
 
     public CompetitionPanel[] getPanels() {
@@ -863,17 +779,17 @@ public class ZooPanel extends JPanel{
         ShowScoresButton.addActionListener(e -> {
 
             String tournamentNumString = (String)tournamentComboBox.getSelectedItem();
-            int groupNumInt = 0;
 
-            if (tournamentNumString != null){
-                groupNumInt = ((String) tournamentComboBox.getSelectedItem()).charAt(11) - '0';
+            if (tournamentNumString == null || tournamentNumString.equals("Select Tournament")) {
+                JOptionPane.showMessageDialog(frame, "Please select tournament", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
 
+            int groupNumInt = 0;
 
-            System.out.println("selected group==== " + groupNumInt);
+            groupNumInt = ((String) tournamentComboBox.getSelectedItem()).charAt(11) - '0';
 
             scoresInfo(groupNumInt);
-
         });
 
         cancelButton.addActionListener(e -> frame.dispose());
@@ -907,8 +823,8 @@ public class ZooPanel extends JPanel{
 
     public void scoresInfo(int tournamentNumber) {
 
-        JFrame frame = new JFrame("tournamentNumber " + tournamentNumber + " Scores");
-        frame.setSize(300, 200);
+        JFrame frame = new JFrame("tournament number " + tournamentNumber + " Scores");
+        frame.setSize(450, 150);
 
         // Show a warning if no participants are available
         if (panels == null) {
@@ -918,7 +834,7 @@ public class ZooPanel extends JPanel{
 
 
         // Define the column names for the table
-        String[] columnNames = {"Animal Name", "Date" , "Group"};
+        String[] columnNames = {"Group Name", "Date"};
 
 
         Object[][] competitionTable = createTournamentTable(tournamentNumber);
@@ -974,21 +890,18 @@ public class ZooPanel extends JPanel{
 
         int rowIndex = 0;
 
-        for (int i=0; i<groupsNumber; ++i){
-            System.out.println("Group " + (i+1));
-            for (Map.Entry<String, Date> entry : scoresMap.entrySet()) {
 
-                table[rowIndex][0] = entry.getKey(); // Animal Name
-                table[rowIndex][1] = entry.getValue(); // Date
-                table[rowIndex][2] = "Group " + (i+1); // Group number
+        for (Map.Entry<String, Date> entry : scoresMap.entrySet()) {
 
-                rowIndex++;
-            }
+            table[rowIndex][0] = entry.getKey(); // Animal Name
+            table[rowIndex][1] = entry.getValue(); // Date
+
+            rowIndex++;
+
         }
 
         return table;
     }
-
 
     public int countAvailableAnimalsFromTypeAndRout(int competitionType, int competitionRout) {
 
@@ -1038,12 +951,6 @@ public class ZooPanel extends JPanel{
         }
         return count;
     }
-
-
-
-
-
-
 
 
 

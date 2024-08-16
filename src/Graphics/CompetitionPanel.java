@@ -45,11 +45,25 @@ public class CompetitionPanel extends JPanel {
 
     private Tournament tournament;
 
+    private int[] currentAnimalsInGroups;
+    private int[] groupRoutes;
+
     /**
      * Constructs the CompetitionPanel, initializing the participants array,
      * starting a timer to repaint the panel, and loading the background image.
      */
     public CompetitionPanel() {
+
+        //initialize count for animals in group
+        currentAnimalsInGroups = new int[5];
+        for (int i=0; i<5; ++i)
+            currentAnimalsInGroups[i] = 0;
+
+        //initialize groupRoutes for animals in group
+        groupRoutes = new int[5];
+        for (int i=0; i<5; ++i)
+            groupRoutes[i] = 0;
+
         participates = null;
         groupNumber = 0;
         competitionType = 0;
@@ -264,6 +278,14 @@ public class CompetitionPanel extends JPanel {
 
     public Animal[][] getParticipates() {
         return participates;
+    }
+
+    public int[] getGroupRoutes() {
+        return groupRoutes;
+    }
+
+    public int[] getCurrentAnimalsInGroups() {
+        return currentAnimalsInGroups;
     }
 
 //    public int getRegularCourierTournament() {

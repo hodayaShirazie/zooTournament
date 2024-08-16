@@ -32,8 +32,8 @@ public class CompetitionFrame extends JFrame {
      */
     private ZooPanel zooPanel;
 
-    private int[] currentAnimalsInGroups;
-    private int[] groupRoutes;
+//    private int[] currentAnimalsInGroups;
+//    private int[] groupRoutes;
 
     private static int frameWidth, frameHeight;
 
@@ -65,15 +65,15 @@ public class CompetitionFrame extends JFrame {
 
         zooPanel = new ZooPanel();
 
-        //initialize count for animals in group
-        currentAnimalsInGroups = new int[5];
-        for (int i=0; i<5; ++i)
-            currentAnimalsInGroups[i] = 0;
-
-        //initialize groupRoutes for animals in group
-        groupRoutes = new int[5];
-        for (int i=0; i<5; ++i)
-            groupRoutes[i] = 0;
+//        //initialize count for animals in group
+//        currentAnimalsInGroups = new int[5];
+//        for (int i=0; i<5; ++i)
+//            currentAnimalsInGroups[i] = 0;
+//
+//        //initialize groupRoutes for animals in group
+//        groupRoutes = new int[5];
+//        for (int i=0; i<5; ++i)
+//            groupRoutes[i] = 0;
 
 
 
@@ -96,7 +96,14 @@ public class CompetitionFrame extends JFrame {
         JMenu file = new JMenu("File");
         JMenu help = new JMenu("Help");
         JMenuItem exitItem = new JMenuItem("Exit");
-        exitItem.addActionListener(e -> System.exit(0));
+        exitItem.addActionListener(e -> {
+            clear();
+            zooPanel = null;
+            System.out.println("i just cleared our memory in exit");
+
+            System.exit(0);
+        });
+
         JMenuItem helpItem = new JMenuItem("Help");
         helpItem.addActionListener(e -> JOptionPane.showMessageDialog(this, "Home Work 2\nGUI"));
 
@@ -150,7 +157,14 @@ public class CompetitionFrame extends JFrame {
 
         // Exit Button
         JButton exitButton = new JButton("Exit");
-        exitButton.addActionListener(e -> System.exit(0));
+        exitButton.addActionListener(e ->{
+            clear();
+            zooPanel = null;
+            System.out.println("i just cleared our memory in exit");
+
+            System.exit(0);
+        });
+
         buttonsPanel.add(exitButton);
 
         add(buttonsPanel, BorderLayout.SOUTH);
@@ -382,13 +396,13 @@ public class CompetitionFrame extends JFrame {
 
         switch (regularCourierTournament){
             case 1:
-                System.out.println("=======animals in group " + (groupNumber-1) + " " + currentAnimalsInGroups[groupNumber-2] + "========");
-                if(currentAnimalsInGroups[groupNumber - 2] < 1)
+                System.out.println("=======animals in group " + (groupNumber-1) + " " + tournament.getCurrentAnimalsInGroups()[groupNumber-2] + "========");
+                if(tournament.getCurrentAnimalsInGroups()[groupNumber - 2] < 1)
                     return false;
 
                 break;
             case 2:
-                if(currentAnimalsInGroups[groupNumber - 2] < 2)
+                if(tournament.getCurrentAnimalsInGroups()[groupNumber - 2] < 2)
                     return false;
 
                 break;
@@ -468,7 +482,7 @@ public class CompetitionFrame extends JFrame {
         addAnimalComboBox.addActionListener(e -> {
             if(tournament.getRegularCourierTournament() == 1) {
 
-                if (currentAnimalsInGroups[groupNumber - 1] == 1) {
+                if (tournament.getCurrentAnimalsInGroups()[groupNumber - 1] == 1) {
                     System.out.println("invalid more than 1 animal");
                     JOptionPane.showMessageDialog(frame, "Invalid operation. current groups are Invalid", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
@@ -479,13 +493,13 @@ public class CompetitionFrame extends JFrame {
             if (selectedAnimal != null && !selectedAnimal.equals("Select Animal")) {
 
                 // If it's the first animal in the group, allow any animal with the correct competition type
-                if (currentAnimalsInGroups[groupNumber - 1] == 0) {
+                if (tournament.getCurrentAnimalsInGroups()[groupNumber - 1] == 0) {
                     // No restrictions on route for the first animal
-                    groupRoutes[groupNumber - 1] = zooPanel.findAnimal(selectedAnimal).getCompetitionRoute();
+                    tournament.getGroupRoutes()[groupNumber - 1] = zooPanel.findAnimal(selectedAnimal).getCompetitionRoute();
                 } else {
                     // Restrict animals to the same route as the first one
                     int route = zooPanel.findAnimal(selectedAnimal).getCompetitionRoute();
-                    if (route != groupRoutes[groupNumber - 1]) {
+                    if (route != tournament.getGroupRoutes()[groupNumber - 1]) {
                         JOptionPane.showMessageDialog(frame, "Animal route must match the first animal in the group.", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
@@ -495,7 +509,7 @@ public class CompetitionFrame extends JFrame {
 //            String selectedAnimal = (String) addAnimalComboBox.getSelectedItem();
 //            if (selectedAnimal != null && !selectedAnimal.equals("Select Animal")) {
 
-                currentAnimalsInGroups[groupNumber-1]++; //add 1 to count for the new animal that was added
+                tournament.getCurrentAnimalsInGroups()[groupNumber-1]++; //add 1 to count for the new animal that was added
                 System.out.println("just added 1 to group " + (groupNumber) );
 
                 setAnimalNotAvailable(selectedAnimal);
@@ -530,9 +544,6 @@ public class CompetitionFrame extends JFrame {
 
     public void clear(){
 
-        currentAnimalsInGroups = new int[5];
-        for (int i=0; i<5; ++i)
-            currentAnimalsInGroups[i] = 0;
 
         if (zooPanel.getPlayers() != null) {
             for (Animal animal : zooPanel.getPlayers()) {
