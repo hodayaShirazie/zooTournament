@@ -1,26 +1,18 @@
-
-
 package Graphics;
 
 import Animals.*;
 import Competitions.CourierTournament;
 import Competitions.RegularTournament;
-import Competitions.Scores;
 import Competitions.Tournament;
-
 import javax.swing.*;
 import javax.swing.JPanel;
 import java.awt.*;
 import java.util.Enumeration;
 
-
 /**
- * The CompetitionPanel class represents the main panel where the competition takes place.
- * It manages the type of competition, participating animals, and the competition table data.
+ * Represents the main competition panel, managing competition type, animals, and table data.
  */
 public class CompetitionPanel extends JPanel {
-
-    private int groupNumber;
 
     /**
      * Type of competition.
@@ -40,17 +32,30 @@ public class CompetitionPanel extends JPanel {
     private Animal[][]participates;
 
     /**
-     * Background image for the competition panel.
+     * The current tournament being managed.
      */
-
     private Tournament tournament;
 
-    private int[] currentAnimalsInGroups;
-    private int[] groupRoutes;
+    /**
+     * The number assigned to the group.
+     */
+    private int groupNumber;
 
     /**
-     * Constructs the CompetitionPanel, initializing the participants array,
-     * starting a timer to repaint the panel, and loading the background image.
+     * Array storing the number of animals in each group.
+     */
+    private int[] currentAnimalsInGroups;
+
+    /**
+     * Array representing the routes assigned to each group.
+     */
+    private int[] groupRoutes;
+
+
+    /**
+     * Initializes the CompetitionPanel by setting up arrays for animal counts and group routes,
+     * and configuring initial panel settings. Also sets default values for group number,
+     * competition type, and tournament type.
      */
     public CompetitionPanel() {
 
@@ -68,15 +73,7 @@ public class CompetitionPanel extends JPanel {
         groupNumber = 0;
         competitionType = 0;
         regularCourierTournament = 0;
-//        Timer timer = new Timer(1000 / 60, e -> repaint());
-//        timer.start();
     }
-
-    /**
-     * Loads an image from the specified path and sets it as the background image.
-     *
-     * @param path The path to the image file.
-     */
 
     /**
      * Paints the component by rendering the background image and the participating animals.
@@ -88,14 +85,11 @@ public class CompetitionPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        System.out.println("im in panellllllll");
-
         if (participates != null) {
             for (Animal [] animals : participates) {
                 for (Animal animal : animals) {
                     if (animal != null) {
                         animal.drawObject(g);
-                        System.out.println(animal.toString());
                     }
                 }
             }
@@ -103,25 +97,20 @@ public class CompetitionPanel extends JPanel {
     }
 
     /**
-     * Returns the type of competition.
-     *
-     * @return the competition type as an integer.
+     * Validates the group number based on the current competition type.
+     * @return true if the group number is valid for the competition type; false otherwise.
      */
-    public int getCompetitionType() {
-        return competitionType;
-    }
-
     public boolean isGroupNumberValid() {
         switch (competitionType) {
-            case 1:
+            case 1: //Water
                 if(groupNumber > 5)
                     return false;
                 break;
-            case 2:
+            case 2: //Air
                 if(groupNumber > 4)
                     return false;
                 break;
-            case 3:
+            case 3: //Terrestrial
                 if(groupNumber > 3)
                     return false;
                 break;
@@ -129,6 +118,10 @@ public class CompetitionPanel extends JPanel {
         return true;
     }
 
+    /**
+     * Increases the group number and expands the participants array to accommodate the new group.
+     * Initializes the new group with a null entry and triggers a repaint of the panel.
+     */
     public void increaseGroupNumber() {
         groupNumber++;
 
@@ -145,38 +138,15 @@ public class CompetitionPanel extends JPanel {
             tmpAnimal[len] = null;
             participates = tmpAnimal;
         }
-
         repaint();
 
     }
 
-    public int getGroupNumber() {
-        return groupNumber;
-    }
-
-    // Helper method to get selected radio button text
-//    public void updateCompetitionType(ButtonGroup buttonGroup) {
-//        for (java.util.Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
-//            AbstractButton button = buttons.nextElement();
-//            if (button.isSelected()) {
-//                switch (button.getText()) {
-//                    case "Water":
-//                        this.competitionType = 1;
-//                        break;
-//                    case "Air":
-//                        this.competitionType = 2;
-//                        break;
-//                    case "Terrestrial":
-//                        this.competitionType = 3;
-//                        break;
-//                }
-//                System.out.println("selected: " + button.getText());
-////                return button.getText();
-//            }
-//        }
-////        return null; // No button selected
-//    }
-
+    /**
+     * Updates the competition type based on the selected button in the provided ButtonGroup.
+     * @param competitionGroup The ButtonGroup containing competition type options.
+     * Shows an error message if no competition type is selected.
+     */
     public void updateCourierTournament(ButtonGroup competitionGroup) {
         // Get the selected competition type
         Enumeration<AbstractButton> competitionButtons = competitionGroup.getElements();
@@ -202,10 +172,15 @@ public class CompetitionPanel extends JPanel {
             JOptionPane.showMessageDialog(null, "Please select a competition type.", "Input Error", JOptionPane.ERROR_MESSAGE);
         } else {
             // Update the competition panel with the selected competition type
-            this.regularCourierTournament = selectedCompetitionType; // Assuming `regularCourierTournament` is a field in `CompetitionPanel`
+            this.regularCourierTournament = selectedCompetitionType;
         }
     }
 
+    /**
+     * Updates the animal type based on the selected button in the provided ButtonGroup.
+     * @param animalGroup The ButtonGroup containing animal type options.
+     * Shows an error message if no animal type is selected.
+     */
     public void updateCompetitionType(ButtonGroup animalGroup) {
         // Get the selected animal type
         Enumeration<AbstractButton> animalButtons = animalGroup.getElements();
@@ -238,8 +213,12 @@ public class CompetitionPanel extends JPanel {
         }
     }
 
+    /**
+     * Adds an animal to a specified group.
+     * @param animal The Animal object to be added.
+     * @param groupNumber The group number to which the animal should be added (1-based index).
+     */
     public void addAnimalToGroup(Animal animal, int groupNumber){
-//        animal.setIsAvailable(false);
 
         if(participates[groupNumber-1] == null) {
             participates[groupNumber - 1] = new Animal[1];
@@ -258,113 +237,75 @@ public class CompetitionPanel extends JPanel {
         repaint();
     }
 
+    /**
+     * Creates a tournament based on the current competition type.
+     * If the competition type is "Courier", a `CourierTournament` is created.
+     * Otherwise, a `RegularTournament` is created.
+     */
     public void createTournament(){
         if (regularCourierTournament == 2)
             tournament = new CourierTournament(participates);
         else
             tournament = new RegularTournament(participates);
-
-
-
     }
 
+    /**
+     * Returns the current competition type.
+     * @return An integer representing the competition type:
+     *         1 for Regular, 2 for Courier.
+     */
     public int getRegularCourierTournament() {
         return regularCourierTournament;
     }
 
+    /**
+     * Retrieves the current tournament instance.
+     * @return The Tournament object representing the ongoing tournament.
+     */
     public Tournament getTournament() {
         return tournament;
     }
 
+    /**
+     * Retrieves the array of participating animals grouped by their respective groups.
+     * @return A 2D array of Animal objects representing the animals in each group.
+     */
     public Animal[][] getParticipates() {
         return participates;
     }
 
+    /**
+     * Retrieves the routes assigned to each group.
+     * @return An array of integers where each element represents the route of a group.
+     */
     public int[] getGroupRoutes() {
         return groupRoutes;
     }
 
+    /**
+     * Retrieves the number of animals currently in each group.
+     * @return An array of integers where each element represents the count of animals in a group.
+     */
     public int[] getCurrentAnimalsInGroups() {
         return currentAnimalsInGroups;
     }
 
-//    public int getRegularCourierTournament() {
-//        return regularCourierTournament;
-//    }
+    /**
+     * Returns the type of competition.
+     *
+     * @return the competition type as an integer.
+     */
+    public int getCompetitionType() {
+        return competitionType;
+    }
 
-//
-//    /**
-//     * Starts the movement of the last participant in the competition.
-//     * If the type of competition is not terrestrial, the participant starts moving directly.
-//     * If the type of competition is terrestrial, a timer is set to update the movement of the participant
-//     * Along a rectangular path.
-//     */
-//    private void startMove() {
-//
-//        int index = participates.length - 1;
-//        while (participates[index].isRemovedFromCompetition() && index > 0)
-//            --index;
-//        if (participates[0].isRemovedFromCompetition() && index == 0)
-//            return;
-//
-//        if (getCompetitionType() != 3) {
-//            participates[index].startMoving();
-//        } else {
-//            participates[index].setMoveTimer(new Timer(1000 / 60, e -> updateSide()));
-//            participates[index].getMoveTimer().start();
-//
-//            if (participates[index].isDone() < 4)
-//                if (participates[index].getMoveTimer() != null)
-//                    participates[index].startMoving();
-//        }
-//
-//    }
-//
-//    /**
-//     * Updates the orientation and position of the latest participant based on their current location.
-//     * The participant moves along a rectangular path and updates its orientation at each corner.
-//     * Stops the movement when the participant returns to the starting point.
-//     */
-//    private void updateSide() {
-//
-//
-//        int index = participates.length - 1;
-//        while (participates[index].isRemovedFromCompetition() && index > 0)
-//            --index;
-//        if (participates[0].isRemovedFromCompetition() && index == 0)
-//            return;
-//
-//        if (participates[index].getLocation().equals(new Point(900, 0))) {
-//            participates[index].setOrientation(Orientation.SOUTH);
-//            participates[index].startMoving();
-//            participates[index].setDone(1);
-//
-//        } else if (participates[index].getLocation().equals(new Point(900, 450))) {
-//            participates[index].setOrientation(Orientation.WEST);
-//            participates[index].startMoving();
-//            participates[index].setDone(2);
-//
-//        } else if (participates[index].getLocation().equals(new Point(0, 450))) {
-//            participates[index].setOrientation(Orientation.NORTH);
-//            participates[index].startMoving();
-//            participates[index].setDone(3);
-//
-//        } else if (participates[index].getLocation().equals(new Point(0, 0))) {
-//            participates[index].setOrientation(Orientation.EAST);
-//
-//            if (participates[index].isDone() > 0) {
-//                if (participates[index].getMoveTimer() != null) {
-//                    participates[index].getMoveTimer().stop();
-//                    participates[index].setMoveTimer(null);
-//                    participates[index].setDone(4);
-//                }
-//
-//            }
-//
-//        }
-//
-//    }
-
+    /**
+     * Returns the current group number.
+     * @return The group number.
+     */
+    public int getGroupNumber() {
+        return groupNumber;
+    }
 }
 
 

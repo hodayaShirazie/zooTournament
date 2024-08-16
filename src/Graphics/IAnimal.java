@@ -1,6 +1,5 @@
 package Graphics;
 
-
 /**
  * This interface represents an animal with basic capabilities such as moving, eating, and categorization.
  * It extends the {@link IMovable} interface to include movement functionality.
@@ -28,5 +27,4 @@ public interface IAnimal extends IMovable{
      * @return a string representing the category of the animal.
      */
     String getCategory();
-
 }

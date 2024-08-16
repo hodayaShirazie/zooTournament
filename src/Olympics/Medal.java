@@ -21,7 +21,6 @@ public class Medal {
      */
     private int year;
 
-
     /**
      * Constructs a new Medal with specified type, tournament, and year.
      *

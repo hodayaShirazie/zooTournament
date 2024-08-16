@@ -16,7 +16,6 @@ public class Point implements Cloneable{
      */
     private int y;
 
-
     /**
      * Construct a new point with specified values.
      * If either coordinate is negative, it sets the coordinates to (0, 0).
