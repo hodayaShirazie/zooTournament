@@ -16,13 +16,22 @@ public class Pigeon extends AirAnimal {
      */
     private String family;
 
+    /**
+     * Constructs a Pigeon object with the specified attributes.
+     * Initializes the Pigeon's family and loads the images associated with the Pigeon.
+     *
+     * @param name            The name of the Pigeon.
+     * @param speed           The speed of the Pigeon.
+     * @param energyPerMeter  The energy consumption per meter of the Pigeon.
+     * @param maxEnergy       The maximum energy the Pigeon can have.
+     * @param competitionRoute The competition route number, which determines the Pigeon's initial position.
+     */
     public Pigeon(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute) {
         super(name, speed, energyPerMeter, maxEnergy, competitionRoute);
         this.family = "Rock dove";
         loadImages("pigeon");
 
     }
-
 
     /**
      * Construct a new Pigeon object with specified values.
@@ -49,7 +58,7 @@ public class Pigeon extends AirAnimal {
      * @param energyPerMeter   The energy consumed by the pigeon per meter of movement.
      * @param maxEnergy        The maximum energy the pigeon can hold.
      * @param competitionRoute The competition route the pigeon will follow.
-     * @param panel            The competition panel where the pigeon is displayed.
+     * @param panel            The zoo panel where the pigeon is displayed.
      */
     public Pigeon(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy, competitionRoute,panel);

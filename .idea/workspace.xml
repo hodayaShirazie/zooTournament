@@ -6,16 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="56481981-2bb0-4d26-b7c0-078262b0e755" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/CompetitionFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/CompetitionFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/CompetitionPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/CompetitionPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/ZooPanel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/ZooPanel$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/ZooPanel$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/ZooPanel$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/ZooPanel$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/ZooPanel$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/ZooPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Zoo-competition/Graphics/ZooPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Graphics/AddAnimalDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphics/AddAnimalDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Graphics/CompetitionFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphics/CompetitionFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Graphics/CompetitionPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphics/CompetitionPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Graphics/IAnimal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphics/IAnimal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/AirAnimal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/AirAnimal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Alligator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Alligator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Animal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/AnimalThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/AnimalThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Cat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Cat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Dog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Dog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Dolphin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Dolphin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Eagle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Eagle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Pigeon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Pigeon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Snake.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Snake.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/TerrestrialAnimals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/TerrestrialAnimals.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/WaterAnimal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/WaterAnimal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Animals/Whale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Animals/Whale.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Competitions/CourierTournament.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Competitions/CourierTournament.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Competitions/Referee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Competitions/Referee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Competitions/RegularTournament.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Competitions/RegularTournament.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Graphics/ZooPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graphics/ZooPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,14 +60,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.CompetitionFrame.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Student/IJ_Java/Zoo-competition H.W3/Zoo-competition&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.CompetitionFrame.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Student/IJ_Java/Zoo-competition"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="CompetitionFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Graphics.CompetitionFrame" />
@@ -112,37 +118,37 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Competitions/CourierTournament.java</url>
-          <line>71</line>
+          <line>74</line>
           <option name="timeStamp" value="53" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Competitions/CourierTournament.java</url>
-          <line>82</line>
+          <line>86</line>
           <option name="timeStamp" value="54" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Graphics/ZooPanel.java</url>
-          <line>725</line>
+          <line>611</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Graphics/ZooPanel.java</url>
-          <line>763</line>
+          <line>649</line>
           <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Graphics/ZooPanel.java</url>
-          <line>779</line>
+          <line>665</line>
           <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Graphics/ZooPanel.java</url>
-          <line>818</line>
+          <line>704</line>
           <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Graphics/ZooPanel.java</url>
-          <line>872</line>
+          <line>758</line>
           <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

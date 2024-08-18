@@ -1,22 +1,13 @@
-//Todo ensure competitions input is valid
-//Todo fix clear
 package Graphics;
 
 import Animals.Animal;
 import Mobility.Point;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-/**
- * Submitted by:
- * (1) Shulamit Mor Yossef  Id:206576977
- * (2) Hodaya Shirazie Id: 213907785
- */
 
 /**
  * The CompetitionFrame class represents the main window of the application.
@@ -28,18 +19,6 @@ public class CompetitionFrame extends JFrame {
      * The panel for managing and displaying the competition.
      */
     private ZooPanel zooPanel;
-
-    /**
-     * The width of the frame.
-     * This static field is used to keep track of the current width of the frame for layout adjustments.
-     */
-    private static int frameWidth;
-
-    /**
-     * The height of the frame.
-     * This static field is used to keep track of the current height of the frame for layout adjustments.
-     */
-    private static int frameHeight;
 
     /**
      * Constructs the CompetitionFrame, initializing the GUI components and setting up event handlers.
@@ -82,46 +61,8 @@ public class CompetitionFrame extends JFrame {
         setSize(1000, 600);
         setLocationRelativeTo(null);
 
-        frameHeight = getHeight();
-        frameWidth = getWidth();
-
         zooPanel = new ZooPanel();
         zooPanel.setLayout(null);
-
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-
-
-                //size of frame was changed
-                Dimension newSize = getSize();
-                zooPanel.updateLocation(frameWidth, frameHeight);
-
-                frameWidth = newSize.width;
-                frameHeight = newSize.height;
-
-            }
-        });
-
-
-        //TOdo test if can be replaced with above
-//        addComponentListener(new ComponentAdapter() {
-//            /**
-//             * Handles component resizing by updating the location of the zoo panel.
-//             * This method is invoked when the frame is resized.
-//             *
-//             * @param e the component event
-//             */
-//            @Override
-//            public void componentResized(ComponentEvent e) {
-//                Dimension newSize = getSize();
-//                zooPanel.updateLocation(frameWidth, frameHeight);
-//
-//                frameWidth = newSize.width;
-//                frameHeight = newSize.height;
-//            }
-//        });
-
 
         // Menu
         JMenuBar menuBar = new JMenuBar();
@@ -421,7 +362,6 @@ public class CompetitionFrame extends JFrame {
         startCompetitionButton.addActionListener(e -> {
 
             if(isCompetitionEmpty(tournament)){
-                System.out.println("emptyyyyyyy");
                 JOptionPane.showMessageDialog(frame, "competition is empty\nplease add groups to competition before starting", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -505,22 +445,6 @@ public class CompetitionFrame extends JFrame {
         return false;
     }
 
-    /*
-
-//        if (currentAnimalsInGroups == null)
-//            return true;
-//        int currentAnimalsInGroupsLen = currentAnimalsInGroups.length;
-//        if (currentAnimalsInGroupsLen == 0)
-//            return true;
-//        boolean isEmpty = true;
-//        for (int i=0; i < currentAnimalsInGroupsLen; ++i)
-//            if (currentAnimalsInGroups[i] > 0)
-//                isEmpty = false;
-//        return isEmpty;
-
-
-     */
-
     /**
      * Adds a new group column to the competition panel.
      *
@@ -578,7 +502,6 @@ public class CompetitionFrame extends JFrame {
                 }
 
                 tournament.getCurrentAnimalsInGroups()[groupNumber-1]++; //count the new animal that was added
-                System.out.println("just added 1 to group " + (groupNumber) );
 
                 setAnimalNotAvailable(selectedAnimal);
                 JLabel animalLabel = new JLabel(selectedAnimal);
@@ -628,7 +551,6 @@ public class CompetitionFrame extends JFrame {
     public void freeMemory() {
         clear();
         zooPanel = null;
-        System.out.println("i just cleared our memory in exit");
     }
 
     /**

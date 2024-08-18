@@ -51,11 +51,15 @@ public class ZooPanel extends JPanel{
      * setting up the `panels` and `players` fields, and loading the background image.
      */
     public ZooPanel(){
+//        zooWidth = getWidth();
+//        zooHeight = getHeight();
         Timer timer = new Timer(1000 / 60, e -> repaint());
         timer.start();
         panels = null;
         players = null;
         loadImage("src/Images/competitionBackground.png");
+
+
     }
 
     /**
@@ -79,6 +83,20 @@ public class ZooPanel extends JPanel{
                     }
             }
         }
+    }
+
+    /**
+     * Loads an image from the specified path and updates the background.
+     *
+     * @param path The path to the image file.
+     */
+    private void loadImage(String path) {
+        try {
+            backgroundImage = new ImageIcon(path).getImage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        repaint();
     }
 
     /**
@@ -110,15 +128,6 @@ public class ZooPanel extends JPanel{
             players = tmp;
         }
 
-    }
-
-    /**
-     * Gets the array of players.
-     *
-     * @return The array of {@link Animal} players.
-     */
-    public Animal[] getPlayers() {
-        return players;
     }
 
     /**
@@ -313,29 +322,6 @@ public class ZooPanel extends JPanel{
     }
 
     /**
-     * Retrieves the array of competition panels.
-     *
-     * @return An array of {@link CompetitionPanel} objects.
-     */
-    public CompetitionPanel[] getPanels() {
-        return panels;
-    }
-
-    /**
-     * Loads an image from the specified path and updates the background.
-     *
-     * @param path The path to the image file.
-     */
-    private void loadImage(String path) {
-        try {
-            backgroundImage = new ImageIcon(path).getImage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        repaint();
-    }
-
-    /**
      * Creates a JComboBox containing names of available animals.
      *
      * @return A JComboBox with animal names or a message if no animals are available.
@@ -408,7 +394,7 @@ public class ZooPanel extends JPanel{
                 for (Animal animal : players) {
                     if (animal != null)
                         if (animal.isAvailable())
-                            if (animal.getCategory().equals("Terrestrial") || animal.getCategory().equals("Terrestrial+Water")) {
+                            if (animal.getCategory().equals("Terrestrial")) {
                                 animalsNames[i] = animal.getAnimalName();
                                 ++i;
                             }
@@ -450,7 +436,7 @@ public class ZooPanel extends JPanel{
 
                 break;
             }
-            case 2: //selects from Water animals
+            case 2: //selects from Air animals
             {
                 for (Animal animal : players) {
                     if (animal != null)
@@ -461,12 +447,12 @@ public class ZooPanel extends JPanel{
                 }
                 break;
             }
-            case 3: //selects from Water animals
+            case 3: //selects from Terrestrial animals
             {
                 for (Animal animal : players) {
                     if (animal != null) {
                         if (animal.isAvailable())
-                            if (animal.getCategory().equals("Terrestrial") || animal.getCategory().equals("Terrestrial+Water"))
+                            if (animal.getCategory().equals("Terrestrial"))
                                 ++count;
 
                     }
@@ -589,102 +575,6 @@ public class ZooPanel extends JPanel{
     }
 
     /**
-     * Sets the competition panels.
-     *
-     * @param panels The array of competition panels.
-     */
-    public void setPanels(CompetitionPanel[] panels) {
-        this.panels = panels;
-    }
-
-    /**
-     * Sets the array of players.
-     *
-     * @param players The array of animals.
-     */
-    public void setPlayers(Animal[] players) {
-        this.players = players;
-    }
-
-    /**
-     * Opens a dialog to set the sleep time for animals after a competition.
-     * <p>
-     * The user can input a positive integer to specify the sleep duration.
-     * The entered value is validated and updated in the {@link SleepTime} singleton.
-     * </p>
-     */
-    public void setSleep() {
-        JFrame frame = new JFrame("Animals Sleep Time");
-        frame.setSize(300, 200);
-        frame.setLayout(new BorderLayout(10, 10));
-        frame.setLocationRelativeTo(null);
-
-        JLabel titleLabel = new JLabel("Set Sleep Time", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        frame.add(titleLabel, BorderLayout.NORTH);
-
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-        JPanel sleepTimePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        TitledBorder sleepTimeBorder = BorderFactory.createTitledBorder("Enter Sleep Time");
-        sleepTimeBorder.setTitleFont(new Font("Arial", Font.BOLD, 14));
-        sleepTimePanel.setBorder(sleepTimeBorder);
-
-        JFormattedTextField sleepTimeField = new JFormattedTextField(createPositiveIntegerFormatter());
-        sleepTimeField.setPreferredSize(new Dimension(150, 25));
-        sleepTimePanel.add(sleepTimeField);
-
-        mainPanel.add(sleepTimePanel);
-        mainPanel.add(Box.createVerticalStrut(20));
-
-        frame.add(mainPanel, BorderLayout.CENTER);
-
-        JPanel buttonPanel = new JPanel();
-
-        JButton updateSleepButton = new JButton("Update Sleep Time");
-        JButton cancelButton = new JButton("Cancel");
-        frame.getRootPane().setDefaultButton(updateSleepButton);
-
-        ActionListener updateAction = e -> {
-            try {
-                int time = Integer.parseInt(sleepTimeField.getText());
-                if (time > 0) {
-                    SleepTime sleepTime = SleepTime.getInstance();
-                    sleepTime.setTime(time);
-                    JOptionPane.showMessageDialog(frame, "Time updated successfully!");
-                    frame.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(frame, "Please enter a positive integer greater than 0.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(frame, "Please enter a valid integer.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-            }
-        };
-
-        updateSleepButton.addActionListener(updateAction);
-        sleepTimeField.addActionListener(updateAction);
-
-        // Ensuring Enter key triggers the update action
-        sleepTimeField.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "updateAction");
-        sleepTimeField.getActionMap().put("updateAction", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateAction.actionPerformed(e);
-            }
-        });
-
-        cancelButton.addActionListener(e -> frame.dispose());
-
-        buttonPanel.add(updateSleepButton);
-        buttonPanel.add(cancelButton);
-        frame.add(buttonPanel, BorderLayout.SOUTH);
-
-        frame.setVisible(true);
-    }
-
-    /**
      * Creates a NumberFormatter for integer input, allowing only positive integers and disallowing invalid input.
      *
      * @return A NumberFormatter configured for positive integer values.
@@ -698,20 +588,6 @@ public class ZooPanel extends JPanel{
         formatter.setAllowsInvalid(false); // Disallow invalid characters
         formatter.setCommitsOnValidEdit(true);
         return formatter;
-    }
-
-    /**
-     * Sets the location of all animals to the specified width and height.
-     *
-     * @param width  The new width location.
-     * @param height The new height location.
-     */
-    public void updateLocation(int width, int height){
-        if (players != null) {
-            for (Animal animal : players) {
-                animal.setLocation(width, height);
-            }
-        }
     }
 
     /**
@@ -892,11 +768,119 @@ public class ZooPanel extends JPanel{
         return table;
     }
 
+    /**
+     * Sets the competition panels.
+     *
+     * @param panels The array of competition panels.
+     */
+    public void setPanels(CompetitionPanel[] panels) {
+        this.panels = panels;
+    }
 
+    /**
+     * Sets the array of players.
+     *
+     * @param players The array of animals.
+     */
+    public void setPlayers(Animal[] players) {
+        this.players = players;
+    }
 
+    /**
+     * Opens a dialog to set the sleep time for animals after a competition.
+     * <p>
+     * The user can input a positive integer to specify the sleep duration.
+     * The entered value is validated and updated in the {@link SleepTime} singleton.
+     * </p>
+     */
+    public void setSleep() {
+        JFrame frame = new JFrame("Animals Sleep Time");
+        frame.setSize(300, 200);
+        frame.setLayout(new BorderLayout(10, 10));
+        frame.setLocationRelativeTo(null);
 
+        JLabel titleLabel = new JLabel("Set Sleep Time", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        frame.add(titleLabel, BorderLayout.NORTH);
 
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
+        JPanel sleepTimePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        TitledBorder sleepTimeBorder = BorderFactory.createTitledBorder("Enter Sleep Time");
+        sleepTimeBorder.setTitleFont(new Font("Arial", Font.BOLD, 14));
+        sleepTimePanel.setBorder(sleepTimeBorder);
+
+        JFormattedTextField sleepTimeField = new JFormattedTextField(createPositiveIntegerFormatter());
+        sleepTimeField.setPreferredSize(new Dimension(150, 25));
+        sleepTimePanel.add(sleepTimeField);
+
+        mainPanel.add(sleepTimePanel);
+        mainPanel.add(Box.createVerticalStrut(20));
+
+        frame.add(mainPanel, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel();
+
+        JButton updateSleepButton = new JButton("Update Sleep Time");
+        JButton cancelButton = new JButton("Cancel");
+        frame.getRootPane().setDefaultButton(updateSleepButton);
+
+        ActionListener updateAction = e -> {
+            try {
+                int time = Integer.parseInt(sleepTimeField.getText());
+                if (time > 0) {
+                    SleepTime sleepTime = SleepTime.getInstance();
+                    sleepTime.setTime(time);
+                    JOptionPane.showMessageDialog(frame, "Time updated successfully!");
+                    frame.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Please enter a positive integer greater than 0.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Please enter a valid integer.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            }
+        };
+
+        updateSleepButton.addActionListener(updateAction);
+        sleepTimeField.addActionListener(updateAction);
+
+        // Ensuring Enter key triggers the update action
+        sleepTimeField.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "updateAction");
+        sleepTimeField.getActionMap().put("updateAction", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateAction.actionPerformed(e);
+            }
+        });
+
+        cancelButton.addActionListener(e -> frame.dispose());
+
+        buttonPanel.add(updateSleepButton);
+        buttonPanel.add(cancelButton);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
+
+        frame.setVisible(true);
+    }
+
+    /**
+     * Retrieves the array of competition panels.
+     *
+     * @return An array of {@link CompetitionPanel} objects.
+     */
+    public CompetitionPanel[] getPanels() {
+        return panels;
+    }
+
+    /**
+     * Gets the array of players.
+     *
+     * @return The array of {@link Animal} players.
+     */
+    public Animal[] getPlayers() {
+        return players;
+    }
 
     public int countAvailableAnimalsFromTypeAndRout(int competitionType, int competitionRout) {
 
@@ -1069,8 +1053,6 @@ public class ZooPanel extends JPanel{
                     if (time > 0) {
                         SleepTime sleepTime = SleepTime.getInstance();
                         sleepTime.setTime(time);
-                        System.out.println(time);
-                        System.out.println(SleepTime.getInstance().getTime());
                         JOptionPane.showMessageDialog(frame, "Time updated successfully!");
                         frame.dispose();
                     } else {
@@ -1094,10 +1076,6 @@ public class ZooPanel extends JPanel{
                 updateAction.actionPerformed(e);
             }
         });
-
-        System.out.println(SleepTime.getInstance().getTime());
     }
 
 }
-
-

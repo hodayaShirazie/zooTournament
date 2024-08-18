@@ -26,6 +26,15 @@ public abstract class WaterAnimal extends Animal {
      */
     private int competitionRoute;
 
+    /**
+     * Constructs a new WaterAnimal with specified attributes and a default diving depth of 0.
+     *
+     * @param name            the name of the water animal
+     * @param speed           the speed of the water animal
+     * @param energyPerMeter  the energy consumed by the water animal per meter of movement
+     * @param maxEnergy       the maximum energy the water animal can have
+     * @param competitionRoute the route number for the competition
+     */
     public WaterAnimal(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute ) {
         super(name, speed, energyPerMeter, maxEnergy);
         setInitialLocation();
@@ -39,22 +48,22 @@ public abstract class WaterAnimal extends Animal {
     }
 
     /**
-     * Constructs a {@code WaterAnimal} with the specified parameters.
+     * Constructs a new WaterAnimal with specified attributes.
      *
-     * @param name the name of the water animal
-     * @param gender the gender of the water animal
-     * @param weight the weight of the water animal
-     * @param speed the speed of the water animal
-     * @param medals an array of medals the water animal has
-     * @param loc the initial location of the water animal
-     * @param size the size of the water animal
-     * @param id the unique identifier for the water animal
-     * @param orientation the orientation of the water animal
-     * @param maxEnergy the maximum energy of the water animal
-     * @param energyPerMeter the energy consumed per meter traveled
-     * @param pan the competition panel where the water animal participates
-     * @param diveDept the dive depth of the water animal
-     * @param competitionRoute the route used in the competition
+     * @param name            the name of the water animal
+     * @param gender          the gender of the water animal
+     * @param weight          the weight of the water animal; defaults to 10 if non-positive
+     * @param speed           the speed of the water animal; defaults to 10 if non-positive
+     * @param medals          an array of medals awarded to the water animal; duplicates are removed
+     * @param loc             the initial location of the water animal
+     * @param size            the size of the water animal
+     * @param id              the unique identifier for the water animal
+     * @param orientation     the orientation of the water animal
+     * @param maxEnergy       the maximum energy the water animal can have
+     * @param energyPerMeter  the energy consumed by the water animal per meter of movement
+     * @param pan             the competition panel associated with the water animal
+     * @param diveDept        the depth at which the water animal can dive
+     * @param competitionRoute the route number for the competition
      */
     public WaterAnimal(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, ZooPanel pan, double diveDept,int competitionRoute ) {
         super(name, gender, weight, speed, medals, loc,size, id, orientation, maxEnergy, energyPerMeter, pan);
@@ -74,15 +83,14 @@ public abstract class WaterAnimal extends Animal {
     }
 
     /**
-     * Constructs a {@code WaterAnimal} with the specified parameters.
-     * This constructor is used for creating a water animal with specific attributes, including competition route and panel.
+     * Constructs a new WaterAnimal with specified attributes and a default diving depth of 0.
      *
-     * @param name the name of the water animal
-     * @param speed the speed of the water animal
-     * @param energyPerMeter the energy consumed per meter traveled
-     * @param maxEnergy the maximum energy of the water animal
-     * @param competitionRoute the route used in the competition
-     * @param panel the competition panel where the water animal participates
+     * @param name            the name of the water animal
+     * @param speed           the speed of the water animal
+     * @param energyPerMeter  the energy consumed by the water animal per meter of movement
+     * @param maxEnergy       the maximum energy the water animal can have
+     * @param competitionRoute the route number for the competition
+     * @param panel           the competition panel associated with the water animal
      */
     public WaterAnimal(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy,panel);
@@ -134,17 +142,6 @@ public abstract class WaterAnimal extends Animal {
     }
 
     /**
-     * Starts moving the water animal towards the specified destination point.
-     * This implementation sets the destination based on the current Y-coordinate.
-     */
-//    @Override
-//    public void startMoving() {
-//
-//        startMoving(new Point((getZooPanel().getWidth() - 65 - (int)(getZooPanel().getWidth()*0.085)), getLocationY()));
-//
-//    }
-
-    /**
      * Returns the current competition route for the water animal.
      *
      * @return the competition route
@@ -152,7 +149,6 @@ public abstract class WaterAnimal extends Animal {
     public int getCompetitionRoute() {
         return competitionRoute;
     }
-
 
     /**
      * Sets the competition route for the water animal.
@@ -217,35 +213,53 @@ public abstract class WaterAnimal extends Animal {
         return "Water";
     }
 
-    public void setLocation(int width, int height){
-
-        double x = (double) getLocationX()/width;
-        int newX = (int) (x * getZooPanel().getWidth());
-
-        super.setLocation(new Point(newX, (getZooPanel().getHeight()/9)* (2*getCompetitionRoute() - 1)));
-
-    }
-
+    /**
+     * Calculates the distance from the current location of the water animal
+     * to the destination point, which is based on the width of the ZooPanel.
+     * The destination is adjusted by subtracting 65 and a percentage of the ZooPanel's width.
+     *
+     * @return the calculated distance to the destination point
+     */
     @Override
     public double getDistance() {
         return super.calcDistancePoint(new Point((getZooPanel().getWidth() - 65 - (int)(getZooPanel().getWidth()*0.085)), getLocationY()));
     }
 
+    /**
+     * Sets the initial location of the water animal based on the ZooPanel's dimensions.
+     * The initial X-coordinate is a percentage of the panel's width.
+     * The Y-coordinate is calculated based on the competition route.
+     */
     public void setInitialLocation(){
         super.setLocation(new Point((int)(getZooPanel().getWidth()*0.085), (getZooPanel().getHeight()/9)* (2*getCompetitionRoute() - 1)));
 
     }
 
+    /**
+     * Sets the destination point for the water animal based on the ZooPanel's width.
+     * The destination X-coordinate is calculated by subtracting 65 and a percentage of the panel's width.
+     * The Y-coordinate remains the same as the current location.
+     */
     public void setDestination(){
 
         super.setDestination(new Point((getZooPanel().getWidth() - 65 - (int)(getZooPanel().getWidth()*0.085)), getLocationY()));
 
     }
 
-    public int getLenOfRoute(){//Todo match to every size os screen
-        return 755;
+    /**
+     * Returns the length of the route for the water animal.
+     * @return the length of the route
+     */
+    public int getLenOfRoute(){
+        return (int) ((getZooPanel().getWidth() - 65 - (int)(getZooPanel().getWidth()*0.085)) - (getZooPanel().getWidth()*0.085));
     }
 
+    /**
+     * Returns the initial X-coordinate for the water animal based on the ZooPanel's width.
+     * The value is a percentage of the panel's width.
+     *
+     * @return the initial X-coordinate
+     */
     public int getXinit(){
         return (int)(getZooPanel().getWidth()*0.085);
     }

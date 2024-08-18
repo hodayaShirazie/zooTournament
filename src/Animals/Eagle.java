@@ -21,13 +21,22 @@ public class Eagle extends AirAnimal {
      */
     static final int MAX_ALTITUDE = 1000;
 
+    /**
+     * Constructs an Eagle object with the specified attributes.
+     * Initializes the Eagle's altitude of flight and loads the images associated with the Eagle.
+     *
+     * @param name            The name of the Eagle.
+     * @param speed           The speed of the Eagle.
+     * @param energyPerMeter  The energy consumption per meter of the Eagle.
+     * @param maxEnergy       The maximum energy the Eagle can have.
+     * @param competitionRoute The competition route number, which determines the Eagle's initial position.
+     */
     public Eagle(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute) {
         super(name, speed, energyPerMeter, maxEnergy, competitionRoute);
         this.altitudeOfFlight = 100;
         loadImages("eagle");
 
     }
-
 
     /**
      * Construct a new Eagle object with specified values.

@@ -26,7 +26,17 @@ public class Alligator extends WaterAnimal implements IReptile, ICanWalk {
      */
     private String areaOfLiving;
 
-
+    /**
+     * Constructs an Alligator object with the specified attributes.
+     * Initializes the Alligator's walking ability, living area, and initial location based on the competition route.
+     * Loads the images associated with the Alligator.
+     *
+     * @param name               The name of the Alligator.
+     * @param speed              The speed of the Alligator.
+     * @param energyPerMeter     The energy consumption per meter of the Alligator.
+     * @param maxEnergy          The maximum energy the Alligator can have.
+     * @param competitionRoute   The route number for the competition, used to calculate the initial position of the Alligator.
+     */
     public Alligator(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute) {
         super(name, speed, energyPerMeter, maxEnergy, competitionRoute);
         canWalk = new CanWalk(6);
@@ -36,7 +46,6 @@ public class Alligator extends WaterAnimal implements IReptile, ICanWalk {
         loadImages("alligator");
 
     }
-
 
     /**
      * Constructs a new Alligator object with specified values.
@@ -54,7 +63,7 @@ public class Alligator extends WaterAnimal implements IReptile, ICanWalk {
      * @param orientation the orientation of the alligator.
      * @param maxEnergy the maximum energy of the alligator.
      * @param energyPerMeter the energy consumed per meter by the alligator.
-     * @param pan the competition panel.
+     * @param pan the zoo panel.
      * @param competitionRoute the competition route.
      */
     public Alligator(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, ZooPanel pan, double diveDept, String areaOfLiving, int competitionRoute) {
@@ -67,14 +76,15 @@ public class Alligator extends WaterAnimal implements IReptile, ICanWalk {
     }
 
     /**
-     * Constructs a new Alligator object with specified values.
+     * Constructs an Alligator object with the specified attributes and assigns it to a competition panel.
+     * Initializes the Alligator's walking ability, living area, and loads the images associated with the Alligator.
      *
-     * @param name the alligator's name.
-     * @param speed the alligator's speed.
-     * @param energyPerMeter the energy consumed per meter by the alligator.
-     * @param maxEnergy the maximum energy of the alligator.
-     * @param competitionRoute the competition route.
-     * @param panel the competition panel.
+     * @param name               The name of the Alligator.
+     * @param speed              The speed of the Alligator.
+     * @param energyPerMeter     The energy consumption per meter of the Alligator.
+     * @param maxEnergy          The maximum energy the Alligator can have.
+     * @param competitionRoute   The route number for the competition, used to calculate the initial position of the Alligator.
+     * @param panel              The ZooPanel where the Alligator will be displayed and interact with other objects.
      */
     public Alligator(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy, competitionRoute, panel);
@@ -83,7 +93,6 @@ public class Alligator extends WaterAnimal implements IReptile, ICanWalk {
         loadImages("alligator");
 
     }
-
 
     /**
      * Construct a new Alligator with default values.

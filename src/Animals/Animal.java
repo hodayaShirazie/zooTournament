@@ -17,10 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import Graphics.ZooPanel;
 
-
-
-
-
 /**
  * Represents an animal.
  * cannot perform instances from this class.
@@ -83,6 +79,10 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
      */
     private ZooPanel zooPanel;
 
+    /**
+     * The CompetitionPanel associated with this animal.
+     * This panel represents the specific competition that the animal is participating in.
+     */
     private CompetitionPanel panel;
 
     /**
@@ -135,11 +135,40 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
      */
     private boolean isAvailable;
 
+    /**
+     * The destination point for the animal's movement.
+     * This represents the target location the animal is moving towards.
+     */
     private Point destination;
 
+    /**
+     * Indicates whether the animal needs to move.
+     * This flag is used to determine if the animal should start or continue moving.
+     */
     private boolean needToMove;
 
-
+    /**
+     * Constructs an Animal with the specified name, speed, energy per meter, and maximum energy.
+     * <p>
+     * The animal is initialized with default values for other attributes:
+     * - Gender is set to Hermaphrodite
+     * - Weight is set to 10
+     * - Medals are set to null
+     * - Size is set to 65
+     * - ID is set to 000000000
+     * - Orientation is set to EAST
+     * - ZooPanel is set to null
+     * - Image is set to null
+     * - Availability is set to true
+     * - Done is set to 0
+     * - Drawable, Locatable, and Cloneable are set to null
+     * </p>
+     *
+     * @param name the name of the animal
+     * @param speed the speed of the animal in units per second
+     * @param energyPerMeter the energy consumed by the animal per meter
+     * @param maxEnergy the maximum energy the animal can have
+     */
     public Animal(String name, int speed, int energyPerMeter, int maxEnergy) {
         super();
         this. name = name;
@@ -171,12 +200,15 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
 
     /**
      * Constructs a new Animal with the specified attributes.
+     * <p>
+     * Initializes the animal with the given name, speed, energy per meter, and maximum energy. Other attributes are set to default values.
+     * </p>
      *
      * @param name            the name of the animal
      * @param speed           the speed of the animal
      * @param energyPerMeter  the energy consumed by the animal per meter of movement
      * @param maxEnergy       the maximum energy the animal can have
-     * @param zooPanel           the competition panel associated with the animal
+     * @param zooPanel        the competition panel associated with the animal
      */
     public Animal(String name, int speed, int energyPerMeter, int maxEnergy, ZooPanel zooPanel) {
         super();
@@ -213,6 +245,10 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
 
     /**
      * Constructs a new Animal with the specified attributes.
+     * <p>
+     * Initializes the animal with detailed attributes including name, gender, weight, speed, medals, location, size, ID, orientation,
+     * maximum energy, and energy per meter. Processes the medals array to remove duplicates. Sets default values for weight and speed if non-positive values are provided.
+     * </p>
      *
      * @param name            the name of the animal
      * @param gender          the gender of the animal
@@ -306,7 +342,10 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
     }
 
     /**
-     * Construct a new Animal with default values.
+     * Constructs a new Animal with default values.
+     * <p>
+     * Initializes the animal with default values for all attributes.
+     * </p>
      */
     public Animal() {
         super();
@@ -341,7 +380,6 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
      * the function calls sound function that prints the sound.
      */
     public final void makeSound(){
-        System.out.print("Animal " + name + " said ");
         sound();
     }
 
@@ -443,7 +481,8 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         try {
             img1 = ImageIO.read(new File(PICTURE_PATH + imageName + "_right_down.png"));
         }
-        catch (IOException e) { System.out.println("Cannot load images for " + imageName); }
+        catch (IOException e) {
+            System.out.println("Cannot load images for " + imageName); }
     }
 
     /**
@@ -559,7 +598,6 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
 
         currentEnergy -= frameSpeed*energyPerMeter;
 
-        System.out.println("my location " + getLocation() + " my distance is " + getTotalDistance());
 
     }
 
@@ -729,50 +767,126 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         return isAvailable;
     }
 
+    /**
+     * Sets the availability status of the animal.
+     * @param available true if the animal is available, false otherwise
+     */
     public void setIsAvailable(boolean available) {
         isAvailable = available;
     }
 
+    /**
+     * Sets the ZooPanel associated with the animal.
+     * @param zooPanel the ZooPanel to be set
+     */
     public void setZooPanel(ZooPanel zooPanel) {
         this.zooPanel = zooPanel;
     }
 
-    public abstract void setLocation(int width, int height);
+//    public void setLocation(int width, int height){
+//
+//
+//        double locx = (double) getLocationX()/width;
+//        double locy = (double) getLocationY()/height;
+//        int newlocX = (int) (locx * getZooPanel().getWidth());
+//        int newlocY = (int) (locy * getZooPanel().getHeight());
+//
+//        super.setLocation(new Point(newlocX, newlocY));
+//
+//        double desx = (double) getLocationX()/width;
+//        double desy = (double) getLocationY()/height;
+//        int newdesX = (int) (desx * getZooPanel().getWidth());
+//        int newdesY = (int) (desy * getZooPanel().getHeight());
+//
+//        this.setDestination(new Point(newdesX, newdesY));
+//
+//    }
 
+    /**
+     * Gets the distance the animal has traveled.
+     * @return the distance traveled
+     */
     public double getDistance(){
         return 0;
     }
 
+    /**
+     * Gets the Timer associated with the animal.
+     * @return the Timer object
+     */
+    public Timer getTimer() {
+        return timer;
+    }
+
+    /**
+     * Abstract method to set the initial location of the animal.
+     */
     public abstract void setInitialLocation();
 
+    /**
+     * Gets the CompetitionPanel associated with the animal.
+     * @return the CompetitionPanel object
+     */
     public CompetitionPanel getCompetitionPanel() {
         return panel;
     }
 
+    /**
+     * Sets the CompetitionPanel associated with the animal.
+     * @param panel the CompetitionPanel to be set
+     */
     public void setCompetitionPanel(CompetitionPanel panel){
         this.panel = panel;
     }
 
+    /**
+     * Gets the destination point of the animal.
+     * @return the destination point
+     */
     public Point getDestination() {
         return destination;
     }
 
+    /**
+     * Abstract method to set the destination of the animal.
+     */
     public abstract void setDestination();
 
+    /**
+     * Sets the destination point of the animal.
+     * @param destination the destination point to be set
+     */
     public void setDestination(Point destination) {
         this.destination = destination;
     }
 
+    /**
+     * Gets the competition route of the animal.
+     * @return the competition route
+     */
     public int getCompetitionRoute(){
         return 0;
     }
 
+    /**
+     * Abstract method to get the length of the route for the animal.
+     * @return the length of the route
+     */
     public abstract int getLenOfRoute();
 
+    /**
+     * Gets the initial X coordinate of the animal.
+     * @return the initial X coordinate
+     */
     public int getXinit(){
         return 0;
     }
 
+    /**
+     * Converts an animal category to a corresponding number.
+     * @param animalCategory the category of the animal
+     * @return the corresponding number
+     */
     public int getAnimalAsNumber(String animalCategory) {
         switch (animalCategory) {
             case "Water":
@@ -787,23 +901,27 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         return 0;
     }
 
+    /**
+     * Checks if the animal needs to move.
+     * @return true if the animal needs to move, false otherwise
+     */
     public boolean isNeedToMove() {
         return needToMove;
     }
 
+    /**
+     * Sets the need to move status of the animal.
+     * @param needToMove true if the animal needs to move, false otherwise
+     */
     public void setNeedToMove(boolean needToMove) {
         this.needToMove = needToMove;
     }
 
     /**
-     * Starts the movement of the last participant in the competition.
-     * If the type of competition is not terrestrial, the participant starts moving directly.
-     * If the type of competition is terrestrial, a timer is set to update the movement of the participant
-     * Along a rectangular path.
+     * Starts moving the animal along a predefined rectangular path.
      */
     public void startMoveTerrestrial() {
 
-        System.out.println("startMoveTerrestrial");
         this.setMoveTimer(new Timer(1000 / 60, e -> updateSide()));
         this.getMoveTimer().start();
 
@@ -814,51 +932,36 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
     }
 
     /**
-     * Updates the orientation and position of the latest participant based on their current location.
-     * The participant moves along a rectangular path and updates its orientation at each corner.
-     * Stops the movement when the participant returns to the starting point.
+     * Updates the direction of the animal and handles movement along the rectangular path.
      */
     private void updateSide() {
 
-        System.out.println("MyLocation: " + this.getLocation());
-        System.out.println("done is: " + this.isDone());
-        System.out.println("width - 65:  " + (this.getZooPanel().getWidth() - 65) );
-        System.out.println("height - 65:  " + (this.getZooPanel().getHeight() - 65) );
-
-
         if (this.getLocation().equals(new Point(this.getZooPanel().getWidth() - 65,0))) {
             this.setOrientation(Orientation.SOUTH);
-//            setNeededDistance(neededDistance+participant.calcDistancePoint(new Point(participant.getLocation().getX(), participant.getZooPanel().getHeight() - 65)));
-            System.out.println("Change Or to " + this.getOrientation());
             this.startMoving();
             this.setDone(1);
 
 
         } else if (this.getLocation().equals(new Point(this.getZooPanel().getWidth() - 65, this.getZooPanel().getHeight() - 65))) {
             this.setOrientation(Orientation.WEST);
-//            setNeededDistance(neededDistance+participant.calcDistancePoint(new Point(0, participant.getLocation().getY())));
-            System.out.println("Change Or to " + this.getOrientation());
             this.startMoving();
             this.setDone(2);
+        }
+        else if (this.getLocation().equals(new Point(0, this.getZooPanel().getHeight() - 65))) {
 
-        } else if (this.getLocation().equals(new Point(0, this.getZooPanel().getHeight() - 65))) {
             this.setOrientation(Orientation.NORTH);
 //            setNeededDistance(neededDistance+participant.calcDistancePoint(new Point(0, 0)));
-            System.out.println("Change Or to " + this.getOrientation());
 
             this.startMoving();
             this.setDone(3);
 
         } else if (this.getLocation().equals(new Point(0, 0))) {
             this.setOrientation(Orientation.EAST);
-            System.out.println("Change Or to " + this.getOrientation());
-
-
             if (this.isDone() > 0) {
                 if (this.getMoveTimer() != null) {
                     this.getMoveTimer().stop();
                     this.setMoveTimer(null);
-                    this.setDone(4);
+                    this.setDone(0);
                 }
 
             }
@@ -866,4 +969,75 @@ public abstract class Animal extends Mobile implements IAnimal,IMovable, Cloneab
         }
 
     }
+
+    /**
+     * Starts moving the animal towards a specified destination.
+     * @param destination the point to move towards
+     */
+    public void startMoving(Point destination) {
+        timer = new Timer(100 / 60, e -> moveToward(destination));
+        timer.start();
+    }
+
+    /**
+     * Moves the animal towards a specified destination.
+     * @param destination the point to move towards
+     */
+    protected void moveToward(Point destination) {
+        double frameSpeed = speed / 60;
+        if (frameSpeed < 1)
+            frameSpeed = 1;
+        // && timer != null && moveTimer != null
+        if (currentEnergy <= 0 ) {
+            if (timer != null) {
+                timer.stop();
+//                timer = null;
+            }
+            if(moveTimer != null)
+                moveTimer.stop();
+            currentEnergy = 0;
+            setNeedToMove(true);
+            return;
+        }
+        if (orientation == Orientation.EAST || orientation == Orientation.WEST) {
+            if (Math.abs(getLocationX() - destination.getX()) <= frameSpeed) {
+                move(destination);
+                if (timer != null) {
+                    timer.stop();
+//                    timer = null;
+                }
+
+
+            } else {
+                if (destination.getX() > getLocationX())
+                    move(new Point((int) (getLocationX() + frameSpeed), getLocationY()));
+                else
+                    move(new Point((int) (getLocationX() - frameSpeed), getLocationY()));
+            }
+
+        }
+        else if (orientation == Orientation.SOUTH || orientation == Orientation.NORTH) {
+
+            if (Math.abs(getLocationY() - destination.getY()) <= frameSpeed) {
+                move(destination);
+                if (timer != null) {
+                    timer.stop();
+//                    timer = null;
+                }
+
+
+            } else {
+                if (destination.getY() > getLocationY())
+                    move(new Point(getLocationX(), (int)(getLocationY() + frameSpeed)));
+                else
+                    move(new Point(getLocationX(), (int)(getLocationY() - frameSpeed)));
+            }
+
+        }
+
+        currentEnergy -= frameSpeed*energyPerMeter;
+
+
+    }
+
 }

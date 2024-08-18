@@ -22,7 +22,15 @@ public class Snake extends TerrestrialAnimals implements IReptile {
      */
     private double length;
 
-
+    /**
+     * Constructs a Snake object with the specified attributes.
+     * Initializes the Snake's poison level and length, and loads the images associated with the Snake.
+     *
+     * @param name            The name of the Snake.
+     * @param speed           The speed of the Snake.
+     * @param energyPerMeter  The energy consumption per meter of the Snake.
+     * @param maxEnergy       The maximum energy the Snake can have.
+     */
     public Snake(String name, int speed,int energyPerMeter, int maxEnergy) {
         super(name, speed, energyPerMeter, maxEnergy);
         this.poisonous = Poisonous.Low;
@@ -62,7 +70,7 @@ public class Snake extends TerrestrialAnimals implements IReptile {
      * @param speed         The speed of the snake.
      * @param energyPerMeter The amount of energy consumed per meter.
      * @param maxEnergy     The maximum energy of the snake.
-     * @param panel         The competition panel on which the snake is displayed.
+     * @param panel         The zoo panel on which the snake is displayed.
      */
     public Snake(String name, int speed,int energyPerMeter, int maxEnergy, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy,panel);

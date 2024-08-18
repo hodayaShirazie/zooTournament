@@ -19,7 +19,15 @@ public class Dog extends TerrestrialAnimals {
      */
     private String breed;
 
-
+    /**
+     * Constructs a Dog object with the specified attributes.
+     * Initializes the Dog's breed and loads the images associated with the Dog.
+     *
+     * @param name           The name of the Dog.
+     * @param speed          The speed of the Dog.
+     * @param energyPerMeter The energy consumption per meter of the Dog.
+     * @param maxEnergy      The maximum energy the Dog can have.
+     */
     public Dog(String name, int speed,int energyPerMeter, int maxEnergy) {
         super(name, speed, energyPerMeter, maxEnergy);
         this.breed = "German shepherd";
@@ -52,7 +60,7 @@ public class Dog extends TerrestrialAnimals {
      * @param speed         The speed of the dog.
      * @param energyPerMeter The energy consumed per meter traveled.
      * @param maxEnergy     The maximum energy the dog can have.
-     * @param panel         The competition panel where the dog participates.
+     * @param panel         The zoo panel where the dog participates.
      */
     public Dog(String name, int speed,int energyPerMeter, int maxEnergy, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy,panel);

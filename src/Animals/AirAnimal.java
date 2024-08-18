@@ -10,8 +10,6 @@ import Graphics.ZooPanel;
  */
 public abstract class AirAnimal extends Animal {
 
-
-
     /**
      * The wingspan of the air animal.
      */
@@ -25,22 +23,22 @@ public abstract class AirAnimal extends Animal {
 
 
     /**
-     * Constructs a new AirAnimal with the specified attributes.
+     * Constructs a new AirAnimal with specified attributes.
      *
-     * @param name            the name of the animal
-     * @param gender          the gender of the animal
-     * @param weight          the weight of the animal; if non-positive, defaults to 10
-     * @param speed           the speed of the animal; if non-positive, defaults to 10
-     * @param medals          an array of medals awarded to the animal; duplicates are removed
-     * @param loc             the initial location of the animal
-     * @param size            the size of the animal
-     * @param id              the unique identifier for the animal
-     * @param orientation     the orientation of the animal
-     * @param maxEnergy       the maximum energy the animal can have
-     * @param energyPerMeter  the energy consumed by the animal per meter of movement
-     * @param pan             the competition panel associated with the animal
-     * @param wingspan        the wingspan of the animal; if non-positive, defaults to 30
-     * @param competitionRoute the route for the competition
+     * @param name             the name of the air animal
+     * @param gender           the gender of the air animal
+     * @param weight           the weight of the air animal; if non-positive, defaults to 10
+     * @param speed            the speed of the air animal; if non-positive, defaults to 10
+     * @param medals           an array of medals awarded to the air animal; duplicates are removed
+     * @param loc              the initial location of the air animal
+     * @param size             the size of the air animal
+     * @param id               the unique identifier for the air animal
+     * @param orientation      the orientation of the air animal
+     * @param maxEnergy        the maximum energy the air animal can have
+     * @param energyPerMeter   the energy consumed by the air animal per meter of movement
+     * @param pan              the competition panel associated with the air animal
+     * @param wingspan         the wingspan of the air animal; defaults to 30 if non-positive
+     * @param competitionRoute the competition route for the air animal
      */
     public AirAnimal(String name, Gender gender, double weight, double speed, Medal[] medals  , Point loc , int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, ZooPanel pan, double wingspan, int competitionRoute) {
         super(name, gender, weight, speed, medals, loc,size, id, orientation, maxEnergy, energyPerMeter, pan);
@@ -57,14 +55,14 @@ public abstract class AirAnimal extends Animal {
     }
 
     /**
-     * Constructs a new AirAnimal with default values for certain attributes.
+     * Constructs a new AirAnimal with specified attributes and default wingspan.
      *
-     * @param name            the name of the animal
-     * @param speed           the speed of the animal; if non-positive, defaults to 10
-     * @param energyPerMeter  the energy consumed by the animal per meter of movement
-     * @param maxEnergy       the maximum energy the animal can have
-     * @param competitionRoute the route for the competition
-     * @param panel           the competition panel associated with the animal
+     * @param name             the name of the air animal
+     * @param speed            the speed of the air animal
+     * @param energyPerMeter   the energy consumed by the air animal per meter of movement
+     * @param maxEnergy        the maximum energy the air animal can have
+     * @param competitionRoute the competition route for the air animal
+     * @param panel            the competition panel associated with the air animal
      */
     public AirAnimal(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy,panel);
@@ -76,6 +74,15 @@ public abstract class AirAnimal extends Animal {
 
     }
 
+    /**
+     * Constructs a new AirAnimal with specified attributes, default wingspan, and no panel.
+     *
+     * @param name             the name of the air animal
+     * @param speed            the speed of the air animal
+     * @param energyPerMeter   the energy consumed by the air animal per meter of movement
+     * @param maxEnergy        the maximum energy the air animal can have
+     * @param competitionRoute the competition route for the air animal
+     */
     public AirAnimal(String name, int speed,int energyPerMeter, int maxEnergy, int competitionRoute ) {
         super(name, speed, energyPerMeter, maxEnergy);
 
@@ -132,59 +139,50 @@ public abstract class AirAnimal extends Animal {
     }
 
     /**
-     * Starts moving the air animal towards the right edge of the screen.
-     * The animal moves towards a point at x-coordinate 900 and its current y-coordinate.
+     * Sets the initial location of the AirAnimal on the competition route.
+     * This method calculates the starting point of the animal based on the competition route and panel height.
      */
-//    public void startMoving() {
-//
-//        startMoving(new Point(getZooPanel().getWidth() - 65, getLocationY()));
-//
-//    }
-
-    public void setLocation(int width, int height){
-
-        System.out.println("old width: " + width);
-        System.out.println("New width: " + getZooPanel().getWidth());
-
-        System.out.println("current x" + getLocationX());
-
-        double x = (double) getLocationX()/width;
-
-        System.out.println("x/width:  " + x);
-
-        int newX = (int) (x * getZooPanel().getWidth());
-
-        System.out.println("new x" + newX);
-
-        super.setLocation(new Point(newX, 2*(getZooPanel().getHeight()/9) * (competitionRoute - 1)));
-
-    }
-
     public void setInitialLocation(){
         super.setLocation(new Point(0, 2*(getZooPanel().getHeight()/9) * (competitionRoute - 1)));
 
     }
 
+    /**
+     * Sets the destination point for the AirAnimal based on the panel width.
+     * The destination is the right edge of the panel minus the size of the animal.
+     */
     public void setDestination(){
 
         super.setDestination(new Point(getZooPanel().getWidth() - 65, getLocationY()));
 
     }
 
-
+    /**
+     * Returns the competition route assigned to the AirAnimal.
+     *
+     * @return the competition route
+     */
     @Override
     public int getCompetitionRoute() {
         return competitionRoute;
     }
 
+    /**
+     * Calculates and returns the distance from the AirAnimal's current location to its destination.
+     *
+     * @return the distance to the destination
+     */
     public double getDistance() {
 
-        System.out.println("distance of animal is  " + super.calcDistancePoint((new Point(getZooPanel().getWidth() - 65, getLocationY()))));
         return super.calcDistancePoint((new Point(getZooPanel().getWidth() - 65, getLocationY())));
     }
 
-    public int getLenOfRoute(){//Todo match to every size os screen
-        return 921;
+    /**
+     * Returns the length of the competition route.*
+     * @return the length of the route
+     */
+    public int getLenOfRoute(){
+        return getZooPanel().getWidth() - 65;
     }
 
 }

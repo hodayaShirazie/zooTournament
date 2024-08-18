@@ -416,7 +416,6 @@ public class AddAnimalDialog extends JDialog{
         if(animalType == 1 || animalType == 4 || animalType == 8|| animalType == 5|| animalType == 6) {
             try {
                 selectedCompetitionRouteInt = Integer.parseInt(selectedCompetitionRoute);
-                System.out.println("-------------------------chosen rout is " + selectedCompetitionRouteInt + " ----------------------------");
             }
             catch (NumberFormatException exception) {
                 JOptionPane.showMessageDialog(frame, "Invalid Input bla bla", "Invalid Input", JOptionPane.ERROR_MESSAGE);

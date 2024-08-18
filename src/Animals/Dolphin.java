@@ -15,7 +15,16 @@ public class Dolphin extends WaterAnimal{
      */
     private  WaterType waterType;
 
-
+    /**
+     * Constructs a Dolphin object with the specified attributes.
+     * Initializes the Dolphin's location, water type, and loads the images associated with the Dolphin.
+     *
+     * @param name            The name of the Dolphin.
+     * @param speed           The speed of the Dolphin.
+     * @param energyPerMeter  The energy consumption per meter of the Dolphin.
+     * @param maxEnergy       The maximum energy the Dolphin can have.
+     * @param competitionRoute The competition route number, which determines the Dolphin's initial position.
+     */
     public Dolphin(String name, int speed,int energyPerMeter, int maxEnergy,int competitionRoute) {
         super(name, speed, energyPerMeter, maxEnergy,competitionRoute);
         super.setLocation(new Point(80, (competitionRoute - 1)*53 + competitionRoute*60));

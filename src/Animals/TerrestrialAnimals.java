@@ -47,6 +47,14 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
     private BufferedImage img4;
 
 
+    /**
+     * Constructs a new TerrestrialAnimal with default number of legs (4) and no panel.
+     *
+     * @param name            the name of the terrestrial animal
+     * @param speed           the speed of the terrestrial animal
+     * @param energyPerMeter  the energy consumed by the terrestrial animal per meter of movement
+     * @param maxEnergy       the maximum energy the terrestrial animal can have
+     */
     public TerrestrialAnimals(String name, int speed, int energyPerMeter, int maxEnergy) {
         super(name, speed, energyPerMeter, maxEnergy);
         setInitialLocation();
@@ -58,21 +66,21 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
     }
 
     /**
-     * Constructs a new TerrestrialAnimals with the specified attributes.
+     * Constructs a new TerrestrialAnimal with specified attributes.
      *
-     * @param name            the name of the animal
-     * @param gender          the gender of the animal
-     * @param weight          the weight of the animal; if non-positive, defaults to 10
-     * @param speed           the speed of the animal; if non-positive, defaults to 10
-     * @param medals          an array of medals awarded to the animal; duplicates are removed
-     * @param loc             the initial location of the animal
-     * @param size            the size of the animal
-     * @param id              the unique identifier for the animal
-     * @param orientation     the orientation of the animal
-     * @param maxEnergy       the maximum energy the animal can have
-     * @param energyPerMeter  the energy consumed by the animal per meter of movement
-     * @param pan             the competition panel associated with the animal
-     * @param noLegs          the number of legs the animal has; if non-positive, defaults to 4
+     * @param name            the name of the terrestrial animal
+     * @param gender          the gender of the terrestrial animal
+     * @param weight          the weight of the terrestrial animal; defaults to 10 if non-positive
+     * @param speed           the speed of the terrestrial animal; defaults to 10 if non-positive
+     * @param medals          an array of medals awarded to the terrestrial animal; duplicates are removed
+     * @param loc             the initial location of the terrestrial animal
+     * @param size            the size of the terrestrial animal
+     * @param id              the unique identifier for the terrestrial animal
+     * @param orientation     the orientation of the terrestrial animal
+     * @param maxEnergy       the maximum energy the terrestrial animal can have
+     * @param energyPerMeter  the energy consumed by the terrestrial animal per meter of movement
+     * @param pan             the competition panel associated with the terrestrial animal
+     * @param noLegs          the number of legs of the terrestrial animal; defaults to 4 if non-positive
      */
     public TerrestrialAnimals(String name, Gender gender, double weight, double speed, Medal[] medals, Point loc, int size, int id, Orientation orientation, int maxEnergy, int energyPerMeter, ZooPanel pan, double noLegs) {
         super(name, gender, weight, speed, medals, loc, size, id, orientation, maxEnergy, energyPerMeter, pan);
@@ -88,13 +96,13 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
     }
 
     /**
-     * Constructs a new TerrestrialAnimals with default values for certain attributes.
+     * Constructs a new TerrestrialAnimal with specified attributes and a default number of legs (4).
      *
-     * @param name            the name of the animal
-     * @param speed           the speed of the animal; if non-positive, defaults to 10
-     * @param energyPerMeter  the energy consumed by the animal per meter of movement
-     * @param maxEnergy       the maximum energy the animal can have
-     * @param panel           the competition panel associated with the animal
+     * @param name            the name of the terrestrial animal
+     * @param speed           the speed of the terrestrial animal
+     * @param energyPerMeter  the energy consumed by the terrestrial animal per meter of movement
+     * @param maxEnergy       the maximum energy the terrestrial animal can have
+     * @param panel           the competition panel associated with the terrestrial animal
      */
     public TerrestrialAnimals(String name, int speed, int energyPerMeter, int maxEnergy, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy, panel);
@@ -192,52 +200,6 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
     }
 
     /**
-     * Starts moving the terrestrial animal based on its current orientation.
-     * The animal moves towards specific points on the screen depending on its orientation:
-     * <ul>
-     *   <li>East - Moves towards (900, 0)</li>
-     *   <li>South - Moves towards (900, 450)</li>
-     *   <li>West - Moves towards (0, 450)</li>
-     *   <li>North - Moves towards (0, 0)</li>
-     * </ul>
-     */
-    public void startMoving() {
-
-//        startMoving(new Point(getZooPanel().getWidth() - 65, getLocationY()));
-//        System.out.println("go to " + new Point(getPanel().getWidth() - 65, getLocationY()).toString() + " and the distance will be " + calcDistancePoint(new Point(getPanel().getWidth() - 65, getLocationY())));
-
-        if (getOrientation() == Orientation.EAST){
-            System.out.println("set destianation in East---------");
-            setDestination(new Point(getZooPanel().getWidth() - 65, getLocationY()));
-            System.out.println("get destianation : " + getDestination());
-            super.startMoving();
-        }
-        else if (getOrientation() == Orientation.SOUTH){
-            System.out.println("set destianation in South---------");
-            setDestination(new Point(getLocationX(), getZooPanel().getHeight() - 65));
-            System.out.println("get destianation : " + getDestination());
-            super.startMoving();
-        }
-        else if (getOrientation() == Orientation.WEST){
-            System.out.println("set destianation in west---------");
-            setDestination(new Point(0, getLocationY()));
-            System.out.println("get destianation : " + getDestination());
-
-            super.startMoving();
-        }
-        else if (getOrientation() == Orientation.NORTH){
-            System.out.println("set destianation in north---------");
-
-            setDestination(new Point(getLocationX(), 0));
-            System.out.println("get destianation : " + getDestination());
-            super.startMoving();
-            setDone(4);
-
-        }
-    }
-
-
-    /**
      * Sets the number of legs of the animal to the default value using the {@link ICanWalk#setNoLegsToDefault()} method.
      *
      * @return true if the number of legs was set to default; false otherwise
@@ -255,44 +217,102 @@ public abstract class TerrestrialAnimals extends Animal implements ICanWalk {
         return "Terrestrial";
     }
 
-    public void setLocation(int width, int height){
-
-//        System.out.println("old width: " + width);
-//        System.out.println("New width: " + getPanel().getWidth());
-//
-//        System.out.println("current x" + getLocationX());
-
-        double x = (double) getLocationX()/width;
-
-//        System.out.println("x/width:  " + x);
-
-        int newX = (int) (x * getZooPanel().getWidth());
-
-//        System.out.println("new x" + newX);
-
-        super.setLocation(new Point(newX, 0));
-
-    }
-
-    public double getDistance() {
-
-        return (921*2 + 445*2);
-//        System.out.println("distance of animal is  " + super.calcDistancePoint((new Point(getZooPanel().getWidth() - 65, getLocationY()))));
-//        return super.calcDistancePoint((new Point(getZooPanel().getWidth() - 65, getLocationY())));
-    }
-
+    /**
+     * Sets the initial location of the terrestrial animal on the screen.
+     * The initial location is set to the top-left corner (0,0).
+     */
     public void setInitialLocation(){
         setLocation(new Point(0, 0));
 
     }
 
+    /**
+     * Sets the destination for the terrestrial animal's movement.
+     * The destination is set to the top-left corner (0,0).
+     */
     public void setDestination() {
-        System.out.println("setDestination in teress is called --------------- " + new Point(getZooPanel().getWidth() - 65, getLocationY()));
-        super.setDestination(new Point(getZooPanel().getWidth() - 65, getLocationY()));
+        super.setDestination(new Point(0,0));
     }
 
-    public int getLenOfRoute(){//Todo match to every size os screen and take all route
-        return (921*2 + 445*2);
+    /**
+     * Returns the length of the route for the terrestrial animal's movement.
+     * This length is based on the perimeter of the panel the animal is moving in.
+     *
+     * @return the length of the route, adjusted for screen size.
+     */
+    public int getLenOfRoute(){
+
+        return (getZooPanel().getWidth()-(65))*2 + (getZooPanel().getHeight()- 65)*2;
     }
+
+    /**
+     * Starts the movement of the terrestrial animal.
+     * The movement is based on the current orientation and the type of the tournament.
+     */
+    public void startMoving() {
+
+        int type = getCompetitionPanel().getRegularCourierTournament();
+
+        switch (type) {
+            case 1:
+                if (getOrientation() == Orientation.EAST){
+                    setDestination(new Point(getZooPanel().getWidth() - 65, getLocationY()));
+                    super.startMoving();
+                }
+                else if (getOrientation() == Orientation.SOUTH){
+                    setDestination(new Point(getLocationX(), getZooPanel().getHeight() - 65));
+                    super.startMoving();
+                }
+                else if (getOrientation() == Orientation.WEST){
+                    setDestination(new Point(0, getLocationY()));
+                    super.startMoving();
+                }
+                else if (getOrientation() == Orientation.NORTH){
+
+                    setDestination(new Point(getLocationX(), 0));
+                    super.startMoving();
+                    setDone(4);
+                }
+                break;
+            case 2:
+                if (getOrientation() == Orientation.EAST){
+                    if (getDestination().getX() < (getZooPanel().getWidth()-65) && getDestination().getY() == getLocationY()) {
+                        super.startMoving(new Point(getDestination().getX(), getLocationY()));
+                    }
+                    else {
+                        super.startMoving(new Point(getZooPanel().getWidth() - 65, getLocationY()));
+                    }
+                }
+                else if (getOrientation() == Orientation.SOUTH){
+                    if (getDestination().getY() < getZooPanel().getHeight() - 65 && getDestination().getX() == getLocationX()) {
+                        super.startMoving(new Point(getLocationX(), getDestination().getY()));
+
+                    }
+                    else {
+                        super.startMoving(new Point(getLocationX(), getZooPanel().getHeight() - 65));
+                    }
+                }
+                else if (getOrientation() == Orientation.WEST){
+                    if (getDestination().getX() > 0) {
+                        super.startMoving(new Point(getDestination().getX(), getLocationY()));
+                    }
+                    else {
+                        super.startMoving(new Point(0, getLocationY()));
+                    }
+                }
+                else if (getOrientation() == Orientation.NORTH){
+                    if (getDestination().getY() > 0) {
+                        super.startMoving(new Point(getLocationX(), getDestination().getY()));
+
+                    }
+                    else {
+                        super.startMoving(new Point(getDestination().getX(),0));
+                    }
+                }
+
+        }
+
+    }
+
 
 }

@@ -1,7 +1,5 @@
 package Animals;
 
-//TODO fix competition routs for air and water
-
 import static java.lang.Thread.currentThread;
 import static java.lang.Thread.sleep;
 import Competitions.SleepTime;
@@ -9,14 +7,47 @@ import Mobility.Point;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javax.swing.Timer;
 
+/**
+ * Represents a thread that handles the movement of an animal in a competition.
+ * This thread will wait for a start signal, move the animal until it has covered
+ * the required distance, and then notify that the animal has finished moving.
+ */
 public class AnimalThread implements Runnable {
 
+
+    /**
+     * The animal that this thread will operate on.
+     */
     private Animal participant;
+
+    /**
+     * The distance the animal needs to cover.
+     */
     private double neededDistance;
+
+    /**
+     * Flag indicating whether the thread should start processing.
+     */
     private AtomicBoolean startFlag;
+
+    /**
+     * Flag indicating whether the thread has finished processing.
+     */
     private AtomicBoolean finishFlag;
+
+    /**
+     * Flag indicating whether the thread has completed its work.
+     */
     private AtomicBoolean isThreadFinished;
 
+    /**
+     * Constructs an AnimalThread with the given parameters.
+     *
+     * @param participant The animal that this thread will operate on.
+     * @param neededDistance The distance the animal needs to cover.
+     * @param startFlag A flag indicating whether the thread should start processing.
+     * @param finishFlag A flag indicating whether the thread has finished processing.
+     */
     public AnimalThread(Animal participant, double neededDistance, AtomicBoolean startFlag, AtomicBoolean finishFlag) {
         this.participant = participant;
         this.neededDistance = neededDistance;
@@ -25,80 +56,82 @@ public class AnimalThread implements Runnable {
         isThreadFinished = new AtomicBoolean(false);
     }
 
+    /**
+     * The main logic for the thread. Waits for the start signal, moves the animal,
+     * and monitors its progress until the required distance is covered.
+     */
+    @Override
     public void run() {
-        System.out.println("Animal thread is run " + currentThread().getName());
-        synchronized (startFlag) {  //todo why syncronize?
-            System.out.println("syncro current thread name: " + currentThread().getName());
-            System.out.println(startFlag + " out");
+
+        // Wait for the start signal
+        synchronized (startFlag) {
             while (!startFlag.get()) {
-                System.out.println(startFlag + " in");
                 try {
-                    System.out.println("im waitingggg as an animal thread to start tournament " + currentThread().getName());
                     startFlag.wait();
                 } catch (InterruptedException e) {
                     System.out.println(e.getMessage());
-                    System.out.println("catch as an animal thread " + currentThread().getName());
                 }
             }
         }
 
-        System.out.println("done waiting as an animal thread " + currentThread().getName());
 
-        System.out.println("syncro over participate" + currentThread().getName());
+        // Process animal movement
         synchronized (participant) {
             double oldDistance = participant.getTotalDistance();
-            System.out.println("old distance: " + oldDistance);
-            System.out.println("in syncro participant " + currentThread().getName());
 
-            System.out.println("need to go to " +  participant.getDestination());
-            System.out.println("need to do distance " +  neededDistance);
-
-
-//            if (participant.getCompetitionPanel().getRegularCourierTournament() == 2) //courier tournament
+            // Start moving the animal based on its type
             if ((participant.getAnimalAsNumber(participant.getCategory())) != 3)
                 participant.startMoving();
             else
                 participant.startMoveTerrestrial();
 
 
-//            participant.startMoving();   //todo terrestrial animal!
-
-            if (!isThreadFinished.get()) System.out.println("!isThreadFinished.get()");else System.out.println("isThreadFinished is true");
+            // Monitor progress until the required distance is covered
             while (!isThreadFinished.get()) {
+
+                if (participant.getAnimalAsNumber(participant.getCategory()) == 3){
+
+                    if (participant.getLocation().equals(new Point(0,0))
+                            && (participant.getTotalDistance() - oldDistance) > 0
+                            && participant.getDestination().equals(new Point(0,0))
+                            && participant.getCompetitionPanel().getRegularCourierTournament() == 2){
+                        neededDistance = participant.getTotalDistance() - oldDistance;
+                    }
+
+                }
 
                 if ((participant.getTotalDistance() - oldDistance) >= neededDistance) {
 
-                    if ((participant.getAnimalAsNumber(participant.getCategory())) == 3)
-                        participant.setDone(0);
+                    if ((participant.getAnimalAsNumber(participant.getCategory())) == 3){
+                        if (participant.getTimer() != null) {
+                            participant.getTimer().stop();
+//                            participant.setTimer(null);
+                        }
+                        if(participant.getMoveTimer() != null) {
+                            participant.getMoveTimer().stop();
+//                            participant.setMoveTimer(null);
+                        }
+                    }
+//                        participant.setDone(0);
 
-                    System.out.println("done moving--");
-
+                    // Notify that the movement is finished
                     finishFlag.set(true);
-                    if (finishFlag.get())
-                        System.out.println("finish flag is true-- " + currentThread().getName());
 
                     synchronized (finishFlag) {
-                        finishFlag.notify(); //added
+                        finishFlag.notify();  // Notify waiting threads
                     }
 
-                    participant.notify();
-                    System.out.println("notified participant----- " + currentThread().getName());
+                    participant.notify();// Notify the participant
 
-//            participant.notify();
                     try {
-                        System.out.println("im sleeping cause done moving " + currentThread().getName());
                         sleep(SleepTime.getInstance().getTime());
                     } catch (InterruptedException e) {
                         System.out.println(e.getMessage());
                     }
                     participant.setInitialLocation();
-                    System.out.println("done sleeping------ " + currentThread().getName());
                     isThreadFinished.set(true);
-                    System.out.println("isThreadFinished is done " + currentThread().getName());
                     participant.setIsAvailable(true);
                     participant.setNeedToMove(false);
-                    System.out.println("animal is available " + currentThread().getName());
-
                 }
             }
 

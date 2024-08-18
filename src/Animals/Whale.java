@@ -17,7 +17,16 @@ public class Whale extends WaterAnimal {
      */
     private String foodType;
 
-
+    /**
+     * Constructs a Whale object with the specified attributes.
+     * Initializes the Whale's food type and sets its location, then loads the images associated with the Whale.
+     *
+     * @param name            The name of the Whale.
+     * @param speed           The speed of the Whale.
+     * @param energyPerMeter  The energy consumption per meter of the Whale.
+     * @param maxEnergy       The maximum energy the Whale can have.
+     * @param competitionRoute The route in the competition that the Whale will follow.
+     */
     public Whale(String name, int speed, int energyPerMeter, int maxEnergy, int competitionRoute) {
         super(name, speed, energyPerMeter, maxEnergy, competitionRoute);
         super.setLocation(new Point(80, (competitionRoute - 1)*57 + competitionRoute*55));
@@ -50,7 +59,7 @@ public class Whale extends WaterAnimal {
      * @param energyPerMeter The amount of energy consumed per meter.
      * @param maxEnergy      The maximum energy of the whale.
      * @param competitionRoute The competition route where the whale is located.
-     * @param panel          The competition panel on which the whale is displayed.
+     * @param panel          The zoo panel on which the whale is displayed.
      */
     public Whale(String name, int speed, int energyPerMeter, int maxEnergy, int competitionRoute, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy, competitionRoute,panel);

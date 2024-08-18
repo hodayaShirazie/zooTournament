@@ -199,6 +199,8 @@ public class CompetitionPanel extends JPanel {
                     case "Terrestrial":
                         selectedAnimalType = 3; // Terrestrial
                         break;
+                    case "Terrestrial+Water":
+                        selectedAnimalType = 1;
                 }
                 break;
             }

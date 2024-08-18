@@ -16,6 +16,15 @@ public class Cat  extends TerrestrialAnimals{
      */
     private boolean castrated;
 
+    /**
+     * Constructs a Cat object with the specified attributes.
+     * Initializes the Cat's castration status and loads the images associated with the Cat.
+     *
+     * @param name           The name of the Cat.
+     * @param speed          The speed of the Cat.
+     * @param energyPerMeter The energy consumption per meter of the Cat.
+     * @param maxEnergy      The maximum energy the Cat can have.
+     */
     public Cat(String name, int speed,int energyPerMeter, int maxEnergy) {
         super(name, speed, energyPerMeter, maxEnergy);
         this.castrated = false;
@@ -23,7 +32,6 @@ public class Cat  extends TerrestrialAnimals{
         loadImages("cat");
 
     }
-
 
     /**
      * Construct a new Cat object with specified values.
@@ -49,7 +57,7 @@ public class Cat  extends TerrestrialAnimals{
      * @param speed          The speed of the cat.
      * @param energyPerMeter The energy consumption per meter traveled.
      * @param maxEnergy      The maximum energy the cat can have.
-     * @param panel          The competition panel where the cat participates.
+     * @param panel          The zoo panel where the cat participates.
      */
     public Cat(String name, int speed,int energyPerMeter, int maxEnergy, ZooPanel panel) {
         super(name, speed, energyPerMeter, maxEnergy,panel);
